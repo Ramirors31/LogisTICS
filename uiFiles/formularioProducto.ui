@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>733</width>
-    <height>855</height>
+    <width>706</width>
+    <height>802</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>741</width>
+      <width>711</width>
       <height>91</height>
      </rect>
     </property>
@@ -35,7 +35,7 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>180</x>
        <y>10</y>
        <width>701</width>
        <height>71</height>
@@ -47,17 +47,17 @@
       </font>
      </property>
      <property name="text">
-      <string>Reporte Venta</string>
+      <string>Añadir Producto</string>
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="QFrame" name="FormularioProducto">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>90</y>
-      <width>731</width>
-      <height>771</height>
+      <width>701</width>
+      <height>721</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -69,159 +69,66 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>250</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Producto:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="productoComboBox">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>240</y>
-       <width>181</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <item>
-      <property name="text">
-       <string>Camarón(KG)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Pulpo(KG)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Almejas(PZ)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Pescado(KG)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Filete Pescado(KG)</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>330</x>
-       <y>250</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Cantidad:</string>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="cantidadTxt">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>240</y>
-       <width>81</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="cursor" stdset="0">
-      <cursorShape>IBeamCursor</cursorShape>
-     </property>
-    </widget>
-    <widget class="QTableWidget" name="ventaTable">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>320</y>
-       <width>631</width>
-       <height>221</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>Num. Venta</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Producto</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Precio Unitario</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Cantidad</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Subtotal</string>
-      </property>
-     </column>
-    </widget>
-    <widget class="QLabel" name="label_10">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>580</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Total:</string>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="totalTxt">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>570</y>
+       <y>200</y>
        <width>171</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nombre Producto:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>280</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Descripcion: </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>490</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Distribuidor</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="distribuidorCombo">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>490</y>
+       <width>261</width>
        <height>41</height>
       </rect>
      </property>
@@ -230,16 +137,61 @@
        <pointsize>12</pointsize>
       </font>
      </property>
-     <property name="cursor" stdset="0">
-      <cursorShape>IBeamCursor</cursorShape>
+     <item>
+      <property name="text">
+       <string>Congeladora Mazatlan</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Mariscos Monterrey</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Distribuidora Un Nuevo Mundo</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>430</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Precio Venta:</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="precioVentaTxt">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>420</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
     </widget>
     <widget class="QPushButton" name="addBtn">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>240</y>
-       <width>151</width>
+       <x>240</x>
+       <y>610</y>
+       <width>241</width>
        <height>41</height>
       </rect>
      </property>
@@ -253,137 +205,99 @@
 background-color: rgb(118, 136, 135);</string>
      </property>
      <property name="text">
-      <string>Añadir </string>
+      <string>Añadir Producto</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>570</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Forma Pago</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="formaPagoCombo">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>570</y>
-       <width>191</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <item>
-      <property name="text">
-       <string>Efectivo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Tarjeta de Crédito/Debito</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Transferencia Bancaria</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QPushButton" name="completarVentaBtn">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>650</y>
-       <width>171</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(118, 136, 135);</string>
-     </property>
-     <property name="text">
-      <string>Completar Venta</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="facturaBtn">
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>650</y>
-       <width>171</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(118, 136, 135);</string>
-     </property>
-     <property name="text">
-      <string>Solicitar Factura</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QTextEdit" name="productoTxt">
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>20</y>
-       <width>231</width>
-       <height>171</height>
+       <y>190</y>
+       <width>261</width>
+       <height>41</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/iconoVenta/venta.png);</string>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
-     <property name="text">
-      <string/>
+    </widget>
+    <widget class="QTextEdit" name="descripcionTxt">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>270</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
     </widget>
     <widget class="QPushButton" name="regresarBtn">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>20</y>
+       <y>30</y>
        <width>81</width>
-       <height>81</height>
+       <height>71</height>
       </rect>
      </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/iconoProducto_rc/iconoRegresar.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Precio Compra</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="precioCompraTxt">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>350</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>30</y>
+       <width>131</width>
+       <height>121</height>
+      </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/iconoVenta/iconoRegresar.png);</string>
+      <string notr="true">border-image: url(:/iconoProducto_rc/iconoProducto.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -394,7 +308,7 @@ background-color: rgb(118, 136, 135);</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../iconosVenta.qrc"/>
+  <include location="../Iconos.qrc"/>
  </resources>
  <connections/>
 </ui>

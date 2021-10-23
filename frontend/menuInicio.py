@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+#from menuReportes import Ui_menuReportes
+#from logisticayPedidos import Ui_MainWindow
+#from inventario import Ui_inventario 
 
 
 class Ui_inicio(object):
@@ -59,7 +62,7 @@ class Ui_inicio(object):
         self.pushButton.setFont(font)
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(118, 136, 135);")
+        "background-color: rgb(118, 136, 135);")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.contentFrame)
         self.pushButton_2.setGeometry(QtCore.QRect(450, 360, 211, 71))
@@ -68,7 +71,7 @@ class Ui_inicio(object):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_2.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(118, 136, 135);")
+        "background-color: rgb(118, 136, 135);")
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.contentFrame)
         self.pushButton_3.setGeometry(QtCore.QRect(780, 360, 211, 71))
@@ -77,7 +80,7 @@ class Ui_inicio(object):
         self.pushButton_3.setFont(font)
         self.pushButton_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_3.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(118, 136, 135);")
+        "background-color: rgb(118, 136, 135);")
         self.pushButton_3.setObjectName("pushButton_3")
         inicio.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(inicio)
@@ -87,6 +90,9 @@ class Ui_inicio(object):
         self.retranslateUi(inicio)
         QtCore.QMetaObject.connectSlotsByName(inicio)
 
+ 
+
+
     def retranslateUi(self, inicio):
         _translate = QtCore.QCoreApplication.translate
         inicio.setWindowTitle(_translate("inicio", "MainWindow"))
@@ -94,7 +100,37 @@ class Ui_inicio(object):
         self.pushButton.setText(_translate("inicio", "Gráficos y Reportes"))
         self.pushButton_2.setText(_translate("inicio", "Inventario"))
         self.pushButton_3.setText(_translate("inicio", "Logistica y Pedidos"))
-import Imagenes_rc
+
+    """def menuReportes(self):
+            self.inicio= QtWidgets.QMainWindow()
+            self.inicio.ui = Ui_inicio()
+            self.inicio.ui.setupUi(self.inicio)
+            self.inicio.close()
+            self.menuReportes = QtWidgets.QMainWindow()
+            self.ui = Ui_menuReportes()
+            self.ui.setupUi(self.menuReportes)
+            self.menuReportes.show()  
+
+    def inventario(self):
+            self.inicio= QtWidgets.QMainWindow()
+            self.inicio.ui = Ui_inicio()
+            self.inicio.ui.setupUi(self.inicio)
+            self.inicio.close()
+            self.menuInventario = QtWidgets.QMainWindow()
+            self.ui = Ui_inventario()
+            self.ui.setupUi(self.menuInventario)
+            self.menuInventario.show()
+
+    def logisticayPedidos(self):
+            self.inicio= QtWidgets.QMainWindow()
+            self.inicio.ui = Ui_inicio()
+            self.inicio.ui.setupUi(self.inicio)
+            self.inicio.close()
+            self.menuLogistica = QtWidgets.QMainWindow()
+            self.ui = Ui_MainWindow()  
+            self.ui.setupUi(self.menuLogistica)
+            self.menuLogistica.show()"""
+import Imagenes_rc 
 
 
 if __name__ == "__main__":

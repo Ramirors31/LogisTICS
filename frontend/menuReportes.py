@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_menuReportes(object):
+class MenuReportes(object):
     def setupUi(self, menuReportes):
         menuReportes.setObjectName("menuReportes")
         menuReportes.resize(1151, 708)
@@ -36,15 +36,16 @@ class Ui_menuReportes(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.reporteVentaBtn = QtWidgets.QPushButton(self.frame)
-        self.reporteVentaBtn.setGeometry(QtCore.QRect(740, 120, 301, 51))
+        self.reporteVentaBtn.setGeometry(QtCore.QRect(740, 170, 301, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.reporteVentaBtn.setFont(font)
+        self.reporteVentaBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.reporteVentaBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.reporteVentaBtn.setObjectName("reporteVentaBtn")
         self.reportesTable = QtWidgets.QTableWidget(self.frame)
-        self.reportesTable.setGeometry(QtCore.QRect(40, 120, 511, 192))
+        self.reportesTable.setGeometry(QtCore.QRect(40, 160, 511, 221))
         self.reportesTable.setObjectName("reportesTable")
         self.reportesTable.setColumnCount(4)
         self.reportesTable.setRowCount(0)
@@ -57,30 +58,39 @@ class Ui_menuReportes(object):
         item = QtWidgets.QTableWidgetItem()
         self.reportesTable.setHorizontalHeaderItem(3, item)
         self.analisisGraficoBtn = QtWidgets.QPushButton(self.frame)
-        self.analisisGraficoBtn.setGeometry(QtCore.QRect(740, 210, 301, 51))
+        self.analisisGraficoBtn.setGeometry(QtCore.QRect(740, 260, 301, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.analisisGraficoBtn.setFont(font)
+        self.analisisGraficoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.analisisGraficoBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.analisisGraficoBtn.setObjectName("analisisGraficoBtn")
         self.buscarReporteText = QtWidgets.QPlainTextEdit(self.frame)
-        self.buscarReporteText.setGeometry(QtCore.QRect(740, 300, 161, 51))
+        self.buscarReporteText.setGeometry(QtCore.QRect(740, 340, 161, 51))
+        self.buscarReporteText.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.buscarReporteText.setObjectName("buscarReporteText")
         self.buscarReporteBtn = QtWidgets.QPushButton(self.frame)
-        self.buscarReporteBtn.setGeometry(QtCore.QRect(910, 300, 131, 51))
+        self.buscarReporteBtn.setGeometry(QtCore.QRect(910, 340, 131, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.buscarReporteBtn.setFont(font)
+        self.buscarReporteBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buscarReporteBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.buscarReporteBtn.setObjectName("buscarReporteBtn")
         self.label_2 = QtWidgets.QLabel(self.frame)
-        self.label_2.setGeometry(QtCore.QRect(40, 80, 181, 31))
+        self.label_2.setGeometry(QtCore.QRect(50, 110, 181, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        self.btnRegresar = QtWidgets.QPushButton(self.frame)
+        self.btnRegresar.setGeometry(QtCore.QRect(50, 10, 91, 81))
+        self.btnRegresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnRegresar.setStyleSheet("border-image: url(:/iconos/iconoRegresar.png);")
+        self.btnRegresar.setText("")
+        self.btnRegresar.setObjectName("btnRegresar")
         menuReportes.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(menuReportes)
         self.statusbar.setObjectName("statusbar")
@@ -105,13 +115,14 @@ class Ui_menuReportes(object):
         self.analisisGraficoBtn.setText(_translate("menuReportes", "Análisis Gráfico"))
         self.buscarReporteBtn.setText(_translate("menuReportes", "Buscar"))
         self.label_2.setText(_translate("menuReportes", "Historial Reportes"))
+import iconosMenuReportes_rc
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     menuReportes = QtWidgets.QMainWindow()
-    ui = Ui_menuReportes()
+    ui = MenuReportes()
     ui.setupUi(menuReportes)
     menuReportes.show()
     sys.exit(app.exec_())

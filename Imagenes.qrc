@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="Imagenes">
-    <file>inventario.png</file>
-    <file>pedidos.png</file>
-    <file>graficos.png</file>
-  </qresource>
-</RCC>

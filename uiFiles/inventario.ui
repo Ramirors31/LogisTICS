@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1097</width>
-    <height>600</height>
+    <width>1120</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1101</width>
+      <width>1121</width>
       <height>81</height>
      </rect>
     </property>
@@ -56,8 +56,8 @@
      <rect>
       <x>0</x>
       <y>80</y>
-      <width>1091</width>
-      <height>511</height>
+      <width>1121</width>
+      <height>581</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -118,7 +118,7 @@
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>100</y>
+       <y>120</y>
        <width>171</width>
        <height>51</height>
       </rect>
@@ -139,8 +139,8 @@ background-color: rgb(118, 136, 135);</string>
     <widget class="QPlainTextEdit" name="buscarProductoText">
      <property name="geometry">
       <rect>
-       <x>590</x>
-       <y>100</y>
+       <x>570</x>
+       <y>120</y>
        <width>301</width>
        <height>51</height>
       </rect>
@@ -149,8 +149,8 @@ background-color: rgb(118, 136, 135);</string>
     <widget class="QPushButton" name="buscarProductoBtn">
      <property name="geometry">
       <rect>
-       <x>910</x>
-       <y>100</y>
+       <x>900</x>
+       <y>120</y>
        <width>171</width>
        <height>51</height>
       </rect>
@@ -186,11 +186,11 @@ background-color: rgb(118, 136, 135);</string>
       <string>Mis Productos</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="inventariosBtn">
+    <widget class="QPushButton" name="modificarBtn">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>100</y>
+       <x>320</x>
+       <y>120</y>
        <width>171</width>
        <height>51</height>
       </rect>
@@ -205,13 +205,31 @@ background-color: rgb(118, 136, 135);</string>
 background-color: rgb(118, 136, 135);</string>
      </property>
      <property name="text">
-      <string>Mis Inventarios</string>
+      <string>Modificar/Eliminar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>101</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/iconos/iconoRegresar.png);</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="iconosMenuInventario.qrc"/>
+ </resources>
  <connections/>
 </ui>

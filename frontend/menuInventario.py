@@ -9,18 +9,16 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from formularioProducto import Ui_MainWindow
-from misInventarios import Ui_misInventarios
 
 
-class Inventario(object):
+class MenuInventario(object):
     def setupUi(self, inventario):
         inventario.setObjectName("inventario")
-        inventario.resize(1097, 600)
+        inventario.resize(1120, 660)
         self.centralwidget = QtWidgets.QWidget(inventario)
         self.centralwidget.setObjectName("centralwidget")
         self.headerFrame = QtWidgets.QFrame(self.centralwidget)
-        self.headerFrame.setGeometry(QtCore.QRect(0, 0, 1101, 81))
+        self.headerFrame.setGeometry(QtCore.QRect(0, 0, 1121, 81))
         self.headerFrame.setStyleSheet("background-color: rgb(255, 255, 127);")
         self.headerFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.headerFrame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -32,7 +30,7 @@ class Inventario(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, 80, 1091, 511))
+        self.frame.setGeometry(QtCore.QRect(0, 80, 1121, 581))
         self.frame.setStyleSheet("background-color: rgb(255, 244, 246);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -57,7 +55,7 @@ class Inventario(object):
         item = QtWidgets.QTableWidgetItem()
         self.inventarioTable.setHorizontalHeaderItem(6, item)
         self.addProductoBtn = QtWidgets.QPushButton(self.frame)
-        self.addProductoBtn.setGeometry(QtCore.QRect(50, 100, 171, 51))
+        self.addProductoBtn.setGeometry(QtCore.QRect(50, 120, 171, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.addProductoBtn.setFont(font)
@@ -65,10 +63,10 @@ class Inventario(object):
 "background-color: rgb(118, 136, 135);")
         self.addProductoBtn.setObjectName("addProductoBtn")
         self.buscarProductoText = QtWidgets.QPlainTextEdit(self.frame)
-        self.buscarProductoText.setGeometry(QtCore.QRect(590, 100, 301, 51))
+        self.buscarProductoText.setGeometry(QtCore.QRect(570, 120, 301, 51))
         self.buscarProductoText.setObjectName("buscarProductoText")
         self.buscarProductoBtn = QtWidgets.QPushButton(self.frame)
-        self.buscarProductoBtn.setGeometry(QtCore.QRect(910, 100, 171, 51))
+        self.buscarProductoBtn.setGeometry(QtCore.QRect(900, 120, 171, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.buscarProductoBtn.setFont(font)
@@ -81,14 +79,19 @@ class Inventario(object):
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.inventariosBtn = QtWidgets.QPushButton(self.frame)
-        self.inventariosBtn.setGeometry(QtCore.QRect(330, 100, 200, 51))
+        self.modificarBtn = QtWidgets.QPushButton(self.frame)
+        self.modificarBtn.setGeometry(QtCore.QRect(320, 120, 171, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.inventariosBtn.setFont(font)
-        self.inventariosBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
+        self.modificarBtn.setFont(font)
+        self.modificarBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
-        self.inventariosBtn.setObjectName("modificarEliminarBtn")
+        self.modificarBtn.setObjectName("modificarBtn")
+        self.btnRegresar = QtWidgets.QPushButton(self.frame)
+        self.btnRegresar.setGeometry(QtCore.QRect(60, 10, 101, 91))
+        self.btnRegresar.setStyleSheet("border-image: url(:/iconos/iconoRegresar.png);")
+        self.btnRegresar.setText("")
+        self.btnRegresar.setObjectName("btnRegresar")
         inventario.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(inventario)
         self.statusbar.setObjectName("statusbar")
@@ -96,21 +99,7 @@ class Inventario(object):
 
         self.retranslateUi(inventario)
         QtCore.QMetaObject.connectSlotsByName(inventario)
-        self.addProductoBtn.clicked.connect(self.AddProduct)
-        self.inventariosBtn.clicked.connect(self.MisInventarios)
 
-    def MisInventarios(self):
-        self.misInventarios = QtWidgets.QMainWindow()
-        self.ui = Ui_misInventarios()
-        self.ui.setupUi(self.misInventarios)
-        self.misInventarios.show()
-
-    def AddProduct(self):
-        self.añadirProducto = QtWidgets.QMainWindow()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self.añadirProducto)
-        self.añadirProducto.show()
-        
     def retranslateUi(self, inventario):
         _translate = QtCore.QCoreApplication.translate
         inventario.setWindowTitle(_translate("inventario", "MainWindow"))
@@ -132,14 +121,15 @@ class Inventario(object):
         self.addProductoBtn.setText(_translate("inventario", "Añadir Producto"))
         self.buscarProductoBtn.setText(_translate("inventario", "Buscar Producto"))
         self.label_2.setText(_translate("inventario", "Mis Productos"))
-        self.inventariosBtn.setText(_translate("inventario", "Modificar / Eliminar"))
+        self.modificarBtn.setText(_translate("inventario", "Modificar/Eliminar"))
+import iconosMenuInventario_rc
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     inventario = QtWidgets.QMainWindow()
-    ui = Inventario()
+    ui = MenuInventario()
     ui.setupUi(inventario)
     inventario.show()
     sys.exit(app.exec_())
