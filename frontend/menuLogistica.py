@@ -137,7 +137,7 @@ class MenuLogistica(object):
         self.buscarPedidoBtn.setText(_translate("MainWindow", "Buscar"))
         self.distribuidoresBtn.setText(_translate("MainWindow", "Distribuidores"))
         self.actualizarPedidoBtn.setText(_translate("MainWindow", "Actualizar Pedido"))
-import iconosMenuLogistica_rc
+from iconos import iconosMenuLogistica_rc
 
 
 if __name__ == "__main__":

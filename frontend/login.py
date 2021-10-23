@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 
-class Ui_login(object):
+class Login(object):
     def setupUi(self, login):
         login.setObjectName("login")
         login.resize(1020, 624)
@@ -88,13 +88,13 @@ class Ui_login(object):
 
         
     
-import loginIcon_rc
+from iconos import loginIcon_rc
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     login = QtWidgets.QMainWindow()
-    ui = Ui_login()
+    ui = Login()
     ui.setupUi(login)
     login.show()
     sys.exit(app.exec_())

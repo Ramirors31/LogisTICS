@@ -186,7 +186,7 @@ class FormularioVenta(object):
         self.formaPagoCombo.setItemText(2, _translate("MainWindow", "Transferencia Bancaria"))
         self.completarVentaBtn.setText(_translate("MainWindow", "Completar Venta"))
         self.facturaBtn.setText(_translate("MainWindow", "Solicitar Factura"))
-import iconosVenta_rc
+from iconos import iconosVenta_rc
 
 
 if __name__ == "__main__":

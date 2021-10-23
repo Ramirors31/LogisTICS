@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 #from inventario import Ui_inventario 
 
 
-class Ui_inicio(object):
+class MenuInicio(object):
     def setupUi(self, inicio):
         inicio.setObjectName("inicio")
         inicio.resize(1094, 679)
@@ -101,43 +101,15 @@ class Ui_inicio(object):
         self.pushButton_2.setText(_translate("inicio", "Inventario"))
         self.pushButton_3.setText(_translate("inicio", "Logistica y Pedidos"))
 
-    """def menuReportes(self):
-            self.inicio= QtWidgets.QMainWindow()
-            self.inicio.ui = Ui_inicio()
-            self.inicio.ui.setupUi(self.inicio)
-            self.inicio.close()
-            self.menuReportes = QtWidgets.QMainWindow()
-            self.ui = Ui_menuReportes()
-            self.ui.setupUi(self.menuReportes)
-            self.menuReportes.show()  
 
-    def inventario(self):
-            self.inicio= QtWidgets.QMainWindow()
-            self.inicio.ui = Ui_inicio()
-            self.inicio.ui.setupUi(self.inicio)
-            self.inicio.close()
-            self.menuInventario = QtWidgets.QMainWindow()
-            self.ui = Ui_inventario()
-            self.ui.setupUi(self.menuInventario)
-            self.menuInventario.show()
-
-    def logisticayPedidos(self):
-            self.inicio= QtWidgets.QMainWindow()
-            self.inicio.ui = Ui_inicio()
-            self.inicio.ui.setupUi(self.inicio)
-            self.inicio.close()
-            self.menuLogistica = QtWidgets.QMainWindow()
-            self.ui = Ui_MainWindow()  
-            self.ui.setupUi(self.menuLogistica)
-            self.menuLogistica.show()"""
-import Imagenes_rc 
+from iconos import Imagenes_rc 
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     inicio = QtWidgets.QMainWindow()
-    ui = Ui_inicio()
+    ui = MenuInicio()
     ui.setupUi(inicio)
     inicio.show()
     sys.exit(app.exec_())

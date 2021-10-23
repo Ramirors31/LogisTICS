@@ -115,7 +115,7 @@ class MenuReportes(object):
         self.analisisGraficoBtn.setText(_translate("menuReportes", "Análisis Gráfico"))
         self.buscarReporteBtn.setText(_translate("menuReportes", "Buscar"))
         self.label_2.setText(_translate("menuReportes", "Historial Reportes"))
-import iconosMenuReportes_rc
+from iconos import iconosMenuReportes_rc
 
 
 if __name__ == "__main__":

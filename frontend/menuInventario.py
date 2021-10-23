@@ -122,7 +122,7 @@ class MenuInventario(object):
         self.buscarProductoBtn.setText(_translate("inventario", "Buscar Producto"))
         self.label_2.setText(_translate("inventario", "Mis Productos"))
         self.modificarBtn.setText(_translate("inventario", "Modificar/Eliminar"))
-import iconosMenuInventario_rc
+from iconos import iconosMenuInventario_rc
 
 
 if __name__ == "__main__":

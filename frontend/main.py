@@ -3,8 +3,8 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import uic
 from menuInventario import MenuInventario
-from login import Ui_login
-from menuInicio import Ui_inicio
+from login import Login
+from menuInicio import MenuInicio
 from menuReportes import MenuReportes
 from formularioVenta import FormularioVenta
 from menuLogistica import MenuLogistica
@@ -15,7 +15,7 @@ class MyApp(QtWidgets.QMainWindow):
     def __init__(self):
         super(MyApp, self).__init__()
         self.login = QtWidgets.QMainWindow()
-        self.ui = Ui_login()
+        self.ui = Login()
         self.ui.setupUi(self.login)
         self.login.show()
         self.btnIniciarSesion = self.ui.pushButton
@@ -24,7 +24,7 @@ class MyApp(QtWidgets.QMainWindow):
     #FUNCION LOGIN Y MOSTRAR MENU DE INICIO.
     def iniciar_sesion(self):
         self.menuInicio= QtWidgets.QMainWindow()
-        self.ui=Ui_inicio()
+        self.ui=MenuInicio()
         self.ui.setupUi(self.menuInicio)
         self.menuInicio.show()
         self.btnMenuReportes = self.ui.pushButton
