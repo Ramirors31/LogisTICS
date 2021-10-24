@@ -145,7 +145,7 @@
     <property name="geometry">
      <rect>
       <x>460</x>
-      <y>460</y>
+      <y>470</y>
       <width>111</width>
       <height>28</height>
      </rect>
@@ -170,11 +170,25 @@
      <string>TextLabel</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>430</y>
+      <width>241</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:red;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="loginIcon.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

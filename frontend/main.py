@@ -9,7 +9,6 @@ from menuReportes import MenuReportes
 from formularioVenta import FormularioVenta
 from menuLogistica import MenuLogistica
 from formularioProducto import FormularioProducto
-
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
     def __init__(self):
@@ -21,20 +20,34 @@ class MyApp(QtWidgets.QMainWindow):
         self.btnIniciarSesion = self.ui.pushButton
         self.btnIniciarSesion.clicked.connect(self.iniciar_sesion)
 
-    #FUNCION LOGIN Y MOSTRAR MENU DE INICIO.
-    def iniciar_sesion(self):
-        self.menuInicio= QtWidgets.QMainWindow()
-        self.ui=MenuInicio()
-        self.ui.setupUi(self.menuInicio)
-        self.menuInicio.show()
-        self.btnMenuReportes = self.ui.pushButton
-        self.btnMenuInventario = self.ui.pushButton_2
-        self.btnMenuLogistica = self.ui.pushButton_3
-        self.btnMenuReportes.clicked.connect(self.menu_reportes)
-        self.btnMenuInventario.clicked.connect(self.menu_inventario)
-        self.btnMenuLogistica.clicked.connect(self.menu_logistica)
-        self.login.hide()
 
+    #FUNCION LOGIN Y MOSTRAR MENU DE INICIO.
+
+
+    
+    def iniciar_sesion(self):
+        
+        user = self.ui.userTextEdit.text()
+        password= self.ui.passwordTextEdit.text()
+        
+        if(user == "1" and password == "123"):
+            self.menuInicio= QtWidgets.QMainWindow()
+            self.ui=MenuInicio()
+            self.ui.setupUi(self.menuInicio)
+            self.menuInicio.show()
+            self.login.hide()
+            self.btnMenuReportes = self.ui.pushButton
+            self.btnMenuInventario = self.ui.pushButton_2
+            self.btnMenuLogistica = self.ui.pushButton_3
+            self.btnMenuReportes.clicked.connect(self.menu_reportes)
+            self.btnMenuInventario.clicked.connect(self.menu_inventario)
+            self.btnMenuLogistica.clicked.connect(self.menu_logistica)
+
+        else:
+                self.ui.label_6.setText("Usuario o contraseña invalidos. Vuelva a intentar")
+
+
+        
     #FUNCION PARA MOSTRAR EL MENU REPORTES
     def menu_reportes(self):
         self.menuReportes= QtWidgets.QMainWindow()
