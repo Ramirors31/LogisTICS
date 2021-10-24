@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'login.ui'
 #
@@ -67,6 +67,11 @@ class Login(object):
         self.label_5.setGeometry(QtCore.QRect(450, 120, 131, 131))
         self.label_5.setStyleSheet("border-image: url(:/userIcon/IconoUsuario.png);")
         self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(380, 430, 241, 41))
+        self.label_6.setStyleSheet("color:red;")
+        self.label_6.setText("")
+        self.label_6.setObjectName("label_6")
         login.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(login)
         self.statusbar.setObjectName("statusbar")
