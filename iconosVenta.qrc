@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="iconoVenta">
-    <file>iconoRegresar.png</file>
-    <file>venta.png</file>
-    <file>ventaIcono.png</file>
-  </qresource>
-</RCC>
