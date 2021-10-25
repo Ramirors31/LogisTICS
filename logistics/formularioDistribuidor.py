@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import distribuidorHelpers
 
 class FormularioDistribuidor(object):
     def setupUi(self, MainWindow):
@@ -114,6 +114,18 @@ class FormularioDistribuidor(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+
+        #LLAMANDO A LA FUNCION AÑADIR AL PULSAR BOTON
+        self.addBtn.clicked.connect(lambda: self.añadir_distribuidor(self.nombreTxt.toPlainText(),
+        self.ubicacionTxt.toPlainText(),self.telefonoTxt.toPlainText(),self.contactoTxt.toPlainText()))
+
+    def añadir_distribuidor(self,nombre,ubicacion,telefono,contacto):
+        helper = distribuidorHelpers.DistribuidorHelper(nombre,ubicacion,telefono,contacto)
+        print(nombre)
+        helper.insertar()
+        
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
