@@ -10,6 +10,8 @@ from formularioVenta import FormularioVenta
 from menuLogistica import MenuLogistica
 from formularioProducto import FormularioProducto
 from menuDistribuidores import MenuDistribuidores
+from formularioDistribuidor import FormularioDistribuidor
+
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
     def __init__(self):
@@ -21,11 +23,8 @@ class MyApp(QtWidgets.QMainWindow):
         self.btnIniciarSesion = self.ui.pushButton
         self.btnIniciarSesion.clicked.connect(self.iniciar_sesion)
 
-
     #FUNCION LOGIN Y MOSTRAR MENU DE INICIO.
 
-
-    
     def iniciar_sesion(self):
         
         user = self.ui.userTextEdit.text()
@@ -47,8 +46,6 @@ class MyApp(QtWidgets.QMainWindow):
         else:
                 self.ui.label_6.setText("Usuario o contraseña invalidos. Vuelva a intentar")
 
-
-        
     #FUNCION PARA MOSTRAR EL MENU REPORTES
     def menu_reportes(self):
         self.menuReportes= QtWidgets.QMainWindow()
@@ -138,15 +135,26 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuLogistica.hide()
         self.menuDistribuidores.show()
         self.ui.btnRegresar.clicked.connect(self.regresar_menuDistribuidores)
+        self.ui.nuevoDistribuidorBtn.clicked.connect(self.formulario_distribuidor)
 
     #FUNCION PARA REGRESAR AL MENU LOGISTICA DESDE EL MENU DISTRIBUIDORES
     def regresar_menuDistribuidores(self):
         self.menuDistribuidores.hide()
         self.menuLogistica.show()
 
+    #FUNCION PARA MOSTRAR EL FORMULARIO PARA AÑADIR UN NUEVO DISTRIBUIDOR
+    def formulario_distribuidor(self):
+        self.formularioDistribuidor = QtWidgets.QMainWindow()
+        self.ui = FormularioDistribuidor()
+        self.ui.setupUi(self.formularioDistribuidor)
+        self.menuDistribuidores.hide()
+        self.formularioDistribuidor.show()
+        self.ui.regresarBtn.clicked.connect(self.regresar_distribuidores)
 
-
-
+    #FUNCION PARA VOLVER AL MENU DISTRIBUIDORES DESDE EL FORMULARIO DISTRIBUIDOR.
+    def regresar_distribuidores(self):
+        self.formularioDistribuidor.hide()
+        self.menuDistribuidores.show()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
