@@ -2,6 +2,7 @@ import pymysql
 from conexion import DataBase
 
 class ProductHelper(DataBase):
+    #CONSTRUCTOR, RECIBE PARAMETROS QUE SERÁN AÑADIDOS A LA TABLA
     nombre = ""
     descripcion = ""
     precioVenta = 0
@@ -16,10 +17,10 @@ class ProductHelper(DataBase):
         self.distribuidor = distribuidor
 
         DataBase.__init__(self)
-    
+
+    #INSERTAR PRODUCTOS EN LA BASE DE DATOS
     def insertar(self):
 
-        
         sql = "INSERT INTO productos(nombre_producto,descripcion_producto,precioventa_producto,preciocompra_producto,distribuidor_producto) VALUES ('{}','{}','{}','{}','{}')".format(self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor)
         try:
             self.cursor.execute(sql)

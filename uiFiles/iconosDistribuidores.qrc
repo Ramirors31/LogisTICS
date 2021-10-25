@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="iconos">
+    <file>iconoRegresar.png</file>
+  </qresource>
+</RCC>

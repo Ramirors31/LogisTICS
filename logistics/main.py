@@ -9,6 +9,7 @@ from menuReportes import MenuReportes
 from formularioVenta import FormularioVenta
 from menuLogistica import MenuLogistica
 from formularioProducto import FormularioProducto
+from menuDistribuidores import MenuDistribuidores
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
     def __init__(self):
@@ -121,12 +122,28 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuLogistica.show()
         self.menuInicio.hide()
         self.btnRegresar = self.ui.btnRegresar
+        self.ui.distribuidoresBtn.clicked.connect(self.menu_distribuidores)
         self.btnRegresar.clicked.connect(self.regresar_logistica)
 
     #BOTON REGRESAR EN EL MENU LOGISTICA
     def regresar_logistica(self):
         self.menuLogistica.hide()
         self.menuInicio.show()
+    
+    #FUNCION PARA ABRIR EL MENU DISTRIBUIDORES
+    def menu_distribuidores(self):
+        self.menuDistribuidores = QtWidgets.QMainWindow()
+        self.ui = MenuDistribuidores()
+        self.ui.setupUi(self.menuDistribuidores)
+        self.menuLogistica.hide()
+        self.menuDistribuidores.show()
+        self.ui.btnRegresar.clicked.connect(self.regresar_menuDistribuidores)
+
+    #FUNCION PARA REGRESAR AL MENU LOGISTICA DESDE EL MENU DISTRIBUIDORES
+    def regresar_menuDistribuidores(self):
+        self.menuDistribuidores.hide()
+        self.menuLogistica.show()
+
 
 
 
