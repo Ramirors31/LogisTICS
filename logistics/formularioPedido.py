@@ -170,6 +170,8 @@ class FormularioPedido(object):
         self.addPedidoBtn.clicked.connect(lambda: self.addRow_pedido(self.productoComboBox.currentText(),30,int(self.cantidadTextEdit.toPlainText()),0))
         self.pedidoTable.clearContents()
         self.listPedido = []
+        #TOTAL DE VENTA
+        self.totalVenta = 0
     def retranslateUi(self, FormularioPedido):
         _translate = QtCore.QCoreApplication.translate
         FormularioPedido.setWindowTitle(_translate("FormularioPedido", "MainWindow"))
@@ -210,6 +212,7 @@ class FormularioPedido(object):
         #AÑADIENDO PRODUCTOS A LA TABLA DE PEDIDO LOCAL
     def addRow_pedido(self,producto,precioUnitario,cantidad,subtotal):
                 subtotal = cantidad * precioUnitario
+                self.totalVenta = self.totalVenta + subtotal
                 fila = [producto, precioUnitario, cantidad, subtotal]
                 self.listPedido.append(fila)
                 print(self.listPedido)
@@ -222,6 +225,8 @@ class FormularioPedido(object):
                         self.pedidoTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(producto[3]))) 
 
                         row += 1
+                totalVenta = "$"+ str(self.totalVenta)
+                self.totalTxt.setText(str(totalVenta))
 
 
 
