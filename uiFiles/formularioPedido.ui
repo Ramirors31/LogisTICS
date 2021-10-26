@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>FormularioPedido</class>
+ <widget class="QMainWindow" name="FormularioPedido">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
-    <height>742</height>
+    <width>780</width>
+    <height>867</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>220</x>
        <y>10</y>
        <width>701</width>
        <height>71</height>
@@ -57,7 +57,7 @@
       <x>0</x>
       <y>90</y>
       <width>781</width>
-      <height>651</height>
+      <height>781</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -69,84 +69,12 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>121</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Num. Pedido</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>20</y>
-       <width>131</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Responsable:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>30</y>
-       <width>121</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Juan Paez</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>30</y>
-       <width>51</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>001</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>500</x>
+       <x>560</x>
        <y>30</y>
-       <width>71</width>
+       <width>61</width>
        <height>21</height>
       </rect>
      </property>
@@ -162,7 +90,7 @@
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>580</x>
+       <x>650</x>
        <y>30</y>
        <width>121</width>
        <height>16</height>
@@ -180,8 +108,8 @@
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>360</x>
-       <y>90</y>
+       <x>460</x>
+       <y>230</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -198,8 +126,8 @@
     <widget class="QComboBox" name="productoComboBox">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>90</y>
+       <x>590</x>
+       <y>230</y>
        <width>131</width>
        <height>22</height>
       </rect>
@@ -234,7 +162,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>160</y>
+       <y>300</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -251,35 +179,28 @@
     <widget class="QTextEdit" name="cantidadTextEdit">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>150</y>
-       <width>71</width>
-       <height>41</height>
+       <x>160</x>
+       <y>300</y>
+       <width>151</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="cursor" stdset="0">
+      <cursorShape>IBeamCursor</cursorShape>
      </property>
     </widget>
     <widget class="QTableWidget" name="ventaTable">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>250</y>
-       <width>761</width>
+       <x>150</x>
+       <y>360</y>
+       <width>501</width>
        <height>221</height>
       </rect>
      </property>
      <column>
       <property name="text">
-       <string>Num. Pedido</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>Producto</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Distribuidor</string>
       </property>
      </column>
      <column>
@@ -301,9 +222,9 @@
     <widget class="QLabel" name="label_10">
      <property name="geometry">
       <rect>
-       <x>420</x>
-       <y>490</y>
-       <width>61</width>
+       <x>500</x>
+       <y>620</y>
+       <width>51</width>
        <height>21</height>
       </rect>
      </property>
@@ -316,22 +237,12 @@
       <string>Total:</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="totalEditText">
+    <widget class="QPushButton" name="addPedidoBtn">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>480</y>
-       <width>151</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="nuevoPedidoBtn">
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>150</y>
-       <width>151</width>
+       <x>460</x>
+       <y>290</y>
+       <width>131</width>
        <height>41</height>
       </rect>
      </property>
@@ -340,9 +251,12 @@
        <pointsize>12</pointsize>
       </font>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(118, 136, 135);</string>
+background-color: rgb(34, 170, 32);</string>
      </property>
      <property name="text">
       <string>Añadir </string>
@@ -351,8 +265,8 @@ background-color: rgb(118, 136, 135);</string>
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>490</y>
+       <x>40</x>
+       <y>610</y>
        <width>121</width>
        <height>31</height>
       </rect>
@@ -366,11 +280,11 @@ background-color: rgb(118, 136, 135);</string>
       <string>Forma Pago</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="productoComboBox_2">
+    <widget class="QComboBox" name="formaPagoCombo">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>500</y>
+       <x>190</x>
+       <y>620</y>
        <width>131</width>
        <height>22</height>
       </rect>
@@ -391,11 +305,11 @@ background-color: rgb(118, 136, 135);</string>
       </property>
      </item>
     </widget>
-    <widget class="QPushButton" name="nuevoPedidoBtn_2">
+    <widget class="QPushButton" name="registrarPedidoBtn">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>560</y>
+       <x>310</x>
+       <y>680</y>
        <width>171</width>
        <height>41</height>
       </rect>
@@ -405,19 +319,22 @@ background-color: rgb(118, 136, 135);</string>
        <pointsize>12</pointsize>
       </font>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(118, 136, 135);</string>
      </property>
      <property name="text">
-      <string>Completar Pedido</string>
+      <string>Registrar Pedido</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>90</y>
+       <y>230</y>
        <width>111</width>
        <height>21</height>
       </rect>
@@ -435,7 +352,7 @@ background-color: rgb(118, 136, 135);</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>90</y>
+       <y>230</y>
        <width>151</width>
        <height>22</height>
       </rect>
@@ -456,10 +373,90 @@ background-color: rgb(118, 136, 135);</string>
       </property>
      </item>
     </widget>
+    <widget class="QPushButton" name="btnRegresar">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>30</y>
+       <width>71</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/iconos/iconoRegresar.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>30</y>
+       <width>131</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/iconos/iconoPedido.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="totalTxt">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>620</y>
+       <width>55</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>$200</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="eliminarPedidoBtn">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>290</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(236, 0, 3);</string>
+     </property>
+     <property name="text">
+      <string>Eliminar</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="iconosReportePedido.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -147,7 +147,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.formularioDistribuidor = QtWidgets.QMainWindow()
         self.ui = FormularioDistribuidor()
         self.ui.setupUi(self.formularioDistribuidor)
-        self.menuDistribuidores.hide()
+        self.menuDistribuidores.close()
         self.formularioDistribuidor.show()
         self.ui.regresarBtn.clicked.connect(self.regresar_distribuidores)
 
