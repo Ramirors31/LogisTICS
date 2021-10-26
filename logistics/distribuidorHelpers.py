@@ -45,5 +45,4 @@ class DistribuidorHelper(DataBase):
         except pymysql.Error as err:
             print("Algo Salio mal ", format(err))
         
-helper = DistribuidorHelper("","","","")
-helper.mostrar_tabla()
+

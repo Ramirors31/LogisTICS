@@ -150,10 +150,6 @@ class MenuDistribuidores(object):
 
                 
 
-        print(listaDistribuidores[2])
-
-        #CARGAR DATOS DE BASE DE DATOS A TABLA DISTRIBUIDORES.
-
 from iconos import iconosDistribuidores_rc
 
 

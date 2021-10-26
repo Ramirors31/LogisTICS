@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import productHelpers
 
 
 class MenuInventario(object):
@@ -38,7 +39,7 @@ class MenuInventario(object):
         self.inventarioTable = QtWidgets.QTableWidget(self.frame)
         self.inventarioTable.setGeometry(QtCore.QRect(50, 240, 891, 192))
         self.inventarioTable.setObjectName("inventarioTable")
-        self.inventarioTable.setColumnCount(7)
+        self.inventarioTable.setColumnCount(6)
         self.inventarioTable.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.inventarioTable.setHorizontalHeaderItem(0, item)
@@ -52,8 +53,6 @@ class MenuInventario(object):
         self.inventarioTable.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.inventarioTable.setHorizontalHeaderItem(5, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.inventarioTable.setHorizontalHeaderItem(6, item)
         self.addProductoBtn = QtWidgets.QPushButton(self.frame)
         self.addProductoBtn.setGeometry(QtCore.QRect(50, 120, 171, 51))
         font = QtGui.QFont()
@@ -109,19 +108,34 @@ class MenuInventario(object):
         item = self.inventarioTable.horizontalHeaderItem(1)
         item.setText(_translate("inventario", "Nombre Producto"))
         item = self.inventarioTable.horizontalHeaderItem(2)
-        item.setText(_translate("inventario", "Precio Compra"))
+        item.setText(_translate("inventario", "Descripcion"))
         item = self.inventarioTable.horizontalHeaderItem(3)
         item.setText(_translate("inventario", "Precio Venta"))
         item = self.inventarioTable.horizontalHeaderItem(4)
-        item.setText(_translate("inventario", "En Stock"))
+        item.setText(_translate("inventario", "Precio Compra"))
         item = self.inventarioTable.horizontalHeaderItem(5)
         item.setText(_translate("inventario", "Distribuidor"))
-        item = self.inventarioTable.horizontalHeaderItem(6)
-        item.setText(_translate("inventario", "Ubicacion"))
         self.addProductoBtn.setText(_translate("inventario", "Añadir Producto"))
         self.buscarProductoBtn.setText(_translate("inventario", "Buscar Producto"))
         self.label_2.setText(_translate("inventario", "Mis Productos"))
         self.modificarBtn.setText(_translate("inventario", "Modificar/Eliminar"))
+
+        #MOSTRAR DATOS DE BASE DE DATOS EN TABLA
+        helper = productHelpers.ProductHelper("","",0,0,"")
+        listaProductos = helper.mostrar_tabla()
+        self.inventarioTable.clearContents()
+        row = 0
+        for distribuidor in listaProductos:
+                self.inventarioTable.setRowCount(row + 1)
+                self.inventarioTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(distribuidor[0])))
+                self.inventarioTable.setItem(row, 1, QtWidgets.QTableWidgetItem(distribuidor[1]))
+                self.inventarioTable.setItem(row, 2, QtWidgets.QTableWidgetItem(distribuidor[2]))
+                self.inventarioTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(distribuidor[3])))
+                self.inventarioTable.setItem(row, 4, QtWidgets.QTableWidgetItem(str(distribuidor[4])))
+                self.inventarioTable.setItem(row, 5, QtWidgets.QTableWidgetItem(distribuidor[5]))
+
+                row += 1
+
 from iconos import iconosMenuInventario_rc
 
 

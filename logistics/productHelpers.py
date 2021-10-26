@@ -30,3 +30,21 @@ class ProductHelper(DataBase):
 
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
+
+    #CARGAR DATOS A LA TABLA PRODUCTOS
+    def mostrar_tabla(self):
+        sql = "SELECT * FROM productos"
+        try:
+            self.cursor.execute(sql)
+            self.rows = self.cursor.fetchall()
+            tabRows = []
+            for row in self.rows:
+                tabRows.append(row)
+                self.connection.commit() 
+                
+            self.connection.close()
+            return tabRows
+        except pymysql.Error as err:
+            print("Algo Salio mal ", format(err))
+        
+
