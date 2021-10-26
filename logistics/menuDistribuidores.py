@@ -148,8 +148,6 @@ class MenuDistribuidores(object):
 
                 row += 1
         
-                
-
 from iconos import iconosDistribuidores_rc
 
 

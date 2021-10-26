@@ -170,6 +170,9 @@ class FormularioPedido(object):
         self.addPedidoBtn.clicked.connect(lambda: self.addRow_pedido(self.productoComboBox.currentText(),30,int(self.cantidadTextEdit.toPlainText()),0))
         self.pedidoTable.clearContents()
         self.listPedido = []
+
+        #BOTON ELIMINAR PRODUCTO DE PEDIDO ACTUAL
+        self.eliminarPedidoBtn.clicked.connect(self.deleteRow_pedido)
         #TOTAL DE VENTA
         self.totalVenta = 0
     def retranslateUi(self, FormularioPedido):
@@ -215,7 +218,6 @@ class FormularioPedido(object):
                 self.totalVenta = self.totalVenta + subtotal
                 fila = [producto, precioUnitario, cantidad, subtotal]
                 self.listPedido.append(fila)
-                print(self.listPedido)
                 row = 0
                 for producto in self.listPedido:
                         self.pedidoTable.setRowCount(row + 1)
@@ -226,8 +228,23 @@ class FormularioPedido(object):
 
                         row += 1
                 totalVenta = "$"+ str(self.totalVenta)
-                self.totalTxt.setText(str(totalVenta))
+                self.totalTxt.setText(totalVenta)
 
+        #FUNCION PARA ELIMINAR UNA FILA DEL PEDIDO ACTUAL
+    def deleteRow_pedido(self):
+            self.listPedido.pop()
+            print (self.listPedido[0,3])
+            row = 0
+            for producto in self.listPedido:
+                        self.pedidoTable.setRowCount(row + 1)
+                        self.pedidoTable.setItem(row, 0, QtWidgets.QTableWidgetItem(producto[0])) 
+                        self.pedidoTable.setItem(row, 1, QtWidgets.QTableWidgetItem(str(producto[1]))) 
+                        self.pedidoTable.setItem(row, 2, QtWidgets.QTableWidgetItem(str(producto[2]))) 
+                        self.pedidoTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(producto[3]))) 
+
+                        row += 1
+            totalVenta = "$"+ str(self.totalVenta)
+            self.totalTxt.setText(totalVenta)
 
 
 

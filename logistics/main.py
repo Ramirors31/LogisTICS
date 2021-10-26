@@ -131,6 +131,12 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui.setupUi(self.formularioPedido)
         self.formularioPedido.show()
         self.menuLogistica.close()
+        self.ui.btnRegresar.clicked.connect(self.regresar_pedido)
+
+    #BOTON PARA REGRESAR AL MENU LOGISTICA DESDE FORMULARIO PARA PEDIDO
+    def regresar_pedido(self):
+        self.formularioPedido.hide()
+        self.menuLogistica.show()
         
 
     #BOTON REGRESAR EN EL MENU LOGISTICA
