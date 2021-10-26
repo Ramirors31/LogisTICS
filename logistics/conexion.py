@@ -8,10 +8,11 @@ class DataBase:
             password='',
             db='logisticsdb'
         )
+        try:
+            self.cursor =self.connection.cursor()
+            print("Conexion establecida exitosamente")
 
-        self.cursor =self.connection.cursor()
-
-        print("Conexion establecida exitosamente")
-
+        except pymysql.Error as err:
+            print("Algo salio mal ",format(err))
 
 

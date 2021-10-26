@@ -9,6 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pymysql import STRING
+import distribuidorHelpers
 
 
 class MenuDistribuidores(object):
@@ -88,9 +90,9 @@ class MenuDistribuidores(object):
         self.btnRegresar.setText("")
         self.btnRegresar.setObjectName("btnRegresar")
         self.distribuidoresTable = QtWidgets.QTableWidget(self.frame)
-        self.distribuidoresTable.setGeometry(QtCore.QRect(20, 150, 811, 241))
+        self.distribuidoresTable.setGeometry(QtCore.QRect(20, 150, 711, 241))
         self.distribuidoresTable.setObjectName("distribuidoresTable")
-        self.distribuidoresTable.setColumnCount(4)
+        self.distribuidoresTable.setColumnCount(5)
         self.distribuidoresTable.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.distribuidoresTable.setHorizontalHeaderItem(0, item)
@@ -100,10 +102,13 @@ class MenuDistribuidores(object):
         self.distribuidoresTable.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.distribuidoresTable.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.distribuidoresTable.setHorizontalHeaderItem(4, item)
         MenuDistribuidores.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MenuDistribuidores)
         self.statusbar.setObjectName("statusbar")
         MenuDistribuidores.setStatusBar(self.statusbar)
+     
 
         self.retranslateUi(MenuDistribuidores)
         QtCore.QMetaObject.connectSlotsByName(MenuDistribuidores)
@@ -125,14 +130,38 @@ class MenuDistribuidores(object):
         item.setText(_translate("MenuDistribuidores", "Ubicación"))
         item = self.distribuidoresTable.horizontalHeaderItem(3)
         item.setText(_translate("MenuDistribuidores", "Teléfono"))
+        item = self.distribuidoresTable.horizontalHeaderItem(4)
+        item.setText(_translate("MenuDistribuidores", "Contacto"))
+
+        #MOSTRANDO DATOS DE LA BASE DE DATOS EN LA TABLA DISTRIBUIDORES
+        helper = distribuidorHelpers.DistribuidorHelper("","","","")
+        listaDistribuidores = helper.mostrar_tabla()
+        self.distribuidoresTable.clearContents()
+        row = 0
+        for distribuidor in listaDistribuidores:
+                self.distribuidoresTable.setRowCount(row + 1)
+                self.distribuidoresTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(distribuidor[0])))
+                self.distribuidoresTable.setItem(row, 1, QtWidgets.QTableWidgetItem(distribuidor[1]))
+                self.distribuidoresTable.setItem(row, 2, QtWidgets.QTableWidgetItem(distribuidor[2]))
+                self.distribuidoresTable.setItem(row, 3, QtWidgets.QTableWidgetItem(distribuidor[3]))
+                self.distribuidoresTable.setItem(row, 4, QtWidgets.QTableWidgetItem(distribuidor[4]))
+
+                row += 1
+
+                
+
+        print(listaDistribuidores[2])
+
+        #CARGAR DATOS DE BASE DE DATOS A TABLA DISTRIBUIDORES.
+
 from iconos import iconosDistribuidores_rc
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MenuDistribuidores = QtWidgets.QMainWindow()
+    MenuDistribuidor = QtWidgets.QMainWindow()
     ui = MenuDistribuidores()
-    ui.setupUi(MenuDistribuidores)
-    MenuDistribuidores.show()
+    ui.setupUi(MenuDistribuidor)
+    MenuDistribuidor.show()
     sys.exit(app.exec_())

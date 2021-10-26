@@ -15,6 +15,7 @@ class DistribuidorHelper(DataBase):
         self.contacto = contacto
 
         DataBase.__init__(self)
+        
 
     #INSERTAR DISTRIBUIDORES NUEVOS EN LA BASE DE DATOS
     def insertar(self):
@@ -28,3 +29,21 @@ class DistribuidorHelper(DataBase):
 
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
+
+    def mostrar_tabla(self):
+        sql = "SELECT * FROM distribuidores"
+        try:
+            self.cursor.execute(sql)
+            self.rows = self.cursor.fetchall()
+            tabRows = []
+            for row in self.rows:
+                tabRows.append(row)
+                self.connection.commit() 
+                
+            self.connection.close()
+            return tabRows
+        except pymysql.Error as err:
+            print("Algo Salio mal ", format(err))
+        
+helper = DistribuidorHelper("","","","")
+helper.mostrar_tabla()
