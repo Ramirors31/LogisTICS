@@ -11,6 +11,7 @@ from menuLogistica import MenuLogistica
 from formularioProducto import FormularioProducto
 from menuDistribuidores import MenuDistribuidores
 from formularioDistribuidor import FormularioDistribuidor
+from formularioPedido import FormularioPedido
 
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
@@ -111,7 +112,7 @@ class MyApp(QtWidgets.QMainWindow):
     def regresar_formularioProducto(self):
         self.formularioProducto.hide()
         self.menuInventario.show()
-    #FUNCIONA PARA MOSTRAR EL MENU LOGISTICA
+    #FUNCIONA PARA MOSTRAR EL MENU LOGISTICA Y PEDIDOS
     def menu_logistica(self):
         self.menuLogistica = QtWidgets.QMainWindow()
         self.ui= MenuLogistica()
@@ -121,6 +122,16 @@ class MyApp(QtWidgets.QMainWindow):
         self.btnRegresar = self.ui.btnRegresar
         self.ui.distribuidoresBtn.clicked.connect(self.menu_distribuidores)
         self.btnRegresar.clicked.connect(self.regresar_logistica)
+        self.ui.nuevoPedidoBtn.clicked.connect(self.nuevo_pedido)
+
+    #BOTON PARA ABRIR EL FORMULARIO PARA UN NUEVO PEDIDO
+    def nuevo_pedido(self):
+        self.formularioPedido = QtWidgets.QMainWindow()
+        self.ui = FormularioPedido()
+        self.ui.setupUi(self.formularioPedido)
+        self.formularioPedido.show()
+        self.menuLogistica.close()
+        
 
     #BOTON REGRESAR EN EL MENU LOGISTICA
     def regresar_logistica(self):

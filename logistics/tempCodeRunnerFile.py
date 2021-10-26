@@ -1,2 +1,2 @@
-self.connection.commit()
-                self.connection.close()
+
+                        row += 1

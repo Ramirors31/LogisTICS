@@ -147,7 +147,7 @@ class MenuDistribuidores(object):
                 self.distribuidoresTable.setItem(row, 4, QtWidgets.QTableWidgetItem(distribuidor[4]))
 
                 row += 1
-
+        print(type(listaDistribuidores))
                 
 
 from iconos import iconosDistribuidores_rc

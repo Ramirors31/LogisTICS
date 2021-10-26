@@ -189,7 +189,7 @@
       <cursorShape>IBeamCursor</cursorShape>
      </property>
     </widget>
-    <widget class="QTableWidget" name="ventaTable">
+    <widget class="QTableWidget" name="pedidoTable">
      <property name="geometry">
       <rect>
        <x>150</x>

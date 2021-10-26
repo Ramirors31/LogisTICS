@@ -71,19 +71,19 @@ class FormularioPedido(object):
         self.cantidadTextEdit.setGeometry(QtCore.QRect(160, 300, 151, 31))
         self.cantidadTextEdit.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.cantidadTextEdit.setObjectName("cantidadTextEdit")
-        self.ventaTable = QtWidgets.QTableWidget(self.frame)
-        self.ventaTable.setGeometry(QtCore.QRect(150, 360, 501, 221))
-        self.ventaTable.setObjectName("ventaTable")
-        self.ventaTable.setColumnCount(4)
-        self.ventaTable.setRowCount(0)
+        self.pedidoTable = QtWidgets.QTableWidget(self.frame)
+        self.pedidoTable.setGeometry(QtCore.QRect(150, 360, 501, 221))
+        self.pedidoTable.setObjectName("pedidoTable")
+        self.pedidoTable.setColumnCount(4)
+        self.pedidoTable.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
-        self.ventaTable.setHorizontalHeaderItem(0, item)
+        self.pedidoTable.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.ventaTable.setHorizontalHeaderItem(1, item)
+        self.pedidoTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        self.ventaTable.setHorizontalHeaderItem(2, item)
+        self.pedidoTable.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
-        self.ventaTable.setHorizontalHeaderItem(3, item)
+        self.pedidoTable.setHorizontalHeaderItem(3, item)
         self.label_10 = QtWidgets.QLabel(self.frame)
         self.label_10.setGeometry(QtCore.QRect(500, 620, 51, 21))
         font = QtGui.QFont()
@@ -166,6 +166,10 @@ class FormularioPedido(object):
         self.retranslateUi(FormularioPedido)
         QtCore.QMetaObject.connectSlotsByName(FormularioPedido)
 
+        #BOTON AÑADIR PRODUCTO A PEDIDO ACTUAL
+        self.addPedidoBtn.clicked.connect(lambda: self.addRow_pedido(self.productoComboBox.currentText(),30,int(self.cantidadTextEdit.toPlainText()),0))
+        self.pedidoTable.clearContents()
+        self.listPedido = []
     def retranslateUi(self, FormularioPedido):
         _translate = QtCore.QCoreApplication.translate
         FormularioPedido.setWindowTitle(_translate("FormularioPedido", "MainWindow"))
@@ -179,13 +183,13 @@ class FormularioPedido(object):
         self.productoComboBox.setItemText(3, _translate("FormularioPedido", "Pescado(KG)"))
         self.productoComboBox.setItemText(4, _translate("FormularioPedido", "Filete Pescado(KG)"))
         self.label_9.setText(_translate("FormularioPedido", "Cantidad:"))
-        item = self.ventaTable.horizontalHeaderItem(0)
+        item = self.pedidoTable.horizontalHeaderItem(0)
         item.setText(_translate("FormularioPedido", "Producto"))
-        item = self.ventaTable.horizontalHeaderItem(1)
+        item = self.pedidoTable.horizontalHeaderItem(1)
         item.setText(_translate("FormularioPedido", "Precio Unitario"))
-        item = self.ventaTable.horizontalHeaderItem(2)
+        item = self.pedidoTable.horizontalHeaderItem(2)
         item.setText(_translate("FormularioPedido", "Cantidad"))
-        item = self.ventaTable.horizontalHeaderItem(3)
+        item = self.pedidoTable.horizontalHeaderItem(3)
         item.setText(_translate("FormularioPedido", "Subtotal"))
         self.label_10.setText(_translate("FormularioPedido", "Total:"))
         self.addPedidoBtn.setText(_translate("FormularioPedido", "Añadir "))
@@ -200,6 +204,27 @@ class FormularioPedido(object):
         self.productoComboBox_3.setItemText(2, _translate("FormularioPedido", "Pescadería López"))
         self.totalTxt.setText(_translate("FormularioPedido", "$200"))
         self.eliminarPedidoBtn.setText(_translate("FormularioPedido", "Eliminar"))
+        
+        
+
+        #AÑADIENDO PRODUCTOS A LA TABLA DE PEDIDO LOCAL
+    def addRow_pedido(self,producto,precioUnitario,cantidad,subtotal):
+                subtotal = cantidad * precioUnitario
+                fila = [producto, precioUnitario, cantidad, subtotal]
+                self.listPedido.append(fila)
+                print(self.listPedido)
+                row = 0
+                for producto in self.listPedido:
+                        self.pedidoTable.setRowCount(row + 1)
+                        self.pedidoTable.setItem(row, 0, QtWidgets.QTableWidgetItem(producto[0])) 
+                        self.pedidoTable.setItem(row, 1, QtWidgets.QTableWidgetItem(str(producto[1]))) 
+                        self.pedidoTable.setItem(row, 2, QtWidgets.QTableWidgetItem(str(producto[2]))) 
+                        self.pedidoTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(producto[3]))) 
+
+                        row += 1
+
+
+
 
 from iconos import iconosReportePedido_rc
 
