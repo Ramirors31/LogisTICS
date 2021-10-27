@@ -233,7 +233,6 @@ class FormularioPedido(object):
         #FUNCION PARA ELIMINAR UNA FILA DEL PEDIDO ACTUAL
     def deleteRow_pedido(self):
             self.listPedido.pop()
-            print (self.listPedido[0,3])
             row = 0
             for producto in self.listPedido:
                         self.pedidoTable.setRowCount(row + 1)

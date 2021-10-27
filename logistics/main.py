@@ -104,7 +104,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui = FormularioProducto()
         self.ui.setupUi(self.formularioProducto)
         self.formularioProducto.show()
-        self.menuInventario.hide()
+        self.menuInventario.close()
         self.btnRegresar = self.ui.regresarBtn
         self.btnRegresar.clicked.connect(self.regresar_formularioProducto)
 

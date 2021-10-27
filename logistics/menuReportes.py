@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import ventasHelpers
 
 
 class MenuReportes(object):
@@ -107,14 +108,28 @@ class MenuReportes(object):
         item = self.reportesTable.horizontalHeaderItem(0)
         item.setText(_translate("menuReportes", "ID Reporte"))
         item = self.reportesTable.horizontalHeaderItem(1)
-        item.setText(_translate("menuReportes", "Autor"))
-        item = self.reportesTable.horizontalHeaderItem(2)
         item.setText(_translate("menuReportes", "Motivo"))
+        item = self.reportesTable.horizontalHeaderItem(2)
+        item.setText(_translate("menuReportes", "Cantidad $"))
         item = self.reportesTable.horizontalHeaderItem(3)
         item.setText(_translate("menuReportes", "Fecha"))
         self.analisisGraficoBtn.setText(_translate("menuReportes", "Análisis Gráfico"))
         self.buscarReporteBtn.setText(_translate("menuReportes", "Buscar"))
         self.label_2.setText(_translate("menuReportes", "Historial Reportes"))
+
+                #MOSTRAR DATOS DE BASE DE DATOS EN TABLA
+        helper = ventasHelpers.VentasHelper("","","")
+        listaReportes = helper.mostrar_tabla()
+        self.reportesTable.clearContents()
+        row = 0
+        for reporte in listaReportes:
+                self.reportesTable.setRowCount(row + 1)
+                self.reportesTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(reporte[0])))
+                self.reportesTable.setItem(row, 1, QtWidgets.QTableWidgetItem(reporte[1]))
+                self.reportesTable.setItem(row, 2, QtWidgets.QTableWidgetItem(str(reporte[2])))
+                self.reportesTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(reporte[3])))
+
+                row += 1
 from iconos import iconosMenuReportes_rc
 
 

@@ -61,6 +61,7 @@ class MenuInventario(object):
         self.addProductoBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.addProductoBtn.setObjectName("addProductoBtn")
+        self.addProductoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buscarProductoText = QtWidgets.QPlainTextEdit(self.frame)
         self.buscarProductoText.setGeometry(QtCore.QRect(570, 120, 301, 51))
         self.buscarProductoText.setObjectName("buscarProductoText")
@@ -72,6 +73,7 @@ class MenuInventario(object):
         self.buscarProductoBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.buscarProductoBtn.setObjectName("buscarProductoBtn")
+        self.buscarProductoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.label_2 = QtWidgets.QLabel(self.frame)
         self.label_2.setGeometry(QtCore.QRect(60, 210, 131, 16))
         font = QtGui.QFont()
@@ -86,11 +88,13 @@ class MenuInventario(object):
         self.modificarBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.modificarBtn.setObjectName("modificarBtn")
+        self.modificarBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnRegresar = QtWidgets.QPushButton(self.frame)
         self.btnRegresar.setGeometry(QtCore.QRect(60, 10, 101, 91))
         self.btnRegresar.setStyleSheet("border-image: url(:/iconos/iconoRegresar.png);")
         self.btnRegresar.setText("")
         self.btnRegresar.setObjectName("btnRegresar")
+        self.btnRegresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         inventario.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(inventario)
         self.statusbar.setObjectName("statusbar")

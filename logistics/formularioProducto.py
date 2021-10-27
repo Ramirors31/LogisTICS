@@ -82,6 +82,7 @@ class FormularioProducto(object):
         self.addBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.addBtn.setObjectName("addBtn")
+        self.addBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.productoTxt = QtWidgets.QTextEdit(self.FormularioProducto)
         self.productoTxt.setGeometry(QtCore.QRect(250, 190, 261, 41))
         font = QtGui.QFont()
@@ -99,6 +100,7 @@ class FormularioProducto(object):
         self.regresarBtn.setStyleSheet("border-image: url(:/iconoProducto_rc/iconoRegresar.png);")
         self.regresarBtn.setText("")
         self.regresarBtn.setObjectName("regresarBtn")
+        self.regresarBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.label_20 = QtWidgets.QLabel(self.FormularioProducto)
         self.label_20.setGeometry(QtCore.QRect(20, 360, 141, 31))
         font = QtGui.QFont()
