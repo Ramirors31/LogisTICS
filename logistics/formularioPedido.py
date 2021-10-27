@@ -175,6 +175,10 @@ class FormularioPedido(object):
         self.eliminarPedidoBtn.clicked.connect(self.deleteRow_pedido)
         #TOTAL DE VENTA
         self.totalVenta = 0
+
+        #REGISTRAR EL PEDIDO EN LA BASE DE DATOS
+        self.registrarPedidoBtn.clicked.connect(self.registrar_pedido)
+
     def retranslateUi(self, FormularioPedido):
         _translate = QtCore.QCoreApplication.translate
         FormularioPedido.setWindowTitle(_translate("FormularioPedido", "MainWindow"))
@@ -245,7 +249,11 @@ class FormularioPedido(object):
             totalVenta = "$"+ str(self.totalVenta)
             self.totalTxt.setText(totalVenta)
 
-
+    def registrar_pedido(self):
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Confirmacion Pedido")
+            msg.setText("Pedido registrado exitosamente")
+            msg.exec_()
 
 from iconos import iconosReportePedido_rc
 

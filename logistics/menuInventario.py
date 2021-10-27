@@ -37,7 +37,7 @@ class MenuInventario(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.inventarioTable = QtWidgets.QTableWidget(self.frame)
-        self.inventarioTable.setGeometry(QtCore.QRect(50, 240, 891, 192))
+        self.inventarioTable.setGeometry(QtCore.QRect(50, 240, 765, 300))
         self.inventarioTable.setObjectName("inventarioTable")
         self.inventarioTable.setColumnCount(6)
         self.inventarioTable.setRowCount(0)
