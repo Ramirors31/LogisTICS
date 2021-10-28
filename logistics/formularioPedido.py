@@ -254,6 +254,10 @@ class FormularioPedido(object):
             self.msg.setWindowTitle("Confirmacion Pedido")
             self.msg.setText("Pedido registrado exitosamente")
             self.msg.exec_()
+            self.refresh = ""
+            self.pedidoTable.clear()
+            self.cantidadTextEdit.setText(self.refresh) 
+            self.totalTxt.setText(self.refresh) 
 
 from iconos import iconosReportePedido_rc
 

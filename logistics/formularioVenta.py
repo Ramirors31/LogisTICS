@@ -213,6 +213,10 @@ class FormularioVenta(object):
         self.msg = QtWidgets.QMessageBox()
         self.msg.setWindowTitle("Confirmacion Registro")
         self.msg.setText("Venta Registrada con éxito")
+        self.refresh = ""
+        self.cantidadTextEdit.setText(self.refresh) 
+        self.totalVentaTxt.setText(self.refresh) 
+        self.ventaTable.clearContents()
         self.msg.exec_()
 
 

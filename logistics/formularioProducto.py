@@ -155,6 +155,13 @@ class FormularioProducto(object):
         self.msg.setWindowTitle("Confirmacion Registro")
         self.msg.setText("Producto Registrado con éxito")
         self.msg.exec_()
+        self.refresh = ""
+        self.descripcionTxt.setText(self.refresh) 
+        self.precioCompraTxt.setText(self.refresh) 
+        self.precioVentaTxt.setText(self.refresh) 
+        self.productoTxt.setText(self.refresh)
+
+    
         
 
 

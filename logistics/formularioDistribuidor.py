@@ -127,6 +127,11 @@ class FormularioDistribuidor(object):
         self.msg = QtWidgets.QMessageBox()
         self.msg.setWindowTitle("Confirmacion Registro")
         self.msg.setText("Distribuidor Registrado con éxito")
+        self.refresh = ""
+        self.telefonoTxt.setText(self.refresh) 
+        self.nombreTxt.setText(self.refresh) 
+        self.contactoTxt.setText(self.refresh) 
+        self.ubicacionTxt.setText(self.refresh)
         self.msg.exec_()
         
 
