@@ -250,10 +250,10 @@ class FormularioPedido(object):
             self.totalTxt.setText(totalVenta)
 
     def registrar_pedido(self):
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle("Confirmacion Pedido")
-            msg.setText("Pedido registrado exitosamente")
-            msg.exec_()
+            self.msg = QtWidgets.QMessageBox()
+            self.msg.setWindowTitle("Confirmacion Pedido")
+            self.msg.setText("Pedido registrado exitosamente")
+            self.msg.exec_()
 
 from iconos import iconosReportePedido_rc
 

@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import uic
 from menuInventario import MenuInventario
 from login import Login
@@ -68,6 +68,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuReportes.hide()
         self.btnRegresar = self.ui.regresarBtn
         self.btnRegresar.clicked.connect(self.regresar_reporteVenta)
+        #self.ui.completarVentaBtn.clicked.connect(self.registro_completado)
 
     #FUNCIONA PARA REGRESAR AL MENU REPORTES DESDE UN REPORTE DE VENTA    
     def regresar_reporteVenta(self):
@@ -78,6 +79,13 @@ class MyApp(QtWidgets.QMainWindow):
     def regresar_reportes(self):
         self.menuReportes.hide()
         self.menuInicio.show()
+    
+    #BOTON PARA MOSTRAR MENSAJE DE CONFIRMACION
+    """ def registro_completado(self):
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Confirmacion Registro")
+        self.msg.setText("El Registro se ha guardado con exito")
+        self.msg.exec_() """
 
        
     #FUNCION PARA MOSTRAR EL MENU INVENTARIO

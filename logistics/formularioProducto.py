@@ -151,6 +151,10 @@ class FormularioProducto(object):
         helper = productHelpers.ProductHelper(producto,descripcion,precioVenta,precioCompra,distribuidor)
         print(producto)
         helper.insertar()
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Confirmacion Registro")
+        self.msg.setText("Producto Registrado con éxito")
+        self.msg.exec_()
         
 
 

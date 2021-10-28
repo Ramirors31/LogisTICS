@@ -169,6 +169,9 @@ class FormularioVenta(object):
         #TOTAL DE VENTA
         self.totalVenta = 0
 
+        #BOTON PARA REGISTRAR VENTA EN BASE DE DATOS
+        self.completarVentaBtn.clicked.connect(self.registrar_venta)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
@@ -204,6 +207,13 @@ class FormularioVenta(object):
                         row += 1
             totalVenta = "$"+ str(self.totalVenta)
             self.totalVentaTxt.setText(totalVenta)
+
+        #FUNCION PARA REGISTRAR VENTA EN LA BASE DE DATOS.
+    def registrar_venta(self):
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Confirmacion Registro")
+        self.msg.setText("Venta Registrada con éxito")
+        self.msg.exec_()
 
 
 

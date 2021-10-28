@@ -123,7 +123,11 @@ class FormularioDistribuidor(object):
     def añadir_distribuidor(self,nombre,ubicacion,telefono,contacto):
         helper = distribuidorHelpers.DistribuidorHelper(nombre,ubicacion,telefono,contacto)
         print(nombre)
-        helper.insertar()
+        helper.insertar() 
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Confirmacion Registro")
+        self.msg.setText("Distribuidor Registrado con éxito")
+        self.msg.exec_()
         
 
 
