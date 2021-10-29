@@ -209,7 +209,7 @@ class FormularioVenta(object):
             self.totalVentaTxt.setText(totalVenta)
 
         #FUNCION PARA REGISTRAR VENTA EN LA BASE DE DATOS.
-    def registrar_venta(self):
+    def registrar_venta(self):    
         self.msg = QtWidgets.QMessageBox()
         self.msg.setWindowTitle("Confirmacion Registro")
         self.msg.setText("Venta Registrada con éxito")

@@ -12,6 +12,7 @@ from formularioProducto import FormularioProducto
 from menuDistribuidores import MenuDistribuidores
 from formularioDistribuidor import FormularioDistribuidor
 from formularioPedido import FormularioPedido
+from formularioModificarProducto import FormularioModificar
 
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
@@ -99,6 +100,20 @@ class MyApp(QtWidgets.QMainWindow):
         self.btnRegresar.clicked.connect(self.regresar_inventario)
         self.btnAñadirProducto= self.ui.addProductoBtn
         self.btnAñadirProducto.clicked.connect(self.formulario_producto)
+        self.ui.modificarBtn.clicked.connect(self.formulario_modificarProducto)
+
+    
+    #BOTON PARA FORMULARIO MODIFICAR PRODUCTO
+    def formulario_modificarProducto(self):
+        self.formularioModificar = QtWidgets.QMainWindow()
+        self.ui = FormularioModificar()
+        self.ui.setupUi(self.formularioModificar)
+        self.formularioModificar.show()
+        self.ui.btnRegresar.clicked.connect(self.regresar_formularioModProducto)
+
+    #BOTON PARA REGRESAR A MENU INVENTARIO DESDE MODIFICAR PRODUCTO
+    def regresar_formularioModProducto(self):
+        self.formularioModificar.close()
 
 
     #BOTOTN REGRESAR EN EL MENU INVENTARIO

@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="iconos">
+    <file>inventarioIcono.png</file>
+    <file>iconoRegresar.png</file>
+    <file>iconoEliminar.png</file>
+    <file>iconoBuscar.png</file>
+  </qresource>
+</RCC>
