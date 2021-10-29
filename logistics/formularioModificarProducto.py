@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import productHelpers
 
 
 class FormularioModificar(object):
@@ -150,6 +151,21 @@ class FormularioModificar(object):
 
         self.retranslateUi(ModificarEliminarProducto)
         QtCore.QMetaObject.connectSlotsByName(ModificarEliminarProducto)
+
+        #FUNCION PARA BUSCAR PRODUCTO EN LA BASE DE DATOS
+        self.btnBuscar.clicked.connect(self.buscar_producto)
+        
+    def buscar_producto(self):
+        self.idProducto = self.productoTxt.toPlainText()
+        helper = productHelpers.ProductHelper("","",0,0,"")
+        resultado = helper.buscar_registro(int(self.idProducto))
+        self.productoTxt.setText(resultado[1])
+        self.descripcionTxt.setText(resultado[2])
+        self.precioVentaTxt.setText(str(resultado[3]))
+        self.precioCompraTxt.setText(str(resultado[4]))
+        self.distribuidorText.setText(resultado[5])
+        print(resultado)
+        
 
     def retranslateUi(self, ModificarEliminarProducto):
         _translate = QtCore.QCoreApplication.translate

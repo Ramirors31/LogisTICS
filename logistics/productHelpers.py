@@ -31,7 +31,7 @@ class ProductHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
 
-    #CARGAR DATOS A LA TABLA PRODUCTOS
+    #CARGAR DATOS A LA TABLA PRODUCTOS DENTRO DEL MENU INVENTARIO
     def mostrar_tabla(self):
         sql = "SELECT * FROM productos"
         try:
@@ -48,3 +48,20 @@ class ProductHelper(DataBase):
             print("Algo Salio mal ", format(err))
         
 
+    #BUSCAR DATOS PARA MODIFICAR O ELIMINAR UN REGISTRO
+    def buscar_registro(self,id):
+        self.id = id
+        sql = ("SELECT * FROM productos WHERE idproducto='{}'").format(self.id)
+        try:
+            self.cursor.execute(sql)
+            self.busqueda =self.cursor.fetchone()
+            self.connection.commit()
+            self.connection.close()
+            resultadoBusqueda = self.busqueda
+            return resultadoBusqueda
+        except pymysql.Error as err:
+            print("Algo salio mal", format(err))
+
+
+prueba = ProductHelper("","",0,0,"")
+prueba.buscar_registro(2)
