@@ -138,7 +138,7 @@ class MenuInventario(object):
         self.modificarBtn.setText(_translate("inventario", "Modificar/Eliminar"))
 
         #MOSTRAR DATOS DE BASE DE DATOS EN TABLA
-        helper = productHelpers.ProductHelper("","",0,0,"",0)
+        helper = productHelpers.ProductHelper("","","",0,0,"",0)
         listaProductos = helper.mostrar_tabla()
         self.inventarioTable.clearContents()
         row = 0

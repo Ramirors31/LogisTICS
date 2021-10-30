@@ -170,32 +170,52 @@ class FormularioModificar(object):
         self.retranslateUi(ModificarEliminarProducto)
         QtCore.QMetaObject.connectSlotsByName(ModificarEliminarProducto)
 
+        #MENSAJE DE ERROR
+        self.msgError = QtWidgets.QMessageBox()
+        self.msgError.setWindowTitle("Algo Salio Mal")
+
         #FUNCION PARA BUSCAR PRODUCTO EN LA BASE DE DATOS
         self.btnBuscar.clicked.connect(self.buscar_producto)
         
     def buscar_producto(self):
-        self.idProducto = self.productoTxt.toPlainText()
-        helper = productHelpers.ProductHelper("","","",0,0,"",0)
-        resultado = helper.buscar_registro(self.idProducto)
-        self.productoTxt.setText(resultado[0])
-        self.nombreProductoTxt.setText(resultado[1])
-        self.descripcionTxt.setText(resultado[2])
-        self.precioVentaTxt.setText(str(resultado[3]))
-        self.precioCompraTxt.setText(str(resultado[4]))
-        self.distribuidorText.setText(resultado[5])
-        self.stockTxt.setText(str(resultado[6]))
-        
-        print(resultado)
+        try:
+            self.idProducto = self.productoTxt.toPlainText()
+            helper = productHelpers.ProductHelper(self.idProducto,"","",0,0,"",0)
+            resultado = helper.buscar_registro()
+            self.productoTxt.setText(resultado[0])
+            self.nombreProductoTxt.setText(resultado[1])
+            self.descripcionTxt.setText(resultado[2])
+            self.precioVentaTxt.setText(str(resultado[3]))
+            self.precioCompraTxt.setText(str(resultado[4]))
+            self.distribuidorText.setText(resultado[5])
+            self.stockTxt.setText(str(resultado[6]))
+        except:
+            self.msgError.setText("El producto que tratas de buscar no existe")
+            self.msgError.exec_()
 
         #FUNCION PARA ELIMINAR PRODUCTO
         self.eliminarBtn.clicked.connect(self.eliminar_producto)
 
     def eliminar_producto(self):
-        self.idProducto = self.productoTxt.toPlainText()
-        helper = productHelpers.ProductHelper("","",0,0,"")
-        eliminar = helper.eliminar_registro(int(self.idProducto))
-        tabla = helper.mostrar_tabla()
-        
+        try:
+             self.idProducto = self.productoTxt.toPlainText()
+             helper = productHelpers.ProductHelper(self.idProducto,"","",0,0,"",0)
+             eliminar = helper.eliminar_registro()
+             self.descripcionTxt.clear()
+             self.stockTxt.clear()
+             self.productoTxt.clear()
+             self.precioVentaTxt.clear()
+             self.precioCompraTxt.clear()
+             self.nombreProductoTxt.clear()
+             self.distribuidorText.clear()
+
+            
+        except:
+            self.msgError.setText("El producto que tratas de eliminar no existe")
+            self.msgError.exec_()
+            
+    def refresh(self,component):
+        component.setText("")
 
     def retranslateUi(self, ModificarEliminarProducto):
         _translate = QtCore.QCoreApplication.translate

@@ -53,9 +53,8 @@ class ProductHelper(DataBase):
         
 
     #BUSCAR DATOS PARA MODIFICAR O ELIMINAR UN REGISTRO
-    def buscar_registro(self,id):
-        self.id = id
-        sql = ("SELECT * FROM productos WHERE idproducto='{}'").format(self.id)
+    def buscar_registro(self):
+        sql = ("SELECT * FROM productos WHERE idproducto='{}'").format(self.codigoProducto)
         try:
             self.cursor.execute(sql)
             self.busqueda =self.cursor.fetchone()
@@ -66,9 +65,8 @@ class ProductHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal", format(err))
 
-    def eliminar_registro(self,id):
-        self.id = id
-        sql = ("DELETE FROM productos WHERE idproducto='{}'").format(self.id)
+    def eliminar_registro(self):
+        sql = ("DELETE FROM productos WHERE idproducto='{}'").format(self.codigoProducto)
         try:
             self.cursor.execute(sql)
             self.connection.commit()
