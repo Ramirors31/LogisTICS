@@ -9,6 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from datetime import datetime
+import pedidoHelpers
 
 
 class FormularioPedido(object):
@@ -46,6 +48,9 @@ class FormularioPedido(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_7.setFont(font)
+        #OBTENIENDO FECHA DEL SISTEMA   
+        fecha = datetime.today().strftime('%d-%m-%Y')
+        self.label_7.setText(fecha)
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.frame)
         self.label_8.setGeometry(QtCore.QRect(460, 230, 91, 21))
@@ -177,14 +182,26 @@ class FormularioPedido(object):
         self.totalVenta = 0
 
         #REGISTRAR EL PEDIDO EN LA BASE DE DATOS
-        self.registrarPedidoBtn.clicked.connect(self.registrar_pedido)
+        self.registrarPedidoBtn.clicked.connect(lambda:self.registrar_pedido("PEDIDO",self.totalVenta,self.label_7.text()))
+    
+    def registrar_pedido(self,motivo,total,fecha):
+            helper = pedidoHelpers.PedidoHelper(motivo,float(total),fecha)
+            helper.insertar()    
+            self.msgConfirmacion = QtWidgets.QMessageBox()
+            self.msgConfirmacion.setWindowTitle("Pedido Confirmado")
+            self.msgConfirmacion.setIcon(QtWidgets.QMessageBox.Information)
+            self.msgConfirmacion.setText("El pedido se a registrado con exito")
+            self.msgConfirmacion.exec_()
+            self.totalTxt.clear()
+            self.cantidadTextEdit.clear()
+            self.pedidoTable.clearContents()
+            self.listPedido = []
 
     def retranslateUi(self, FormularioPedido):
         _translate = QtCore.QCoreApplication.translate
         FormularioPedido.setWindowTitle(_translate("FormularioPedido", "MainWindow"))
         self.label_3.setText(_translate("FormularioPedido", "Reporte Pedido"))
         self.label_6.setText(_translate("FormularioPedido", "Fecha:"))
-        self.label_7.setText(_translate("FormularioPedido", "12/10/2021"))
         self.label_8.setText(_translate("FormularioPedido", "Producto:"))
         self.productoComboBox.setItemText(0, _translate("FormularioPedido", "Camarón(KG)"))
         self.productoComboBox.setItemText(1, _translate("FormularioPedido", "Pulpo(KG)"))
@@ -249,15 +266,7 @@ class FormularioPedido(object):
             totalVenta = "$"+ str(self.totalVenta)
             self.totalTxt.setText(totalVenta)
 
-    def registrar_pedido(self):
-            self.msg = QtWidgets.QMessageBox()
-            self.msg.setWindowTitle("Confirmacion Pedido")
-            self.msg.setText("Pedido registrado exitosamente")
-            self.msg.exec_()
-            self.refresh = ""
-            self.pedidoTable.clear()
-            self.cantidadTextEdit.setText(self.refresh) 
-            self.totalTxt.setText(self.refresh) 
+
 
 from iconos import iconosReportePedido_rc
 

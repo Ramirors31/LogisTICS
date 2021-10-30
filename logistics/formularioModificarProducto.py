@@ -172,7 +172,7 @@ class FormularioModificar(object):
 
         #MENSAJE DE ERROR
         self.msgError = QtWidgets.QMessageBox()
-        self.msgError.setWindowTitle("Algo Salio Mal")
+        self.msgError.setWindowTitle("Algo salio mal")
 
         #FUNCION PARA BUSCAR PRODUCTO EN LA BASE DE DATOS
         self.btnBuscar.clicked.connect(self.buscar_producto)
@@ -190,33 +190,53 @@ class FormularioModificar(object):
             self.distribuidorText.setText(resultado[5])
             self.stockTxt.setText(str(resultado[6]))
         except:
-            self.msgError.setText("El producto que tratas de buscar no existe")
+            self.msgError.setText("El producto que buscas no existe")
+            self.msgError.setIcon(QtWidgets.QMessageBox.Critical)
+            self.msgError.setDefaultButton(QtWidgets.QMessageBox.Ok)
             self.msgError.exec_()
+            self.productoTxt.clear()
+
 
         #FUNCION PARA ELIMINAR PRODUCTO
         self.eliminarBtn.clicked.connect(self.eliminar_producto)
 
     def eliminar_producto(self):
-        try:
-             self.idProducto = self.productoTxt.toPlainText()
-             helper = productHelpers.ProductHelper(self.idProducto,"","",0,0,"",0)
-             eliminar = helper.eliminar_registro()
-             self.descripcionTxt.clear()
-             self.stockTxt.clear()
-             self.productoTxt.clear()
-             self.precioVentaTxt.clear()
-             self.precioCompraTxt.clear()
-             self.nombreProductoTxt.clear()
-             self.distribuidorText.clear()
-
+        self.idProducto = self.productoTxt.toPlainText()
+        self.msgError.setText("¿Seguro que desea eliminar el producto con el ID {}?".format(self.idProducto))
+        self.msgError.setIcon(QtWidgets.QMessageBox.Warning)
+        self.msgError.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+        self.msgError.setWindowTitle("Confirmacion de Eliminacion")
+        self.msgError.exec_()
+        botonConfirmar = self.msgError.button(QtWidgets.QMessageBox.Ok)
+        if(self.msgError.clickedButton() == botonConfirmar):
+            try:
+                 helper = productHelpers.ProductHelper(self.idProducto,"","",0,0,"",0)
+                 eliminar = helper.eliminar_registro()
+                 print(type(eliminar))
+                 self.descripcionTxt.clear()
+                 self.stockTxt.clear()
+                 self.productoTxt.clear()
+                 self.precioVentaTxt.clear()
+                 self.precioCompraTxt.clear()
+                 self.nombreProductoTxt.clear()
+                 self.distribuidorText.clear()
+                 self.msgError.setText("El producto {} fue eliminado".format(self.idProducto))
+                 self.msgError.setIcon(QtWidgets.QMessageBox.Information)
+                 self.msgError.exec_()
+            except:
+                self.msgError.setText("El producto que tratas de eliminar no existe")
+                self.msgError.setIcon(QtWidgets.QMessageBox.Critical)
+                self.msgError.exec_()
             
-        except:
-            self.msgError.setText("El producto que tratas de eliminar no existe")
-            self.msgError.exec_()
-            
-    def refresh(self,component):
-        component.setText("")
+    #FUNCION PARA ACTUALIZAR UN PRODUCTO EN LA BASE DE DATOS
+        self.modificarBtn.clicked.connect(lambda: self.actualizar_producto(self.codigoProductoTxt.toPlainText(),self.productoTxt.toPlainText(),self.descripcionTxt.toPlainText(),
+        self.precioVentaTxt.toPlainText(),self.precioCompraTxt.toPlainText(),self.distribuidorCombo.currentText(),self.stockInicialTxt.toPlainText()))
 
+    def actualizar_producto(self,codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock):
+        helper = productHelpers.ProductHelper(codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock)
+        helper.actualizar_registro()
+
+        
     def retranslateUi(self, ModificarEliminarProducto):
         _translate = QtCore.QCoreApplication.translate
         ModificarEliminarProducto.setWindowTitle(_translate("ModificarEliminarProducto", "MainWindow"))

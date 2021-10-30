@@ -1,6 +1,7 @@
 import pymysql
 from conexion import DataBase
 
+
 class ProductHelper(DataBase):
     #CONSTRUCTOR, RECIBE PARAMETROS QUE SERÁN AÑADIDOS A LA TABLA
     codigoProducto = ""
@@ -33,7 +34,7 @@ class ProductHelper(DataBase):
             self.cursor.close()
 
         except pymysql.Error as err:
-            print("Algo salio mal ", format(err))
+            return format(err)
 
     #CARGAR DATOS A LA TABLA PRODUCTOS DENTRO DEL MENU INVENTARIO
     def mostrar_tabla(self):
@@ -49,7 +50,7 @@ class ProductHelper(DataBase):
             self.connection.close()
             return tabRows
         except pymysql.Error as err:
-            print("Algo Salio mal ", format(err))
+            return format(err)
         
 
     #BUSCAR DATOS PARA MODIFICAR O ELIMINAR UN REGISTRO
@@ -63,8 +64,9 @@ class ProductHelper(DataBase):
             resultadoBusqueda = self.busqueda
             return resultadoBusqueda
         except pymysql.Error as err:
-            print("Algo salio mal", format(err))
+            return format(err)
 
+    #FUNCION PARA ELIMINAR UN REGISTRO DE LA TABLA PRODUCTOS
     def eliminar_registro(self):
         sql = ("DELETE FROM productos WHERE idproducto='{}'").format(self.codigoProducto)
         try:
@@ -72,5 +74,14 @@ class ProductHelper(DataBase):
             self.connection.commit()
             self.connection.close()
         except pymysql.Error as err:
-            print("Algo salio mal", format(err))
-            
+            return format(err)
+
+    #FUNCION PARA ACTUALIZAR ALGUN PRODUCTO
+    def actualizar_registro(self):
+        sql = "UPDATE productos SET (idproducto,nombre_producto,descripcion_producto,precioventa_producto,preciocompra_producto,distribuidor_producto,stock_producto) VALUES ('{}','{}','{}','{}','{}','{}','{}') WHERE idproducto = '{}'".format(self.codigoProducto,self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor,self.stock,self.codigoProducto)        
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            self.connection.close()
+        except pymysql.Error as err:
+            print("Algo salio mal ",format(err))

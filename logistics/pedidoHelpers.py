@@ -1,7 +1,7 @@
 import pymysql
 from conexion import DataBase
 
-class VentasHelper(DataBase):
+class PedidoHelper(DataBase):
     #CONSTRUCTOR, RECIBE PARAMETROS QUE SERÁN AÑADIDOS A LA TABLA
     motivo = ""
     cantidad = 0
@@ -16,7 +16,7 @@ class VentasHelper(DataBase):
         DataBase.__init__(self)
         
 
-    #GUARDAR REPORTE DE VENTA NUEVO EN LA BASE DE DATOS
+    #INSERTAR REPORTE DE PEDIDO NUEVO EN LA TABLA REPORTES
     def insertar(self):
 
         sql = "INSERT INTO reportes(motivo_reporte,cantidad_reporte,fecha_reporte) VALUES ('{}','{}','{}')".format(self.motivo,self.cantidad,self.fecha)
@@ -28,20 +28,3 @@ class VentasHelper(DataBase):
 
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
-
-    def mostrar_tabla(self):
-        sql = "SELECT * FROM reportes"
-        try:
-            self.cursor.execute(sql)
-            self.rows = self.cursor.fetchall()
-            tabRows = []
-            for row in self.rows:
-                tabRows.append(row)
-                self.connection.commit() 
-                
-            self.connection.close()
-            return tabRows
-        except pymysql.Error as err:
-            print("Algo Salio mal ", format(err))
-        
-

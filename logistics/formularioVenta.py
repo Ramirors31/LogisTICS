@@ -9,6 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from datetime import date, datetime
+
+import ventasHelpers
+
 
 
 class FormularioVenta(object):
@@ -48,7 +52,7 @@ class FormularioVenta(object):
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.ventaTable = QtWidgets.QTableWidget(self.frame)
-        self.ventaTable.setGeometry(QtCore.QRect(120, 300, 501, 231))
+        self.ventaTable.setGeometry(QtCore.QRect(80, 300, 540, 231))
         self.ventaTable.setObjectName("ventaTable")
         self.ventaTable.setColumnCount(4)
         self.ventaTable.setRowCount(0)
@@ -73,7 +77,7 @@ class FormularioVenta(object):
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
         self.completarVentaBtn = QtWidgets.QPushButton(self.frame)
-        self.completarVentaBtn.setGeometry(QtCore.QRect(280, 700, 171, 41))
+        self.completarVentaBtn.setGeometry(QtCore.QRect(360, 650, 171, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.completarVentaBtn.setFont(font)
@@ -82,7 +86,7 @@ class FormularioVenta(object):
 "background-color: rgb(118, 136, 135);")
         self.completarVentaBtn.setObjectName("completarVentaBtn")
         self.facturaBtn = QtWidgets.QPushButton(self.frame)
-        self.facturaBtn.setGeometry(QtCore.QRect(280, 630, 171, 41))
+        self.facturaBtn.setGeometry(QtCore.QRect(160, 650, 171, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.facturaBtn.setFont(font)
@@ -95,8 +99,8 @@ class FormularioVenta(object):
         self.label.setStyleSheet("border-image: url(:/iconos/iconoVenta.png);")
         self.label.setText("")
         self.label.setObjectName("label")
-        self.regresarBtn = QtWidgets.QPushButton(self.frame)
-        self.regresarBtn.setGeometry(QtCore.QRect(30, 20, 81, 81))
+        self.regresarBtn = QtWidgets.QPushButton(self.headerFrame)
+        self.regresarBtn.setGeometry(QtCore.QRect(10, 10, 60, 60))
         self.regresarBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.regresarBtn.setStyleSheet("border-image: url(:/iconos/iconoRegresar.png);")
         self.regresarBtn.setText("")
@@ -108,11 +112,12 @@ class FormularioVenta(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.fechaTxt = QtWidgets.QLabel(self.frame)
-        self.fechaTxt.setGeometry(QtCore.QRect(590, 40, 111, 16))
-        font = QtGui.QFont()
-        font.setPointSize(10)
+        self.fechaTxt.setGeometry(QtCore.QRect(590, 43, 111, 16))
         self.fechaTxt.setFont(font)
         self.fechaTxt.setObjectName("fechaTxt")
+        #OBTENIENDO FECHA DEL SISTEMA
+        fecha = datetime.today().strftime('%d-%m-%Y')
+        self.fechaTxt.setText(fecha)
         self.productoCombo = QtWidgets.QComboBox(self.frame)
         self.productoCombo.setGeometry(QtCore.QRect(130, 170, 151, 22))
         self.productoCombo.setObjectName("productoCombo")
@@ -159,6 +164,8 @@ class FormularioVenta(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.completarVentaBtn.clicked.connect(lambda: self.registrar_venta("VENTA", self.totalVenta,self.fechaTxt.text()))
+
         #BOTON AÑADIR PRODUCTO A PEDIDO ACTUAL
         self.addVentaBtn.clicked.connect(lambda: self.addRow_venta(self.productoCombo.currentText(),30,int(self.cantidadTextEdit.toPlainText()),0))
         self.ventaTable.clearContents()
@@ -169,8 +176,7 @@ class FormularioVenta(object):
         #TOTAL DE VENTA
         self.totalVenta = 0
 
-        #BOTON PARA REGISTRAR VENTA EN BASE DE DATOS
-        self.completarVentaBtn.clicked.connect(self.registrar_venta)
+        
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -207,9 +213,16 @@ class FormularioVenta(object):
                         row += 1
             totalVenta = "$"+ str(self.totalVenta)
             self.totalVentaTxt.setText(totalVenta)
+            
 
-        #FUNCION PARA REGISTRAR VENTA EN LA BASE DE DATOS.
-    def registrar_venta(self):    
+
+
+        #BOTON PARA REGISTRAR VENTA EN BASE DE DATOS
+           
+        #FUNCION PARA REGISTRAR REPORTE DE VENTA EN LA TABLA REPORTES.
+    def registrar_venta(self, motivo, cantidad, fecha):   
+        helper =  ventasHelpers.VentasHelper(motivo,float(cantidad),fecha)
+        helper.insertar()
         self.msg = QtWidgets.QMessageBox()
         self.msg.setWindowTitle("Confirmacion Registro")
         self.msg.setText("Venta Registrada con éxito")
@@ -217,6 +230,7 @@ class FormularioVenta(object):
         self.cantidadTextEdit.setText(self.refresh) 
         self.totalVentaTxt.setText(self.refresh) 
         self.ventaTable.clearContents()
+        self.listPedido = []
         self.msg.exec_()
 
 
@@ -240,7 +254,6 @@ class FormularioVenta(object):
         self.completarVentaBtn.setText(_translate("MainWindow", "Completar Venta"))
         self.facturaBtn.setText(_translate("MainWindow", "Solicitar Factura"))
         self.label_6.setText(_translate("MainWindow", "Fecha:"))
-        self.fechaTxt.setText(_translate("MainWindow", "12/10/2021"))
         self.productoCombo.setItemText(0, _translate("MainWindow", "Camaron"))
         self.productoCombo.setItemText(1, _translate("MainWindow", "Pulpo KG"))
         self.productoCombo.setItemText(2, _translate("MainWindow", "Almeja PZ"))
