@@ -3,25 +3,29 @@ from conexion import DataBase
 
 class ProductHelper(DataBase):
     #CONSTRUCTOR, RECIBE PARAMETROS QUE SERÁN AÑADIDOS A LA TABLA
+    codigoProducto = ""
     nombre = ""
     descripcion = ""
     precioVenta = 0
     precioCompra = 0
     distribuidor = ""
+    stock = 0
 
-    def __init__(self,nombre,descripcion,precioVenta,precioCompra,distribuidor):
+    def __init__(self,codigoProducto,nombre,descripcion,precioVenta,precioCompra,distribuidor,stock):
+        self.codigoProducto = codigoProducto
         self.nombre = nombre
         self.descripcion = descripcion
         self.precioVenta = int(precioVenta)
         self.precioCompra =int (precioCompra)
         self.distribuidor = distribuidor
+        self.stock = int(stock)
 
         DataBase.__init__(self)
 
     #INSERTAR PRODUCTOS EN LA BASE DE DATOS
     def insertar(self):
 
-        sql = "INSERT INTO productos(nombre_producto,descripcion_producto,precioventa_producto,preciocompra_producto,distribuidor_producto) VALUES ('{}','{}','{}','{}','{}')".format(self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor)
+        sql = "INSERT INTO productos(idproducto,nombre_producto,descripcion_producto,precioventa_producto,preciocompra_producto,distribuidor_producto,stock_producto) VALUES ('{}','{}','{}','{}','{}','{}','{}')".format(self.codigoProducto,self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor,self.stock)
         try:
             self.cursor.execute(sql)
             print("Registro Añadido a la base de datos")
@@ -62,6 +66,13 @@ class ProductHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal", format(err))
 
-
-prueba = ProductHelper("","",0,0,"")
-prueba.buscar_registro(2)
+    def eliminar_registro(self,id):
+        self.id = id
+        sql = ("DELETE FROM productos WHERE idproducto='{}'").format(self.id)
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            self.connection.close()
+        except pymysql.Error as err:
+            print("Algo salio mal", format(err))
+            

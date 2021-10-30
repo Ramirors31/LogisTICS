@@ -80,15 +80,7 @@ class MyApp(QtWidgets.QMainWindow):
     def regresar_reportes(self):
         self.menuReportes.hide()
         self.menuInicio.show()
-    
-    #BOTON PARA MOSTRAR MENSAJE DE CONFIRMACION
-    """ def registro_completado(self):
-        self.msg = QtWidgets.QMessageBox()
-        self.msg.setWindowTitle("Confirmacion Registro")
-        self.msg.setText("El Registro se ha guardado con exito")
-        self.msg.exec_() """
 
-       
     #FUNCION PARA MOSTRAR EL MENU INVENTARIO
     def menu_inventario(self):
         self.menuInventario = QtWidgets.QMainWindow()
@@ -114,7 +106,6 @@ class MyApp(QtWidgets.QMainWindow):
     #BOTON PARA REGRESAR A MENU INVENTARIO DESDE MODIFICAR PRODUCTO
     def regresar_formularioModProducto(self):
         self.formularioModificar.close()
-
 
     #BOTOTN REGRESAR EN EL MENU INVENTARIO
     def regresar_inventario(self):
