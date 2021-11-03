@@ -9,7 +9,7 @@
 
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-import productHelpers
+from helpers import productHelpers
 
 class FormularioProducto(object):
     def setupUi(self, MainWindow):

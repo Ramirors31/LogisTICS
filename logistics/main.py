@@ -13,6 +13,7 @@ from menuDistribuidores import MenuDistribuidores
 from formularioDistribuidor import FormularioDistribuidor
 from formularioPedido import FormularioPedido
 from formularioModificarProducto import FormularioModificar
+from analisisGrafico import MenuAnalisisGrafico
 
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
@@ -59,10 +60,12 @@ class MyApp(QtWidgets.QMainWindow):
         self.btnRegresar.clicked.connect(self.regresar_reportes)
         self.btnReporteVenta = self.ui.reporteVentaBtn
         self.btnReporteVenta.clicked.connect(self.abrir_reporteVenta)
+        self.btnAnalisisGrafico = self.ui.analisisGraficoBtn
+        self.btnAnalisisGrafico.clicked.connect(self.menu_analisisGrafico)
 
     #FUNCION PARA ABRIR UN REPORTE DE VENTA DENTRO DEL MENU VENTAS
     def abrir_reporteVenta(self):
-        self.reporteVenta= QtWidgets.QMainWindow()
+        self.reporteVenta= QtWidgets.QMainWindow(self.menuReportes)
         self.ui=FormularioVenta()
         self.ui.setupUi(self.reporteVenta)
         self.reporteVenta.show()
@@ -73,13 +76,28 @@ class MyApp(QtWidgets.QMainWindow):
 
     #FUNCIONA PARA REGRESAR AL MENU REPORTES DESDE UN REPORTE DE VENTA    
     def regresar_reporteVenta(self):
-        self.reporteVenta.hide()
-        self.menuReportes.show()
+        self.reporteVenta.close()
+        self.menu_reportes()
     
     #BOTON REGRESAR EN EL MENU REPORTES
     def regresar_reportes(self):
         self.menuReportes.hide()
         self.menuInicio.show()
+
+    #BOTON PARA ABRIR EL MENU ANALISIS GRAFICO
+    def menu_analisisGrafico(self):
+        self.menuAnalisisGrafico = QtWidgets.QMainWindow()
+        self.ui = MenuAnalisisGrafico()
+        self.ui.setupUi(self.menuAnalisisGrafico)
+        self.menuAnalisisGrafico.show()
+        self.menuReportes.hide()
+        self.btnRegresar = self.ui.regresarBtn
+        self.btnRegresar.clicked.connect(self.regresar_menuReportes)
+
+    #FUNCION PARA REGRESAR AL MENU REPORTES DESDE EL MENU ANALISIS GRAFICO
+    def regresar_menuReportes(self):
+        self.menuAnalisisGrafico.hide()
+        self.menu_reportes()
 
     #FUNCION PARA MOSTRAR EL MENU INVENTARIO
     def menu_inventario(self):
@@ -100,12 +118,14 @@ class MyApp(QtWidgets.QMainWindow):
         self.formularioModificar = QtWidgets.QMainWindow()
         self.ui = FormularioModificar()
         self.ui.setupUi(self.formularioModificar)
+        self.menuInventario.hide()
         self.formularioModificar.show()
         self.ui.btnRegresar.clicked.connect(self.regresar_formularioModProducto)
 
     #BOTON PARA REGRESAR A MENU INVENTARIO DESDE MODIFICAR PRODUCTO
     def regresar_formularioModProducto(self):
         self.formularioModificar.close()
+        self.menu_inventario()
 
     #BOTOTN REGRESAR EN EL MENU INVENTARIO
     def regresar_inventario(self):
@@ -118,14 +138,14 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui = FormularioProducto()
         self.ui.setupUi(self.formularioProducto)
         self.formularioProducto.show()
-        self.menuInventario.close()
+        self.menuInventario.hide()
         self.btnRegresar = self.ui.regresarBtn
         self.btnRegresar.clicked.connect(self.regresar_formularioProducto)
 
     #FUNCION PARA REGRESAR AL MENU INVENTARIO DESDE FORMULARIO DE PRODUCTO
     def regresar_formularioProducto(self):
-        self.formularioProducto.hide()
-        self.menuInventario.show()
+        self.formularioProducto.close()
+        self.menu_inventario()
     #FUNCIONA PARA MOSTRAR EL MENU LOGISTICA Y PEDIDOS
     def menu_logistica(self):
         self.menuLogistica = QtWidgets.QMainWindow()
@@ -149,10 +169,9 @@ class MyApp(QtWidgets.QMainWindow):
 
     #BOTON PARA REGRESAR AL MENU LOGISTICA DESDE FORMULARIO PARA PEDIDO
     def regresar_pedido(self):
+        self.menu_logistica()
         self.formularioPedido.hide()
-        self.menuLogistica.show()
         
-
     #BOTON REGRESAR EN EL MENU LOGISTICA
     def regresar_logistica(self):
         self.menuLogistica.hide()

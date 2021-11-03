@@ -45,12 +45,13 @@ class ProductHelper(DataBase):
             tabRows = []
             for row in self.rows:
                 tabRows.append(row)
-                self.connection.commit() 
                 
-            self.connection.close()
+            self.connection.commit()
+            #self.connection.close()
+                
             return tabRows
         except pymysql.Error as err:
-            return format(err)
+            print("Algo salio mal:".format(err))
         
 
     #BUSCAR DATOS PARA MODIFICAR O ELIMINAR UN REGISTRO
@@ -64,7 +65,7 @@ class ProductHelper(DataBase):
             resultadoBusqueda = self.busqueda
             return resultadoBusqueda
         except pymysql.Error as err:
-            return format(err)
+            print("Algo salio mal:", format(err))
 
     #FUNCION PARA ELIMINAR UN REGISTRO DE LA TABLA PRODUCTOS
     def eliminar_registro(self):
@@ -74,8 +75,7 @@ class ProductHelper(DataBase):
             self.connection.commit()
             self.connection.close()
         except pymysql.Error as err:
-            return format(err)
-
+            print("Algo salio mal", format(err))
     #FUNCION PARA ACTUALIZAR ALGUN PRODUCTO
     def actualizar_registro(self):
         sql = "UPDATE productos SET (idproducto,nombre_producto,descripcion_producto,precioventa_producto,preciocompra_producto,distribuidor_producto,stock_producto) VALUES ('{}','{}','{}','{}','{}','{}','{}') WHERE idproducto = '{}'".format(self.codigoProducto,self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor,self.stock,self.codigoProducto)        

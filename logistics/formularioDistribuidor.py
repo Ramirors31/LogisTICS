@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import distribuidorHelpers
+from helpers import distribuidorHelpers
 
 class FormularioDistribuidor(object):
     def setupUi(self, MainWindow):

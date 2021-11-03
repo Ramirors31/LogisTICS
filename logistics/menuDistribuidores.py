@@ -9,8 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pymysql import STRING
-import distribuidorHelpers
+from helpers import distribuidorHelpers
 
 
 class MenuDistribuidores(object):

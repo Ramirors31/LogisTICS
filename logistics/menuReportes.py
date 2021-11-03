@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import ventasHelpers
+from helpers import ventasHelpers
+import pymysql
 
 
 class MenuReportes(object):
@@ -118,18 +119,22 @@ class MenuReportes(object):
         self.label_2.setText(_translate("menuReportes", "Historial Reportes"))
 
                 #MOSTRAR DATOS DE BASE DE DATOS EN TABLA
-        helper = ventasHelpers.VentasHelper("","","")
-        listaReportes = helper.mostrar_tabla()
-        self.reportesTable.clearContents()
-        row = 0
-        for reporte in listaReportes:
-                self.reportesTable.setRowCount(row + 1)
-                self.reportesTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(reporte[0])))
-                self.reportesTable.setItem(row, 1, QtWidgets.QTableWidgetItem(reporte[1]))
-                self.reportesTable.setItem(row, 2, QtWidgets.QTableWidgetItem(str(reporte[2])))
-                self.reportesTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(reporte[3])))
+        try:
+                helper = ventasHelpers.VentasHelper("","","")
+                listaReportes = helper.mostrar_tabla()
+                self.reportesTable.clearContents()
+                row = 0
+                for reporte in listaReportes:
+                        self.reportesTable.setRowCount(row + 1)
+                        self.reportesTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(reporte[0])))
+                        self.reportesTable.setItem(row, 1, QtWidgets.QTableWidgetItem(reporte[1]))
+                        self.reportesTable.setItem(row, 2, QtWidgets.QTableWidgetItem(str(reporte[2])))
+                        self.reportesTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(reporte[3])))
 
-                row += 1
+                        row += 1
+
+        except pymysql.Error as err:
+                print("Algo salio mal, revisa tu conexion",format(err))
 from iconos import iconosMenuReportes_rc
 
 

@@ -10,8 +10,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import date, datetime
+import pymysql
 
-import ventasHelpers
+from helpers import ventasHelpers
 
 
 
@@ -220,19 +221,21 @@ class FormularioVenta(object):
         #BOTON PARA REGISTRAR VENTA EN BASE DE DATOS
            
         #FUNCION PARA REGISTRAR REPORTE DE VENTA EN LA TABLA REPORTES.
-    def registrar_venta(self, motivo, cantidad, fecha):   
-        helper =  ventasHelpers.VentasHelper(motivo,float(cantidad),fecha)
-        helper.insertar()
-        self.msg = QtWidgets.QMessageBox()
-        self.msg.setWindowTitle("Confirmacion Registro")
-        self.msg.setText("Venta Registrada con éxito")
-        self.refresh = ""
-        self.cantidadTextEdit.setText(self.refresh) 
-        self.totalVentaTxt.setText(self.refresh) 
-        self.ventaTable.clearContents()
-        self.listPedido = []
-        self.msg.exec_()
-
+    def registrar_venta(self, motivo, cantidad, fecha):
+        try:   
+                helper =  ventasHelpers.VentasHelper(motivo,float(cantidad),fecha)
+                helper.insertar()
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Confirmacion Registro")
+                self.msg.setText("Venta Registrada con éxito")
+                self.cantidadTextEdit.clear()
+                self.totalVentaTxt.clear() 
+                self.ventaTable.clearContents()
+                self.listPedido = []
+                self.msg.exec_()
+        except pymysql.Error as err:
+                print("Algo salio mal:", format(err))
+        
 
 
     def retranslateUi(self, MainWindow):

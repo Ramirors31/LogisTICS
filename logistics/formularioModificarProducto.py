@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import productHelpers
+from helpers import productHelpers
 
 
 class FormularioModificar(object):
@@ -229,12 +229,12 @@ class FormularioModificar(object):
                 self.msgError.exec_()
             
     #FUNCION PARA ACTUALIZAR UN PRODUCTO EN LA BASE DE DATOS
-        self.modificarBtn.clicked.connect(lambda: self.actualizar_producto(self.codigoProductoTxt.toPlainText(),self.productoTxt.toPlainText(),self.descripcionTxt.toPlainText(),
+        self.modificarBtn.clicked.connect(lambda: self.actualizar_producto(self.productoTxt.toPlainText(),self.nombreProductoTxt.toPlainText(),self.descripcionTxt.toPlainText(),
         self.precioVentaTxt.toPlainText(),self.precioCompraTxt.toPlainText(),self.distribuidorCombo.currentText(),self.stockInicialTxt.toPlainText()))
 
     def actualizar_producto(self,codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock):
-        helper = productHelpers.ProductHelper(codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock)
-        helper.actualizar_registro()
+        actualizarHelper = productHelpers.ProductHelper(codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock)
+        actualizarHelper.actualizar_registro()
 
         
     def retranslateUi(self, ModificarEliminarProducto):
@@ -254,11 +254,11 @@ class FormularioModificar(object):
 from iconos import iconosModificarProducto_rc
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ModificarEliminarProducto = QtWidgets.QMainWindow()
     ui = FormularioModificar()
     ui.setupUi(ModificarEliminarProducto)
     ModificarEliminarProducto.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())"""

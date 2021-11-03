@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import productHelpers
+from helpers import productHelpers
 
 
 class MenuInventario(object):
@@ -113,6 +113,7 @@ class MenuInventario(object):
 
         self.retranslateUi(inventario)
         QtCore.QMetaObject.connectSlotsByName(inventario)
+        #self.cargar_tabla()
 
     def retranslateUi(self, inventario):
         _translate = QtCore.QCoreApplication.translate
@@ -138,8 +139,9 @@ class MenuInventario(object):
         self.modificarBtn.setText(_translate("inventario", "Modificar/Eliminar"))
 
         #MOSTRAR DATOS DE BASE DE DATOS EN TABLA
-        helper = productHelpers.ProductHelper("","","",0,0,"",0)
-        listaProductos = helper.mostrar_tabla()
+    #def cargar_tabla(self):
+        tablaHelper = productHelpers.ProductHelper("","","",0,0,"",0)
+        listaProductos = tablaHelper.mostrar_tabla()
         self.inventarioTable.clearContents()
         row = 0
         for distribuidor in listaProductos:

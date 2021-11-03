@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
-import pedidoHelpers
+from helpers import pedidoHelpers
 
 
 class FormularioPedido(object):
