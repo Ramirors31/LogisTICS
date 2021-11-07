@@ -100,7 +100,6 @@ class VentasHelper(DataBase):
             self.connection.commit()
             self.connection.close()
             return datosVentas
-
         except pymysql.Error as err:
             print('Algo salio mal',format(err))
 
@@ -109,8 +108,8 @@ class VentasHelper(DataBase):
         for i in range(len(self.montosDiarios)):
             ventaMensual = ventaMensual + self.montosDiarios[i]
 
-        return(ventaMensual)
-        print(ventaMensual)
+        return ventaMensual
+
 prueba = VentasHelper("VENTA",0,"")
 prueba.graficar_ventas()
 prueba.ventas_mensuales()

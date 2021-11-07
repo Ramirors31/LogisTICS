@@ -28,3 +28,66 @@ class PedidoHelper(DataBase):
 
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
+
+    #FUNCION PARA GRAFICAR PEDIDOS
+    def graficar_pedidos(self):
+        sql = "SELECT cantidad_reporte, fecha_reporte FROM reportes WHERE motivo_reporte='PEDIDO'"
+        try:
+            self.cursor.execute(sql)
+            self.data = self.cursor.fetchall()
+            #print(self.data)
+            pedidos = list(self.data)
+            datosPedidos = []
+            fechas = []
+            montos = []
+            n=0
+            for pedido in pedidos:
+                #FUNCION PARA CONVERTIR DATOS DE SQL A VALOR FLOTANTE PYTHON
+                #venta = float('.'.join(str(ele) for ele in self.data[n]))
+                pedido = list(pedidos[n])
+                fecha = pedido[1]
+                self.montosDiarios = []
+                montoDiario = 0
+                dia = fecha.split('-')
+                montos.append(pedido[0])
+                fechas.append(int(dia[0]))
+                n = n+1
+    
+            
+            print(len(fechas))
+            #print(fechas[i+1])
+            for i in range(len(fechas)):
+                #print(fechas[i])
+                if(i < len(fechas)-1):
+
+                    if (fechas[i] == fechas[i+1]):
+                        montoDiario = montoDiario + montos[i] + montos[i+1]
+                        self.montosDiarios.append(0)
+                    else:
+                        montoDiario = montoDiario + montos[i]
+                        self.montosDiarios.append(montoDiario)
+
+                else:
+                    montoDiario = montoDiario + montos[i]
+                    self.montosDiarios.append(montoDiario)
+            print(fechas)
+            print(montos)
+            print(self.montosDiarios)
+            datosPedidos.append(fechas)
+            datosPedidos.append(self.montosDiarios)
+            self.connection.commit()
+            self.connection.close()
+            return datosPedidos
+        except pymysql.Error as err:
+            print('Algo salio mal',format(err))
+
+    def pedidos_mensuales(self):
+        pedidosMensual = 0
+        for i in range(len(self.montosDiarios)):
+            pedidosMensual = pedidosMensual + self.montosDiarios[i]
+        print(pedidosMensual)
+        return pedidosMensual
+
+prueba = PedidoHelper("VENTA",0,"")
+prueba.graficar_pedidos()
+prueba.pedidos_mensuales()

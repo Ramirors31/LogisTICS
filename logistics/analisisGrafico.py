@@ -13,7 +13,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from database import prueba
-from helpers import ventasHelpers
+from helpers import ventasHelpers, pedidoHelpers
 
 #CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
 class Canvas_Graficos(FigureCanvas):
@@ -186,13 +186,24 @@ class MenuAnalisisGrafico(object):
         #GRAFICO QUE MUESTA LOS PEDIDOS MENSUALES.
         self.pedidosMensualBtn.clicked.connect(self.pedidos_grafico)
     def pedidos_grafico(self):
+        helper = pedidoHelpers.PedidoHelper("",0,"")
+        datosPedidos = helper.graficar_pedidos()
+        print(datosPedidos)
         for i in reversed(range(self.grafico.count())): 
-                self.grafico.itemAt(i).widget().setParent(None)    
+                self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30], [500,2000,1200,2300,6000,1500,2000,3200,4100,1000,1200,5400,1000,1200,3200,4000,2000,1200,800,600,400,3200,2200,1500,1400,2000,6400,1500,800,1200], label='Pedidos', color= "orange")
-        
+        sc.axes.plot(datosPedidos[0],datosPedidos[1] , label='Pedidos')
+        #self.grafico.deleteLater()
         self.grafico.addWidget(sc)
-        self.graficTitleLbl.setText("Compras Mensuales: $26345")    
+        totalPedidos = helper.pedidos_mensuales()
+        totalPedidos = str(totalPedidos)
+        totalPedidos = "Pedidos Mensuales:$" + totalPedidos
+        self.graficTitleLbl.setText(totalPedidos)  
+
+
+
+
+
         #GRAFICO QUE MUESTRA LA PREDICCION DE LAS VENTAS PARA LA SEMANA
         self.prediccionVentasBtn.clicked.connect(self.prediccionVentas_grafico)
 
