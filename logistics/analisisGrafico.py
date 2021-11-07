@@ -13,6 +13,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from database import prueba
+from helpers import ventasHelpers
 
 #CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
 class Canvas_Graficos(FigureCanvas):
@@ -166,13 +167,20 @@ class MenuAnalisisGrafico(object):
         self.ventasMensualBtn.clicked.connect(self.ventas_grafico)
 
     def ventas_grafico(self):
+        helper = ventasHelpers.VentasHelper("",0,"")
+        datosVentas = helper.graficar_ventas()
+        print(datosVentas)
         for i in reversed(range(self.grafico.count())): 
                 self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30], [1000,1500,2000,5000,4000,1200,2300,4200,4300,2300,2200,1200,4200,5400,2400,3000,1500,2400,3300,4000,300,4500,2400,1100,1300,4200,3200,2300,1100,1000], label='Ventas')
+        sc.axes.plot(datosVentas[0],datosVentas[1] , label='Ventas')
         #self.grafico.deleteLater()
         self.grafico.addWidget(sc)
-        self.graficTitleLbl.setText("Ventas Mensuales: $63216")
+        totalVentas = helper.ventas_mensuales()
+        totalVentas = str(totalVentas)
+        totalVentas = "Venta Mensual:$" + totalVentas
+        self.graficTitleLbl.setText(totalVentas)
+
         
 
         #GRAFICO QUE MUESTA LOS PEDIDOS MENSUALES.
@@ -220,16 +228,6 @@ class MenuAnalisisGrafico(object):
         self.grafico.addWidget(sc)
         self.graficTitleLbl.setText("Ventas semanales estimadas: $25212")
 
-
-
-
-            
-
-        
-        
-        
-        
-        
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
