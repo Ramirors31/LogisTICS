@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtRemoveInputHook
 import pymysql
 from conexion import DataBase
 
@@ -85,3 +86,33 @@ class ProductHelper(DataBase):
             self.connection.close()
         except pymysql.Error as err:
             print("Algo salio mal ",format(err))
+
+    #FUNCION PARA GRAFICAR PRODUCTOS EN EL INVENTARIO
+    def graficar_productos(self):
+        sql = "SELECT nombre_producto, stock_producto FROM productos"
+        productos = []
+        stock = []
+        datosInventario = []
+        try:
+            self.cursor.execute(sql)
+            self.data = self.cursor.fetchall()
+            print(self.data[1])
+            for i in range(len(self.data)):
+                item = list(self.data[i])
+                productos.append(item[0])
+                stock.append(item[1])
+                #print(item)
+
+            datosInventario.append(productos)
+            datosInventario.append(stock)
+
+            self.connection.commit()
+            self.connection.close()
+            return datosInventario
+
+
+        except pymysql.Error as err:
+            print("Algo salio mal: ", format(err))
+
+ejemplo = ProductHelper("","","",0,0,"",0)
+ejemplo.graficar_productos()

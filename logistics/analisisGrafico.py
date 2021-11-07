@@ -13,7 +13,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from database import prueba
-from helpers import ventasHelpers, pedidoHelpers
+from helpers import ventasHelpers, pedidoHelpers, productHelpers
 
 #CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
 class Canvas_Graficos(FigureCanvas):
@@ -222,8 +222,13 @@ class MenuAnalisisGrafico(object):
     def condicionInventario_grafico(self):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
+        
+        inventarioHelper = productHelpers.ProductHelper("","","",0,0,"",0)
+        datosInventario = inventarioHelper.graficar_productos()
+        print(datosInventario)
+
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.bar(["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"],[10,20,30,22,10,8])
+        sc.axes.bar(datosInventario[0],datosInventario[1])
         self.grafico.addWidget(sc)
         self.graficTitleLbl.setText("Estado Actual del Inventario")
 
