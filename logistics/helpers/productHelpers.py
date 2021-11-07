@@ -96,7 +96,7 @@ class ProductHelper(DataBase):
         try:
             self.cursor.execute(sql)
             self.data = self.cursor.fetchall()
-            print(self.data[1])
+
             for i in range(len(self.data)):
                 item = list(self.data[i])
                 productos.append(item[0])

@@ -68,15 +68,8 @@ class VentasHelper(DataBase):
                 montos.append(venta[0])
                 fechas.append(int(dia[0]))
                 n = n+1
-            #print(len(fechas))
-            #
-            if(fechas[2] == fechas[15]):
-                print("Misma Fecha")
 
-            else:
-                print("Fechas Distintas")
 
-            print(len(fechas))
             #print(fechas[i+1])
             for i in range(len(fechas)):
                 #print(fechas[i])
@@ -92,9 +85,7 @@ class VentasHelper(DataBase):
                 else:
                     montoDiario = montoDiario + montos[i]
                     self.montosDiarios.append(montoDiario)
-            print(fechas)
-            print(montos)
-            print(self.montosDiarios)
+
             datosVentas.append(fechas)
             datosVentas.append(self.montosDiarios)
             self.connection.commit()

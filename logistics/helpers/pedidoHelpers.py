@@ -54,8 +54,7 @@ class PedidoHelper(DataBase):
                 n = n+1
     
             
-            print(len(fechas))
-            #print(fechas[i+1])
+
             for i in range(len(fechas)):
                 #print(fechas[i])
                 if(i < len(fechas)-1):
@@ -70,9 +69,6 @@ class PedidoHelper(DataBase):
                 else:
                     montoDiario = montoDiario + montos[i]
                     self.montosDiarios.append(montoDiario)
-            print(fechas)
-            print(montos)
-            print(self.montosDiarios)
             datosPedidos.append(fechas)
             datosPedidos.append(self.montosDiarios)
             self.connection.commit()
@@ -85,7 +81,6 @@ class PedidoHelper(DataBase):
         pedidosMensual = 0
         for i in range(len(self.montosDiarios)):
             pedidosMensual = pedidosMensual + self.montosDiarios[i]
-        print(pedidosMensual)
         return pedidosMensual
 
 prueba = PedidoHelper("VENTA",0,"")
