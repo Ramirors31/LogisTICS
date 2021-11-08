@@ -13,7 +13,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from database import prueba
-from helpers import ventasHelpers, pedidoHelpers, productHelpers
+from helpers import ventasHelpers, pedidoHelpers, productHelpers, prediccionVentas
 
 #CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
 class Canvas_Graficos(FigureCanvas):
@@ -208,11 +208,6 @@ class MenuAnalisisGrafico(object):
 
 
 
-
-
-        #GRAFICO QUE MUESTRA LA PREDICCION DE LAS VENTAS PARA LA SEMANA
-        self.prediccionVentasBtn.clicked.connect(self.prediccionVentas_grafico)
-
                 #GRAFICO QUE MUESTRA LA UTILIDAD DE LOS PRODUCTOS
         self.utilidadBtn.clicked.connect(self.utilidad_grafico)
     def utilidad_grafico(self):
@@ -244,11 +239,15 @@ class MenuAnalisisGrafico(object):
     def prediccionVentas_grafico(self):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
+        helperPrediccion = prediccionVentas.RegresionVentas()
+        datos = helperPrediccion.prediccion_semanal(8,15)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.pie(labels=["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"], x=[10,20,30,22,10,8],autopct="%0.1f%%")
+        sc.axes.plot(datos[2],datos[1])
+        #sc.axes.pie(labels=["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"], x=[10,20,30,22,10,8],autopct="%0.1f%%")
         #self.grafico = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        prediccionSemanal = "Ventas Semanales Estimadas:$" + str(datos[0])
         self.grafico.addWidget(sc)
-        self.graficTitleLbl.setText("Ventas semanales estimadas: $25212")
+        self.graficTitleLbl.setText(prediccionSemanal)
 
 
     def retranslateUi(self, MainWindow):

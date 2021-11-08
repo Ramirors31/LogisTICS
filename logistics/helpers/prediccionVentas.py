@@ -8,24 +8,62 @@ plt.style.use('ggplot')
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 
-current_dir = os.path.dirname(os.path.realpath(__file__)) 
-filename = os.path.join(current_dir, "ventas_octubre.csv")
-datos = pd.read_csv(filename, header=0)
-#datos.drop(['Dia', 'Total Venta'], 1).hist()
-dia = datos["Dia"].values
-venta = datos["Total Venta"]
+class RegresionVentas:
+    def __init__(self):
+        current_dir = os.path.dirname(os.path.realpath(__file__)) 
+        filename = os.path.join(current_dir, "ventas_octubre.csv")
+        datos = pd.read_csv(filename, header=0)
+        #GUARDAMOS EN LISTAS LOS DATOS DE NUESTRO CSV
+        self.dia = datos["Dia"].values
+        self.venta = datos["Total Venta"]
 
+        #PREPARAMOS LOS DATOS PARA ENTRENAR NUESTRA RED NEURONAL
+        self.x_train = np.array(self.dia).reshape(-1,1)
+        self.y_train = self.venta
+        
+        #APLICAMOS LA REGRESION LINEAR A NUESTROS DATOS
+        self.regr = linear_model.LinearRegression()
+        self.regr.fit(self.x_train, self.y_train)
+        
+        #OBTENEMOS LOS VALORES DE PREDICCION DE NUESTRO SET DE DATOS
+        self.y_pred = self.regr.predict(self.x_train)
 
-X_train = np.array(dia).reshape(-1,1)
-y_train = venta
+    #FUNCION PARA GRAFICAR LOS RESULTADOS DE NUESTRA REGRESION
+    def regresion_graficar(self):
+        plt.plot(self.x_train,self.y_pred)
+        plt.scatter(self.dia,self.venta)
+        plt.show()
+    
+    #FUNCION PARA PREDECIR LAS VENTAS UN DETERMINADO DIA DEL MES
+    def prediccion_diaria(self, dia):
+        ventasDelDia = self.regr.predict([[dia]])
+        return ventasDelDia
 
-regr = linear_model.LinearRegression()
-regr.fit(X_train, y_train)
-y_pred = regr.predict(X_train)
+    def prediccion_semanal(self,diaInicio,diaFin):
+        totalSemanal = 0
+        ventasDiarias = []
+        diaDelMes = []
+        for i in range(diaInicio,diaFin):
+            prediccion = self.prediccion_diaria(i)
+            convertedArray = float(prediccion)
+            ventasDiarias.append(round(convertedArray,2))
+            diaDelMes.append(i)
+            totalSemanal = totalSemanal + convertedArray
+            
+        datos = []
+        datos.append(round(totalSemanal,2))
+        datos.append(ventasDiarias)
+        datos.append(diaDelMes)
+        print(datos)
+        return datos
+            
+            
 
-plt.plot(X_train,y_pred)
+ejemplo = RegresionVentas()
+ejemplo.prediccion_semanal(1,8)
+
  
-# Veamos los coeficienetes obtenidos, En nuestro caso, serán la Tangente
+        # Veamos los coeficienetes obtenidos, En nuestro caso, serán la Tangente
 """print('Coefficients: \n', regr.coef_)
 # Este es el valor donde corta el eje Y (en X=0)
 print('Independent term: \n', regr.intercept_)
@@ -33,9 +71,7 @@ print('Independent term: \n', regr.intercept_)
 print("Mean squared error: %.2f" % mean_squared_error(y_train, y_pred))
 # Puntaje de Varianza. El mejor puntaje es un 1.0
 print('Variance score: %.2f' % r2_score(y_train, y_pred))"""
-y_Dosmil = regr.predict([[19]])
-print(int(y_Dosmil))
 
-plt.scatter(dia,venta)
-plt.show()
+
+        
 
