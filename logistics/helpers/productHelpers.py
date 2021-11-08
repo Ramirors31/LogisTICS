@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtRemoveInputHook
 import pymysql
+from pymysql import cursors
 from conexion import DataBase
 
 
@@ -48,7 +49,8 @@ class ProductHelper(DataBase):
                 tabRows.append(row)
                 
             self.connection.commit()
-            #self.connection.close()
+            self.connection.close()
+            print(tabRows)
                 
             return tabRows
         except pymysql.Error as err:
@@ -114,5 +116,25 @@ class ProductHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal: ", format(err))
 
+
+    #FUNCION PARA CARGAR PRODUCTOS EN COMBO BOX
+    def cargar_combobox(self):
+        sql = "SELECT nombre_producto FROM productos"
+        try:
+            self.cursor.execute(sql)
+            self.productos = self.cursor.fetchall()
+            listaProductos = []
+            for producto in self.productos:
+                listaProductos.append(producto[0])
+
+            self.connection.commit()
+            self.connection.close()
+            
+            return listaProductos
+
+        except pymysql.Error as err:
+            print("Algo salio mal", format(err))
+
+
 ejemplo = ProductHelper("","","",0,0,"",0)
-ejemplo.graficar_productos()
+print(ejemplo.cargar_combobox())

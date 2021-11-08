@@ -1,3 +1,4 @@
+from matplotlib.pyplot import connect
 import pymysql
 from conexion import DataBase
 
@@ -44,5 +45,25 @@ class DistribuidorHelper(DataBase):
             return tabRows
         except pymysql.Error as err:
             print("Algo Salio mal ", format(err))
-        
 
+    #FUNCION PARA CARGAR DISTRIBUIDORES EN FORMULARIO DE VENTA
+    def cargar_distribuidores(self):
+        sql = "SELECT nombre_distribuidor FROM distribuidores"
+        try:
+            self.cursor.execute(sql)
+            self.distribuidores = self.cursor.fetchall()
+            listaDistribuidores = []
+            for distribuidor in self.distribuidores:
+                listaDistribuidores.append(distribuidor[0])
+
+            self.connection.commit()
+            self.connection.close()
+            
+            return listaDistribuidores
+
+        except pymysql.Error as err:
+            print("Algo salio mal", format(err))
+
+        
+ejemplo = DistribuidorHelper("","","","")
+print(ejemplo.cargar_distribuidores())

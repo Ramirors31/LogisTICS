@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
-from helpers import pedidoHelpers
+from helpers import pedidoHelpers,distribuidorHelpers, productHelpers
 
 
 class FormularioPedido(object):
@@ -58,14 +58,20 @@ class FormularioPedido(object):
         font.setPointSize(12)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
+        
+
+        #OBTENIENDO PRODUCTOS DE LA BASE DE DATOS      
         self.productoComboBox = QtWidgets.QComboBox(self.frame)
         self.productoComboBox.setGeometry(QtCore.QRect(590, 230, 131, 22))
-        self.productoComboBox.setObjectName("productoComboBox")
-        self.productoComboBox.addItem("")
-        self.productoComboBox.addItem("")
-        self.productoComboBox.addItem("")
-        self.productoComboBox.addItem("")
-        self.productoComboBox.addItem("")
+
+        helperProductos = productHelpers.ProductHelper("","","",0,0,"",0)
+        valores = helperProductos.cargar_combobox()
+        productos = []
+        for i in range(len(valores)):
+                producto = valores[i]
+                self.productoComboBox.addItem(producto)
+
+        
         self.label_9 = QtWidgets.QLabel(self.frame)
         self.label_9.setGeometry(QtCore.QRect(20, 300, 91, 21))
         font = QtGui.QFont()
@@ -131,12 +137,23 @@ class FormularioPedido(object):
         font.setPointSize(12)
         self.label_12.setFont(font)
         self.label_12.setObjectName("label_12")
-        self.productoComboBox_3 = QtWidgets.QComboBox(self.frame)
-        self.productoComboBox_3.setGeometry(QtCore.QRect(160, 230, 151, 22))
-        self.productoComboBox_3.setObjectName("productoComboBox_3")
-        self.productoComboBox_3.addItem("")
-        self.productoComboBox_3.addItem("")
-        self.productoComboBox_3.addItem("")
+
+        self.distribudorCombo = QtWidgets.QComboBox(self.frame)
+        self.distribudorCombo.setGeometry(QtCore.QRect(160, 230, 180, 30))
+        self.distribudorCombo.setObjectName("distribuidorCombo")
+
+        #AÑADIR ELEMENTOS AL COMBO BOX  
+        helperDistribuidor = distribuidorHelpers.DistribuidorHelper("","","","")
+        valores = helperDistribuidor.cargar_distribuidores()
+        distribuidores = []
+        for i in range(len(valores)):
+                distribuidor = valores[i]
+                self.distribudorCombo.addItem(distribuidor)
+
+        
+        #CARGANDO LISTA DE PRODUCTOS DE LA BASE DE DATOS
+        
+
         self.btnRegresar = QtWidgets.QPushButton(self.frame)
         self.btnRegresar.setGeometry(QtCore.QRect(50, 30, 71, 71))
         self.btnRegresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -203,11 +220,6 @@ class FormularioPedido(object):
         self.label_3.setText(_translate("FormularioPedido", "Reporte Pedido"))
         self.label_6.setText(_translate("FormularioPedido", "Fecha:"))
         self.label_8.setText(_translate("FormularioPedido", "Producto:"))
-        self.productoComboBox.setItemText(0, _translate("FormularioPedido", "Camarón(KG)"))
-        self.productoComboBox.setItemText(1, _translate("FormularioPedido", "Pulpo(KG)"))
-        self.productoComboBox.setItemText(2, _translate("FormularioPedido", "Almejas(PZ)"))
-        self.productoComboBox.setItemText(3, _translate("FormularioPedido", "Pescado(KG)"))
-        self.productoComboBox.setItemText(4, _translate("FormularioPedido", "Filete Pescado(KG)"))
         self.label_9.setText(_translate("FormularioPedido", "Cantidad:"))
         item = self.pedidoTable.horizontalHeaderItem(0)
         item.setText(_translate("FormularioPedido", "Producto"))
@@ -225,9 +237,6 @@ class FormularioPedido(object):
         self.formaPagoCombo.setItemText(2, _translate("FormularioPedido", "Transferencia Bancaria"))
         self.registrarPedidoBtn.setText(_translate("FormularioPedido", "Registrar Pedido"))
         self.label_12.setText(_translate("FormularioPedido", "Distribuidor:"))
-        self.productoComboBox_3.setItemText(0, _translate("FormularioPedido", "Congeladora Mazatlan"))
-        self.productoComboBox_3.setItemText(1, _translate("FormularioPedido", "Mariscos Monterrey"))
-        self.productoComboBox_3.setItemText(2, _translate("FormularioPedido", "Pescadería López"))
         self.totalTxt.setText(_translate("FormularioPedido", "$200"))
         self.eliminarPedidoBtn.setText(_translate("FormularioPedido", "Eliminar"))
         

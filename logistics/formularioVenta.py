@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import date, datetime
 import pymysql
 
-from helpers import ventasHelpers
+from helpers import ventasHelpers, distribuidorHelpers
 
 
 
@@ -122,10 +122,15 @@ class FormularioVenta(object):
         self.productoCombo = QtWidgets.QComboBox(self.frame)
         self.productoCombo.setGeometry(QtCore.QRect(130, 170, 151, 22))
         self.productoCombo.setObjectName("productoCombo")
-        self.productoCombo.addItem("")
-        self.productoCombo.addItem("")
-        self.productoCombo.addItem("")
-        self.productoCombo.addItem("")
+
+
+        #AÑADIR ELEMENTOS AL COMBO BOX  
+        helperDistribuidor = distribuidorHelpers.DistribuidorHelper("","","","")
+        valores = helperDistribuidor.cargar_distribuidores()
+        for i in range(len(valores)):
+                self.productoCombo.addItem(str(valores[i]))
+
+
         self.cantidadTextEdit = QtWidgets.QTextEdit(self.frame)
         self.cantidadTextEdit.setGeometry(QtCore.QRect(500, 170, 141, 31))
         self.cantidadTextEdit.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
@@ -257,10 +262,10 @@ class FormularioVenta(object):
         self.completarVentaBtn.setText(_translate("MainWindow", "Completar Venta"))
         self.facturaBtn.setText(_translate("MainWindow", "Solicitar Factura"))
         self.label_6.setText(_translate("MainWindow", "Fecha:"))
-        self.productoCombo.setItemText(0, _translate("MainWindow", "Camaron"))
+        """self.productoCombo.setItemText(0, _translate("MainWindow", "Camaron"))
         self.productoCombo.setItemText(1, _translate("MainWindow", "Pulpo KG"))
         self.productoCombo.setItemText(2, _translate("MainWindow", "Almeja PZ"))
-        self.productoCombo.setItemText(3, _translate("MainWindow", "Atun Medallon PZ"))
+        self.productoCombo.setItemText(3, _translate("MainWindow", "Atun Medallon PZ"))"""
         self.addVentaBtn.setText(_translate("MainWindow", "Añadir "))
         self.eliminarVentaBtn.setText(_translate("MainWindow", "Eliminar"))
         self.formaPagoCombo.setItemText(0, _translate("MainWindow", "Efectivo"))

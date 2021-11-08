@@ -9,7 +9,7 @@ class DataBase:
             db='logisticsdb'
         )
         try:
-            self.cursor =self.connection.cursor()
+            self.cursor = self.connection.cursor()
             print("Conexion establecida exitosamente")
 
         except pymysql.Error as err:

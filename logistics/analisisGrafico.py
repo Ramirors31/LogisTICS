@@ -18,16 +18,8 @@ from helpers import ventasHelpers, pedidoHelpers, productHelpers, prediccionVent
 #CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
 class Canvas_Graficos(FigureCanvas):
         def __init__(self, parent = None):
-                self.fig, self.ax = plt.subplots(1,dpi = 100, figsize=(5,5),sharey=True, facecolor= 'white')
+                self.fig, self.ax = plt.subplots(1,dpi = 100, figsize=(6,6),sharey=True, facecolor= 'white')
                 super().__init__(self.fig)
-
-                nombres = ['15','25','30','35','40']
-                colores = ['red','red','red','red','red']
-                tamaño = [10,15,20,25,30]
-                
-                self.ax.bar(nombres,tamaño,color=colores)
-                self.fig.suptitle('Grafica de barras',  size = 9)
-
 
 class MenuAnalisisGrafico(object):
     def setupUi(self, MainWindow):
@@ -59,14 +51,14 @@ class MenuAnalisisGrafico(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.frame)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 60, 821, 561))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 960, 561))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.grafico = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.grafico.setGeometry(QtCore.QRect(20,60,831,561))
+        self.grafico.setGeometry(QtCore.QRect(0,60,960,561))
         self.grafico.setContentsMargins(0, 0, 0, 0)
         self.grafico.setObjectName("grafico")
         self.ventasGastosBtn = QtWidgets.QPushButton(self.frame)
-        self.ventasGastosBtn.setGeometry(QtCore.QRect(860, 60, 251, 61))
+        self.ventasGastosBtn.setGeometry(QtCore.QRect(890, 60, 251, 61))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
@@ -77,7 +69,7 @@ class MenuAnalisisGrafico(object):
 "border-radius:20px")
         self.ventasGastosBtn.setObjectName("ventasGastosBtn")
         self.ventasMensualBtn = QtWidgets.QPushButton(self.frame)
-        self.ventasMensualBtn.setGeometry(QtCore.QRect(860, 150, 251, 61))
+        self.ventasMensualBtn.setGeometry(QtCore.QRect(890, 150, 251, 61))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
@@ -88,7 +80,7 @@ class MenuAnalisisGrafico(object):
 "border-radius:20px")
         self.ventasMensualBtn.setObjectName("ventasMensualBtn")
         self.pedidosMensualBtn = QtWidgets.QPushButton(self.frame)
-        self.pedidosMensualBtn.setGeometry(QtCore.QRect(860, 240, 251, 61))
+        self.pedidosMensualBtn.setGeometry(QtCore.QRect(890, 240, 251, 61))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
@@ -99,7 +91,7 @@ class MenuAnalisisGrafico(object):
 "border-radius:20px")
         self.pedidosMensualBtn.setObjectName("pedidosMensualBtn")
         self.utilidadBtn = QtWidgets.QPushButton(self.frame)
-        self.utilidadBtn.setGeometry(QtCore.QRect(860, 330, 251, 61))
+        self.utilidadBtn.setGeometry(QtCore.QRect(890, 330, 251, 61))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
@@ -110,7 +102,7 @@ class MenuAnalisisGrafico(object):
 "border-radius:20px")
         self.utilidadBtn.setObjectName("utilidadBtn")
         self.condicionInventarioBtn = QtWidgets.QPushButton(self.frame)
-        self.condicionInventarioBtn.setGeometry(QtCore.QRect(860, 420, 251, 61))
+        self.condicionInventarioBtn.setGeometry(QtCore.QRect(890, 420, 251, 61))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
@@ -121,7 +113,7 @@ class MenuAnalisisGrafico(object):
 "border-radius:20px")
         self.condicionInventarioBtn.setObjectName("condicionInventarioBtn")
         self.prediccionVentasBtn = QtWidgets.QPushButton(self.frame)
-        self.prediccionVentasBtn.setGeometry(QtCore.QRect(860, 520, 251, 61))
+        self.prediccionVentasBtn.setGeometry(QtCore.QRect(890, 520, 251, 61))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
@@ -131,13 +123,10 @@ class MenuAnalisisGrafico(object):
 "color: rgb(255, 244, 246);\n"
 "border-radius:20px")
         self.prediccionVentasBtn.setObjectName("prediccionVentasBtn")
-        self.graficTitleLbl = QtWidgets.QLabel(self.frame)
-        self.graficTitleLbl.setGeometry(QtCore.QRect(30, 15, 500, 31))
+        
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
-        self.graficTitleLbl.setFont(font)
-        self.graficTitleLbl.setObjectName("graficTitleLbl")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -159,8 +148,12 @@ class MenuAnalisisGrafico(object):
         datosCompras = comprasHelper.graficar_pedidos()
         datosVentas = helperVentas.graficar_ventas()
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datosVentas[0], datosVentas[1])
-        sc.axes.plot(datosCompras[0],datosCompras[1])
+        sc.axes.plot(datosVentas[0], datosVentas[1], marker = "o", label = "Ventas")
+        sc.axes.plot(datosCompras[0],datosCompras[1], marker = "o", label = "Compras")
+        sc.axes.set_ylabel("$")
+        sc.axes.set_xlabel("Dia del Mes")
+        sc.axes.set_title("Relacion Compras - Ventas mensuales")
+        sc.axes.legend(loc = 'upper left')
         self.grafico.addWidget(sc)
 
         print(datosVentas[0])
@@ -179,13 +172,17 @@ class MenuAnalisisGrafico(object):
         for i in reversed(range(self.grafico.count())): 
                 self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datosVentas[0],datosVentas[1] , label='Ventas')
-        #self.grafico.deleteLater()
+        sc.axes.plot(datosVentas[0],datosVentas[1] , label="Ventas", marker = "o", color = "red")
+        sc.axes.legend(loc = 'upper left')
+        sc.axes.set_ylabel("$")
+        sc.axes.set_xlabel("Dia del Mes")
+        sc.axes.set_title("Ventas Mensuales")
+
         self.grafico.addWidget(sc)
         totalVentas = helper.ventas_mensuales()
         totalVentas = str(totalVentas)
         totalVentas = "Venta Mensual:$" + totalVentas
-        self.graficTitleLbl.setText(totalVentas)
+        
 
         
 
@@ -198,13 +195,16 @@ class MenuAnalisisGrafico(object):
         for i in reversed(range(self.grafico.count())): 
                 self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datosPedidos[0],datosPedidos[1] , label='Pedidos', color = "orange")
-        #self.grafico.deleteLater()
+        sc.axes.plot(datosPedidos[0],datosPedidos[1] , label='Pedidos', marker = "o")
+        sc.axes.legend(loc = "upper left")
+        sc.axes.set_ylabel("$")
+        sc.axes.set_xlabel("Dia del Mes")
+        sc.axes.set_title("Pedidos Mensuales")
+
         self.grafico.addWidget(sc)
         totalPedidos = helper.pedidos_mensuales()
         totalPedidos = str(totalPedidos)
-        totalPedidos = "Pedidos Mensuales:$" + totalPedidos
-        self.graficTitleLbl.setText(totalPedidos)  
+        
 
 
 
@@ -215,8 +215,9 @@ class MenuAnalisisGrafico(object):
              self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
         sc.axes.bar(["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"],[30,70,40,65,70,80],color="orange")
+        sc.axes.set_title("Utilidad Productos")
         self.grafico.addWidget(sc)
-        self.graficTitleLbl.setText("Porcentaje de Utilidad por producto en Inventario")
+        
 
         #GRAFICO QUE MUESTRA LA CONDICION DEL INVENTARIO
         self.condicionInventarioBtn.clicked.connect(self.condicionInventario_grafico)
@@ -229,9 +230,10 @@ class MenuAnalisisGrafico(object):
         print(datosInventario)
 
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.bar(datosInventario[0],datosInventario[1])
+        sc.axes.barh(datosInventario[0],datosInventario[1])
+        sc.axes.set_title("Condicion Inventario")
         self.grafico.addWidget(sc)
-        self.graficTitleLbl.setText("Estado Actual del Inventario")
+     
 
         #GRAFICO QUE MUESTRA LAS PREDICCIONES DE VENTA SEMANALES
         self.prediccionVentasBtn.clicked.connect(self.prediccionVentas_grafico)
@@ -241,13 +243,15 @@ class MenuAnalisisGrafico(object):
              self.grafico.itemAt(i).widget().setParent(None)
         helperPrediccion = prediccionVentas.RegresionVentas()
         datos = helperPrediccion.prediccion_semanal(8,15)
+        prediccionSemanal = "Ventas Estimadas:$" + str(datos[0])
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datos[2],datos[1])
-        #sc.axes.pie(labels=["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"], x=[10,20,30,22,10,8],autopct="%0.1f%%")
-        #self.grafico = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        prediccionSemanal = "Ventas Semanales Estimadas:$" + str(datos[0])
+        sc.axes.plot(datos[2],datos[1], marker = "o")
+        sc.axes.set_title("Prediccion Ventas Semanales")
+        sc.axes.set_ylabel("$")
+        sc.axes.set_xlabel("Dia del Mes")
+        sc.axes.text(11,4720,prediccionSemanal)
         self.grafico.addWidget(sc)
-        self.graficTitleLbl.setText(prediccionSemanal)
+        
 
 
     def retranslateUi(self, MainWindow):
@@ -260,7 +264,7 @@ class MenuAnalisisGrafico(object):
         self.utilidadBtn.setText(_translate("MainWindow", "Utilidad Productos"))
         self.condicionInventarioBtn.setText(_translate("MainWindow", "Condicion Inventario"))
         self.prediccionVentasBtn.setText(_translate("MainWindow", "Prediccion Ventas"))
-        self.graficTitleLbl.setText(_translate("MainWindow", "Relacion Ventas-Gastos"))
+  
 from iconos import iconosAnalisisGrafico_rc
 
 if __name__ == "__main__":

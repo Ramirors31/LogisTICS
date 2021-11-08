@@ -62,6 +62,7 @@ class RegresionVentas:
 ejemplo = RegresionVentas()
 ejemplo.prediccion_semanal(1,8)
 
+
  
         # Veamos los coeficienetes obtenidos, En nuestro caso, serán la Tangente
 """print('Coefficients: \n', regr.coef_)

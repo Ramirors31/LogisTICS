@@ -69,10 +69,8 @@ class VentasHelper(DataBase):
                 fechas.append(int(dia[0]))
                 n = n+1
 
-
-            #print(fechas[i+1])
             for i in range(len(fechas)):
-                #print(fechas[i])
+              
                 if(i < len(fechas)-1):
 
                     if (fechas[i] == fechas[i+1]):
