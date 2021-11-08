@@ -147,10 +147,7 @@ class MenuAnalisisGrafico(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         #CODIGO PAR INICIAR LA GRAFICA
-        """sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30], [1000,1500,2000,5000,4000,1200,2300,4200,4300,2300,2200,1200,4200,5400,2400,3000,1500,2400,3300,4000,300,4500,2400,1100,1300,4200,3200,2300,1100,1000], label='Ventas')
-        sc.axes.plot([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30], [500,2000,1200,2300,6000,1500,2000,3200,4100,1000,1200,5400,1000,1200,3200,4000,2000,1200,800,600,400,3200,2200,1500,1400,2000,6400,1500,800,1200], label='Pedidos')
-        self.grafico.addWidget(sc)"""
+        
 
         #GRAFICO QUE MUESTRA LA RELACION COMPRAS VENTAS
         self.ventasGastosBtn.clicked.connect(self.comprasVentas_grafico)
@@ -201,7 +198,7 @@ class MenuAnalisisGrafico(object):
         for i in reversed(range(self.grafico.count())): 
                 self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datosPedidos[0],datosPedidos[1] , label='Pedidos')
+        sc.axes.plot(datosPedidos[0],datosPedidos[1] , label='Pedidos', color = "orange")
         #self.grafico.deleteLater()
         self.grafico.addWidget(sc)
         totalPedidos = helper.pedidos_mensuales()
