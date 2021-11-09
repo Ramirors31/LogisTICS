@@ -24,7 +24,7 @@ class PedidoHelper(DataBase):
             self.cursor.execute(sql)
             print("Registro Añadido a la base de datos")
             self.connection.commit()
-            self.cursor.close()
+            #self.cursor.close()
 
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
@@ -82,6 +82,28 @@ class PedidoHelper(DataBase):
         for i in range(len(self.montosDiarios)):
             pedidosMensual = pedidosMensual + self.montosDiarios[i]
         return pedidosMensual
+
+    #FUNCION PARA INSERTAR LOS DETALLES DE UN PEDIDO.
+
+    def registrar_detalles(self,listaPedido,distribuidor):
+        try:
+            self.cursor.execute("SELECT * FROM reportes ORDER BY idreporte DESC")
+            self.idPedido = self.cursor.fetchone()
+            print(listaPedido)
+            for producto in listaPedido:
+                self.producto = producto[0]
+                self.cantidadProducto = producto[2]
+                self.subtotal = producto[3]
+                sql = "INSERT INTO detalles_pedido(id_reporte,producto_pedido,cantidad_pedido,subtotal_pedido,distribuidor_pedido,fecha_pedido) VALUES ('{}','{}','{}','{}','{}','{}')".format(self.idPedido[0],self.producto,self.cantidadProducto,self.subtotal,distribuidor,self.fecha)
+                self.cursor.execute(sql)
+                print("Insertados en detalle pedido")
+
+            self.connection.commit()
+            self.connection.close()
+
+        
+        except pymysql.Error as err:
+            print("Algo salio mal ", format(err))
 
 prueba = PedidoHelper("VENTA",0,"")
 prueba.graficar_pedidos()

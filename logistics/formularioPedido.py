@@ -60,7 +60,7 @@ class FormularioPedido(object):
         self.label_8.setObjectName("label_8")
         
 
-        #OBTENIENDO PRODUCTOS DE LA BASE DE DATOS      
+        #OBTENIENDO PRODUCTOS DE LA BASE DE DATOS PARA COMBOBOX     
         self.productoComboBox = QtWidgets.QComboBox(self.frame)
         self.productoComboBox.setGeometry(QtCore.QRect(590, 230, 131, 22))
 
@@ -212,6 +212,9 @@ class FormularioPedido(object):
             self.totalTxt.clear()
             self.cantidadTextEdit.clear()
             self.pedidoTable.clearContents()
+            distribuidor = self.distribudorCombo.currentText()
+            helper.registrar_detalles(self.listPedido, distribuidor)
+
             self.listPedido = []
 
     def retranslateUi(self, FormularioPedido):

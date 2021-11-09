@@ -33,6 +33,8 @@ class VentasHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
 
+
+    #FUNCION PARA REGISTRAR LOS DETALLES DE UNA VENTA
     def registrar_detalles(self,listaVenta):
         try:
             self.cursor.execute("SELECT * FROM reportes ORDER BY idreporte DESC")
@@ -52,10 +54,6 @@ class VentasHelper(DataBase):
         
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
-
-
-        
-        #self.cursor.execute()
         
 
     def mostrar_tabla(self):
