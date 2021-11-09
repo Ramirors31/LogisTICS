@@ -25,10 +25,38 @@ class VentasHelper(DataBase):
             self.cursor.execute(sql)
             print("Registro Añadido a la base de datos")
             self.connection.commit()
-            self.cursor.close()
+            
+            #print(self.idVenta[0])
+            #self.cursor.close()
+
 
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
+
+    def registrar_detalles(self,listaVenta):
+        try:
+            self.cursor.execute("SELECT * FROM reportes ORDER BY idreporte DESC")
+            self.idVenta = self.cursor.fetchone()
+            print(listaVenta)
+            for producto in listaVenta:
+                self.producto = producto[0]
+                self.cantidadProducto = producto[2]
+                self.subtotal = producto[3]
+                sql = "INSERT INTO detalles_venta(id_venta,producto_venta,cantidad_venta,subtotal_venta,fecha_venta) VALUES ('{}','{}','{}','{}','{}')".format(self.idVenta[0],self.producto,self.cantidadProducto,self.subtotal,self.fecha)
+                self.cursor.execute(sql)
+                print("Insertados en detalle ventas")
+
+            self.connection.commit()
+            self.connection.close()
+
+        
+        except pymysql.Error as err:
+            print("Algo salio mal ", format(err))
+
+
+        
+        #self.cursor.execute()
+        
 
     def mostrar_tabla(self):
         sql = "SELECT * FROM reportes"
@@ -99,6 +127,3 @@ class VentasHelper(DataBase):
 
         return ventaMensual
 
-prueba = VentasHelper("VENTA",0,"")
-prueba.graficar_ventas()
-prueba.ventas_mensuales()

@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import date, datetime
 import pymysql
 
-from helpers import ventasHelpers, distribuidorHelpers
+from helpers import ventasHelpers, distribuidorHelpers,productHelpers,ventasDetalleHelpers
 
 
 
@@ -120,15 +120,18 @@ class FormularioVenta(object):
         fecha = datetime.today().strftime('%d-%m-%Y')
         self.fechaTxt.setText(fecha)
         self.productoCombo = QtWidgets.QComboBox(self.frame)
-        self.productoCombo.setGeometry(QtCore.QRect(130, 170, 151, 22))
+        self.productoCombo.setGeometry(QtCore.QRect(130, 170, 160, 30))
         self.productoCombo.setObjectName("productoCombo")
 
-
-        #AÑADIR ELEMENTOS AL COMBO BOX  
-        helperDistribuidor = distribuidorHelpers.DistribuidorHelper("","","","")
-        valores = helperDistribuidor.cargar_distribuidores()
+        #OBTENIENDO INFORMACION DEL PARA COMBOBOX DESDE NUESTRA BASE DE DATOS
+        helperProductos = productHelpers.ProductHelper("","","",0,0,"",0)
+        valores = helperProductos.cargar_combobox()
         for i in range(len(valores)):
-                self.productoCombo.addItem(str(valores[i]))
+                producto = valores[i]
+                self.productoCombo.addItem(producto)
+
+
+
 
 
         self.cantidadTextEdit = QtWidgets.QTextEdit(self.frame)
@@ -236,6 +239,10 @@ class FormularioVenta(object):
                 self.cantidadTextEdit.clear()
                 self.totalVentaTxt.clear() 
                 self.ventaTable.clearContents()
+
+                #AÑADIMOS DETALLES DE VENTA A LA TABLA DETALLES DE VENTA
+                helper.registrar_detalles(self.listPedido)
+                
                 self.listPedido = []
                 self.msg.exec_()
         except pymysql.Error as err:
