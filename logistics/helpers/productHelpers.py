@@ -135,6 +135,19 @@ class ProductHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal", format(err))
 
+    #FUNCION PARA BUSCAR UN REGISTRO EN ANALISIS DETALLADO
+    def buscar_producto(self):
+        sql = ("SELECT * FROM productos WHERE nombre_producto='{}'").format(self.nombre)
+        try:
+            self.cursor.execute(sql)
+            self.busqueda =self.cursor.fetchone()
+            self.connection.commit()
+            self.connection.close()
+            resultadoBusqueda = self.busqueda
+            return resultadoBusqueda
+        except pymysql.Error as err:
+            print("Algo salio mal:", format(err))
+
+
 
 ejemplo = ProductHelper("","","",0,0,"",0)
-print(ejemplo.cargar_combobox())

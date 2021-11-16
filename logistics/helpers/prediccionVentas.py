@@ -54,13 +54,15 @@ class RegresionVentas:
         datos.append(round(totalSemanal,2))
         datos.append(ventasDiarias)
         datos.append(diaDelMes)
+        plt.plot(diaDelMes,ventasDiarias)
+        #plt.show()
         print(datos)
         return datos
             
             
 
 ejemplo = RegresionVentas()
-ejemplo.prediccion_semanal(1,8)
+ejemplo.prediccion_semanal(9,16)
 
 
  

@@ -145,7 +145,6 @@ class FormularioPedido(object):
         #AÑADIR ELEMENTOS AL COMBO BOX  
         helperDistribuidor = distribuidorHelpers.DistribuidorHelper("","","","")
         valores = helperDistribuidor.cargar_distribuidores()
-        distribuidores = []
         for i in range(len(valores)):
                 distribuidor = valores[i]
                 self.distribudorCombo.addItem(distribuidor)

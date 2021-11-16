@@ -10,11 +10,17 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.colors import hexColorPattern
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from database import prueba
-from helpers import ventasHelpers, pedidoHelpers, productHelpers, prediccionVentas
-from PyQt5.QtCore import pyqtSlot
+from helpers import ventasHelpers, pedidoHelpers, productHelpers, prediccionProductos
+
+#CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
+class Canvas_Graficos(FigureCanvas):
+        def __init__(self, parent = None):
+                self.fig, self.ax = plt.subplots(1,dpi = 100, figsize=(6,6),sharey=True, facecolor= 'white')
+                super().__init__(self.fig)
 
 class MenuAnalisisGrafico(object):
     def setupUi(self, MainWindow):
@@ -130,22 +136,12 @@ class MenuAnalisisGrafico(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        #GRAFICO QUE MUESTRA LA CONDICION DEL INVENTARIO
-      
-        #self.grafico.addWidget(graficoInventario)
-    
+
+        #CODIGO PAR INICIAR LA GRAFICA
         
 
-        #self.condicionInventarioBtn.clicked.connect(self.graficarInventario(self.graficoInventario))
-        self.ventasMensualBtn.clicked.connect(self.ventas_grafico)
-        self.utilidadBtn.clicked.connect(self.utilidad_grafico)
-        self.prediccionVentasBtn.clicked.connect(self.prediccionVentas_grafico)
-        self.pedidosMensualBtn.clicked.connect(self.pedidos_grafico)
+        #GRAFICO QUE MUESTRA LA RELACION COMPRAS VENTAS
         self.ventasGastosBtn.clicked.connect(self.comprasVentas_grafico)
-        self.condicionInventarioBtn.clicked.connect(self.condicionInventario_grafico)
-
-
-        
     def comprasVentas_grafico(self):
         for i in reversed(range(self.grafico.count())): 
                self.grafico.itemAt(i).widget().setParent(None)
@@ -161,30 +157,41 @@ class MenuAnalisisGrafico(object):
         sc.axes.set_title("Relacion Compras - Ventas mensuales")
         sc.axes.legend(loc = 'upper left')
         self.grafico.addWidget(sc)
-        
+
         print(datosVentas[0])
         
-        #GRAFICO QUE MUESTRA LAS VENTAS MENSUALES.
+
         
+
+        
+        #GRAFICO QUE MUESTRA LAS VENTAS MENSUALES.
+        self.ventasMensualBtn.clicked.connect(self.ventas_grafico)
+
     def ventas_grafico(self):
-        helper = ventasHelpers.VentasHelper("",0,"")
-        datosVentas = helper.graficar_ventas()
-        print(datosVentas)
+        helper = prediccionProductos.RegresionProductos()
+        x = helper.diaCamaronC
+        y = helper.ventaCamaronC
+        datos = helper.aplicar_regresion(x,y)
+        print(datos)
         for i in reversed(range(self.grafico.count())): 
                 self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datosVentas[0],datosVentas[1] , label="Ventas", marker = "o", color = "red")
+        sc.axes.plot(datos[0],datos[1] , label="Ventas", marker = "o", color = "red")
         sc.axes.legend(loc = 'upper left')
         sc.axes.set_ylabel("$")
         sc.axes.set_xlabel("Dia del Mes")
         sc.axes.set_title("Ventas Mensuales")
+
         self.grafico.addWidget(sc)
         totalVentas = helper.ventas_mensuales()
         totalVentas = str(totalVentas)
         totalVentas = "Venta Mensual:$" + totalVentas
         
 
-        #GRAFICO QUE MUESTA LOS PEDIDOS MENSUALES.        
+        
+
+        #GRAFICO QUE MUESTA LOS PEDIDOS MENSUALES.
+        self.pedidosMensualBtn.clicked.connect(self.pedidos_grafico)
     def pedidos_grafico(self):
         helper = pedidoHelpers.PedidoHelper("",0,"")
         datosPedidos = helper.graficar_pedidos()
@@ -197,13 +204,16 @@ class MenuAnalisisGrafico(object):
         sc.axes.set_ylabel("$")
         sc.axes.set_xlabel("Dia del Mes")
         sc.axes.set_title("Pedidos Mensuales")
+
         self.grafico.addWidget(sc)
         totalPedidos = helper.pedidos_mensuales()
         totalPedidos = str(totalPedidos)
         
 
+
+
                 #GRAFICO QUE MUESTRA LA UTILIDAD DE LOS PRODUCTOS
-      
+        self.utilidadBtn.clicked.connect(self.utilidad_grafico)
     def utilidad_grafico(self):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
@@ -213,30 +223,33 @@ class MenuAnalisisGrafico(object):
         self.grafico.addWidget(sc)
         
 
+        #GRAFICO QUE MUESTRA LA CONDICION DEL INVENTARIO
+        self.condicionInventarioBtn.clicked.connect(self.condicionInventario_grafico)
     def condicionInventario_grafico(self):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
+        
         inventarioHelper = productHelpers.ProductHelper("","","",0,0,"",0)
         datosInventario = inventarioHelper.graficar_productos()
-        #print(datosInventario)
+        print(datosInventario)
+
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
         sc.axes.barh(datosInventario[0],datosInventario[1])
         sc.axes.set_title("Condicion Inventario")
         self.grafico.addWidget(sc)
-        return sc
-
+     
 
         #GRAFICO QUE MUESTRA LAS PREDICCIONES DE VENTA SEMANALES
-       
+        self.prediccionVentasBtn.clicked.connect(self.prediccionVentas_grafico)
 
     def prediccionVentas_grafico(self):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
-        helperPrediccion = prediccionVentas.RegresionVentas()
-        datos = helperPrediccion.prediccion_semanal(9,16)
+        helperPrediccion = prediccionProductos.RegresionProductos()
+        datos = helperPrediccion.aplicar_regresion(helperPrediccion.diaCamaronG,helperPrediccion.ventaCamaronG)
         prediccionSemanal = "Ventas Estimadas:$" + str(datos[0])
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.plot(datos[2],datos[1], marker = "o")
+        sc.axes.plot(datos[1],datos[2], marker = "o")
         sc.axes.set_title("Prediccion Ventas Semanales")
         sc.axes.set_ylabel("$")
         sc.axes.set_xlabel("Dia del Mes")
@@ -248,13 +261,13 @@ class MenuAnalisisGrafico(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_3.setText(_translate("MainWindow", "Análisis Gráfico"))
-        self.ventasGastosBtn.setText(_translate("MainWindow", "Relacion Ventas-Gastos"))
-        self.ventasMensualBtn.setText(_translate("MainWindow", "Ventas Mensual"))
-        self.pedidosMensualBtn.setText(_translate("MainWindow", "Pedidos Mensual"))
-        self.utilidadBtn.setText(_translate("MainWindow", "Utilidad Productos"))
-        self.condicionInventarioBtn.setText(_translate("MainWindow", "Condicion Inventario"))
-        self.prediccionVentasBtn.setText(_translate("MainWindow", "Prediccion Ventas"))
+        self.label_3.setText(_translate("MainWindow", "Predicciones Productos"))
+        self.ventasGastosBtn.setText(_translate("MainWindow", "Camaron "))
+        self.ventasMensualBtn.setText(_translate("MainWindow", "Filete"))
+        self.pedidosMensualBtn.setText(_translate("MainWindow", "Pescado Entero"))
+        self.utilidadBtn.setText(_translate("MainWindow", "Pulpo"))
+        self.condicionInventarioBtn.setText(_translate("MainWindow", "Medallon Atun"))
+        self.prediccionVentasBtn.setText(_translate("MainWindow", "Camaron Gigante"))
   
 from iconos import iconosAnalisisGrafico_rc
 
