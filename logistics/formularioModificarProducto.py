@@ -213,8 +213,7 @@ class FormularioModificar(object):
         if(self.msgError.clickedButton() == botonConfirmar):
             try:
                  helper = productHelpers.ProductHelper(self.idProducto,"","",0,0,"",0)
-                 eliminar = helper.eliminar_registro()
-                 print(type(eliminar))
+                 helper.eliminar_registro()
                  self.descripcionTxt.clear()
                  self.stockTxt.clear()
                  self.productoTxt.clear()
