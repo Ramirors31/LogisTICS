@@ -134,4 +134,30 @@ class PedidoHelper(DataBase):
             print("Algo salio mal:".format(err))
 
 
+    #FUNCION PARA BUSCAR UN PEDIDO EN LA BASE DE DATOS
+    def buscar_registro(self, idreporte):
+        sql = ("SELECT * FROM pedidos WHERE id_reporte='{}'").format(idreporte)
+        try:
+            self.cursor.execute(sql)
+            self.busqueda =self.cursor.fetchone()
+            self.connection.commit()
+            self.connection.close()
+            resultadoBusqueda = self.busqueda
+            return resultadoBusqueda
+        except pymysql.Error as err:
+            print("Algo salio mal:", format(err))
+
+
+    #FUNCION PARA ACTUALIZAR EL ESTADO DE UN PEDIDO 
+    def actualizar_registro(self,idpedido,estadopedido):
+        sql = "UPDATE pedidos SET estado_pedido = '{}' WHERE id_reporte = '{}'".format(estadopedido,idpedido)        
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            self.connection.close()
+            print("Modificacion Exitosa")
+        except pymysql.Error as err:
+            print("Algo salio mal ",format(err))
+
+
 
