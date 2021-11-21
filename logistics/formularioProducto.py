@@ -142,8 +142,7 @@ class FormularioProducto(object):
 
  
         #AÑADIENDO FUNCIONALIDAD A BOTON AÑADIR
-        self.addBtn.clicked.connect(lambda: self.add_product(self.codigoProductoTxt.toPlainText(),self.productoTxt.toPlainText(),self.descripcionTxt.toPlainText(),
-        self.precioVentaTxt.toPlainText(),self.precioCompraTxt.toPlainText(),self.distribuidorCombo.currentText(),self.stockInicialTxt.toPlainText()))
+        self.addBtn.clicked.connect(lambda: self.add_product())
 
 
     def retranslateUi(self, MainWindow):
@@ -164,19 +163,66 @@ class FormularioProducto(object):
 
 
 #AÑADIENDO A LA BASE DE DATOS   
-    def add_product(self,codigoProducto,producto,descripcion,precioVenta,precioCompra,distribuidor,stockInicial):
-        helper = productHelpers.ProductHelper(codigoProducto,producto,descripcion,precioVenta,precioCompra,distribuidor,stockInicial)
-        print(producto)
-        helper.insertar()
-        self.msg = QtWidgets.QMessageBox()
-        self.msg.setWindowTitle("Confirmacion Registro")
-        self.msg.setText("Producto Registrado con éxito")
-        self.msg.exec_()
-        self.descripcionTxt.clear()
-        self.precioCompraTxt.clear()
-        self.precioVentaTxt.clear()
-        self.productoTxt.clear()
-        self.stockInicialTxt.clear()
+    def add_product(self):
+        self.codigoProducto = self.codigoProductoTxt.toPlainText()
+        self.producto = self.productoTxt.toPlainText()
+        self.descripcion = self.descripcionTxt.toPlainText()
+        self.precioVenta = self.precioVentaTxt.toPlainText()
+        self.precioCompra = self.precioCompraTxt.toPlainText()
+        self.distribuidor = self.distribuidorCombo.currentText()
+        self.stockInicial = self.stockInicialTxt.toPlainText()
+        if(self.precioVenta == ""):
+            self.precioVenta = 0
+
+        if (self.precioCompra == ""):
+            self.precioCompra = 0
+
+        if (self.stockInicial == ""):
+            self.stockInicial = 0
+
+
+        if (self.codigoProducto == "" or self.producto == "" or self.descripcion == "" or self.precioVenta==0 or self.precioCompra == 0 or self.distribuidor == "" or self.stockInicial == 0):
+
+
+            self.msg = QtWidgets.QMessageBox()
+            self.msg.setWindowTitle("Error")
+            self.msg.setText("Debes llenar todos los campos")
+            self.msg.exec_()
+
+        else:
+            if(self.precioCompra.isdecimal() == True and self.precioVenta.isdecimal() == True):
+                if(self.stockInicial.isdigit() == True and int(self.stockInicial) > 0):
+                    helper = productHelpers.ProductHelper(self.codigoProducto,self.producto,self.descripcion,float(self.precioVenta),float(self.precioCompra),self.distribuidor,int(self.stockInicial))
+                    helper.insertar()
+                    self.msg = QtWidgets.QMessageBox()
+                    self.msg.setWindowTitle("Confirmacion Registro")
+                    self.msg.setText("Producto Registrado con éxito")
+                    self.msg.exec_()
+                    self.descripcionTxt.clear()
+                    self.precioCompraTxt.clear()
+                    self.precioVentaTxt.clear()
+                    self.productoTxt.clear()
+                    self.stockInicialTxt.clear()
+                    self.codigoProductoTxt.clear()
+                else:
+                    self.stockInicialTxt.clear()
+                    self.msg = QtWidgets.QMessageBox()
+                    self.msg.setWindowTitle("Error")
+                    self.msg.setText("El Stock Inicial debe ser un numero entero mayor a 0")
+                    self.msg.exec_()
+
+
+            else: 
+                self.precioCompraTxt.clear()
+                self.precioVentaTxt.clear()
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Error")
+                self.msg.setText("Los precios deben de ser un número")
+                self.msg.exec_()
+
+                
+           
+
 
     
         
