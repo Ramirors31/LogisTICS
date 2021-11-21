@@ -148,6 +148,19 @@ class ProductHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal:", format(err))
 
+    #FUNCION PARA RECUPERAR PRECIO DE PRODUCTOS 
+    def buscar_precioProducto(self):
+        sql = ("SELECT preciocompra_producto FROM productos WHERE nombre_producto='{}'").format(self.nombre)
+        try:
+            self.cursor.execute(sql)
+            self.busqueda =self.cursor.fetchone()
+            self.connection.commit()
+            self.connection.close()
+            resultadoBusqueda = self.busqueda
+            return resultadoBusqueda
+        except pymysql.Error as err:
+            print("Algo salio mal:", format(err))
+
 
 
 ejemplo = ProductHelper("","","",0,0,"",0)

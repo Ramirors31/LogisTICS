@@ -279,7 +279,6 @@ class AnalisisDetallado(object):
             sc.axes.set_xlabel("Dia del Mes")
             sc.axes.set_title("Producto Estimado Semanalmente")
             datosProducto = productHelper.buscar_producto()
-            print(datosProducto)
             estimadoSemanal = round(datos[0],2)
             stockActual = datosProducto[6]
             sugerencia = int(estimadoSemanal - stockActual)
@@ -305,7 +304,6 @@ class AnalisisDetallado(object):
             sc.axes.set_xlabel("Dia del Mes")
             sc.axes.set_title("Producto Estimado Semanalmente")
             datosProducto = productHelper.buscar_producto()
-            print(datosProducto)
             estimadoSemanal = round(datos[0],2)
             stockActual = datosProducto[6]
             sugerencia = int(estimadoSemanal - stockActual)
@@ -331,7 +329,6 @@ class AnalisisDetallado(object):
             sc.axes.set_xlabel("Dia del Mes")
             sc.axes.set_title("Producto Estimado Semanalmente")
             datosProducto = productHelper.buscar_producto()
-            print(datosProducto)
             estimadoSemanal = round(datos[0],2)
             stockActual = datosProducto[6]
             sugerencia = int(estimadoSemanal - stockActual)

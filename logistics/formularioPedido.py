@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
+
+from matplotlib import set_loglevel
 from helpers import pedidoHelpers,distribuidorHelpers, productHelpers
 
 
@@ -188,7 +190,7 @@ class FormularioPedido(object):
         QtCore.QMetaObject.connectSlotsByName(FormularioPedido)
 
         #BOTON AÑADIR PRODUCTO A PEDIDO ACTUAL
-        self.addPedidoBtn.clicked.connect(lambda: self.addRow_pedido(self.productoComboBox.currentText(),30,int(self.cantidadTextEdit.toPlainText()),0))
+        self.addPedidoBtn.clicked.connect(lambda: self.addRow_pedido())
         self.pedidoTable.clearContents()
         self.listPedido = []
 
@@ -201,6 +203,7 @@ class FormularioPedido(object):
         self.registrarPedidoBtn.clicked.connect(lambda:self.registrar_pedido("PEDIDO",self.totalVenta,self.label_7.text()))
     
     def registrar_pedido(self,motivo,total,fecha):
+        if not (self.totalVenta == 0):
             helper = pedidoHelpers.PedidoHelper(motivo,float(total),fecha)
             helper.insertar()    
             self.msgConfirmacion = QtWidgets.QMessageBox()
@@ -215,6 +218,12 @@ class FormularioPedido(object):
             helper.registrar_detalles(self.listPedido, distribuidor)
 
             self.listPedido = []
+        else:
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Error")
+                self.msg.setText("Tratas de Registrar un Pedido Vacio")
+                self.msg.exec_()
+
 
     def retranslateUi(self, FormularioPedido):
         _translate = QtCore.QCoreApplication.translate
@@ -245,10 +254,19 @@ class FormularioPedido(object):
         
 
         #AÑADIENDO PRODUCTOS A LA TABLA DE PEDIDO LOCAL
-    def addRow_pedido(self,producto,precioUnitario,cantidad,subtotal):
-                subtotal = cantidad * precioUnitario
-                self.totalVenta = self.totalVenta + subtotal
-                fila = [producto, precioUnitario, cantidad, subtotal]
+    def addRow_pedido(self):
+        self.cantidad = self.cantidadTextEdit.toPlainText()
+        if (self.cantidad == ""):
+                self.cantidad = 0
+        self.producto = self.productoComboBox.currentText()
+        self.subtotal = 0
+        if not (self.cantidad == 0):
+                inventario = productHelpers.ProductHelper("",self.producto,"",0,0,"",0)
+                precio = inventario.buscar_precioProducto()
+                self.precioUnitario = precio[0]
+                self.subtotal = self.cantidad * self.precioUnitario
+                self.totalVenta = self.totalVenta + self.subtotal
+                fila = [self.producto, self.precioUnitario, self.cantidad, self.subtotal]
                 self.listPedido.append(fila)
                 row = 0
                 for producto in self.listPedido:
@@ -261,10 +279,20 @@ class FormularioPedido(object):
                         row += 1
                 totalVenta = "$"+ str(self.totalVenta)
                 self.totalTxt.setText(totalVenta)
+        else:
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Error")
+                self.msg.setText("Debes Especificar la cantidad de producto a añadir")
+                self.msg.exec_()
+
+
 
         #FUNCION PARA ELIMINAR UNA FILA DEL PEDIDO ACTUAL
     def deleteRow_pedido(self):
+
+        if not  (self.listPedido == []):
             self.listPedido.pop()
+            self.totalVenta = self.totalVenta - self.precioUnitario
             row = 0
             for producto in self.listPedido:
                         self.pedidoTable.setRowCount(row + 1)
@@ -276,6 +304,17 @@ class FormularioPedido(object):
                         row += 1
             totalVenta = "$"+ str(self.totalVenta)
             self.totalTxt.setText(totalVenta)
+
+        else: 
+                self.listPedido == []
+                self.totalVenta = 0
+                totalVenta = "$" + str(self.totalVenta)
+                self.totalTxt.setText(totalVenta)
+                self.pedidoTable.clearContents()
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Alto")
+                self.msg.setText("Ya no hay más Elementos por eliminar En esta Venta")
+                self.msg.exec_()
 
 
 

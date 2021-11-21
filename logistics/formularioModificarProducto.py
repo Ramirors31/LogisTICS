@@ -254,11 +254,11 @@ class FormularioModificar(object):
 from iconos import iconosModificarProducto_rc
 
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ModificarEliminarProducto = QtWidgets.QMainWindow()
     ui = FormularioModificar()
     ui.setupUi(ModificarEliminarProducto)
     ModificarEliminarProducto.show()
-    sys.exit(app.exec_())"""
+    sys.exit(app.exec_())

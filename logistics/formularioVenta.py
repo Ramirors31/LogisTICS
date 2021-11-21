@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import date, datetime
+from matplotlib import set_loglevel
 import pymysql
 
 from helpers import ventasHelpers, distribuidorHelpers,productHelpers,ventasDetalleHelpers
@@ -176,7 +177,7 @@ class FormularioVenta(object):
         self.completarVentaBtn.clicked.connect(lambda: self.registrar_venta("VENTA", self.totalVenta,self.fechaTxt.text()))
 
         #BOTON AÑADIR PRODUCTO A PEDIDO ACTUAL
-        self.addVentaBtn.clicked.connect(lambda: self.addRow_venta(self.productoCombo.currentText(),30,int(self.cantidadTextEdit.toPlainText()),0))
+        self.addVentaBtn.clicked.connect(lambda: self.addRow_venta())
         self.ventaTable.clearContents()
         self.listPedido = []
 
@@ -191,10 +192,19 @@ class FormularioVenta(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
         #AÑADIENDO PRODUCTOS A LA TABLA DE VENTA LOCAL
-    def addRow_venta(self,producto,precioUnitario,cantidad,subtotal):
-                subtotal = cantidad * precioUnitario
-                self.totalVenta = self.totalVenta + subtotal
-                fila = [producto, precioUnitario, cantidad, subtotal]
+    def addRow_venta(self):
+        self.subtotal = 0
+        self.cantidad = self.cantidadTextEdit.toPlainText()
+        self.producto = self.productoCombo.currentText()
+        if(self.cantidad==""):
+                self.cantidad = 0
+        if not(self.cantidad == 0):
+                inventario = productHelpers.ProductHelper("",self.producto,"",0,0,"",0)
+                precio = inventario.buscar_precioProducto()
+                self.precioUnitario = precio[0]
+                self.subtotal = self.cantidad * self.precioUnitario
+                self.totalVenta = self.totalVenta + self.subtotal
+                fila = [self.producto, self.precioUnitario, self.cantidad, self.subtotal]
                 self.listPedido.append(fila)
                 row = 0
                 for producto in self.listPedido:
@@ -208,9 +218,20 @@ class FormularioVenta(object):
                 totalVenta = "$"+ str(self.totalVenta)
                 self.totalVentaTxt.setText(totalVenta)
 
+        else:
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Error")
+                self.msg.setText("Debes especificar una cantidad de producto a Añadir")
+                self.msg.exec_()
+
+
         #FUNCION PARA ELIMINAR UNA FILA DEL VENTA ACTUAL
     def deleteRow_venta(self):
+        textoCantidad = self.cantidadTextEdit.toPlainText()
+        if not  (self.listPedido == [] and textoCantidad == ""):
             self.listPedido.pop()
+            self.totalVenta = self.totalVenta - self.precioUnitario
+
             row = 0
             for producto in self.listPedido:
                         self.ventaTable.setRowCount(row + 1)
@@ -222,6 +243,18 @@ class FormularioVenta(object):
                         row += 1
             totalVenta = "$"+ str(self.totalVenta)
             self.totalVentaTxt.setText(totalVenta)
+
+        else:
+                self.listPedido == []
+                self.totalVenta = 0
+                totalVenta = "$" + str(self.totalVenta)
+                self.totalVentaTxt.setText(totalVenta)
+                self.ventaTable.clearContents()
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Alto")
+                self.msg.setText("Ya no hay más Elementos por eliminar En esta Venta")
+                self.msg.exec_()
+
             
 
 
@@ -230,24 +263,34 @@ class FormularioVenta(object):
            
         #FUNCION PARA REGISTRAR REPORTE DE VENTA EN LA TABLA REPORTES.
     def registrar_venta(self, motivo, cantidad, fecha):
-        try:   
-                helper =  ventasHelpers.VentasHelper(motivo,float(cantidad),fecha)
-                helper.insertar()
-                self.msg = QtWidgets.QMessageBox()
-                self.msg.setWindowTitle("Confirmacion Registro")
-                self.msg.setText("Venta Registrada con éxito")
-                self.cantidadTextEdit.clear()
-                self.totalVentaTxt.clear() 
-                self.ventaTable.clearContents()
 
-                #AÑADIMOS DETALLES DE VENTA A LA TABLA DETALLES DE VENTA
-                helper.registrar_detalles(self.listPedido)
-                
-                self.listPedido = []
+        if not(self.totalVenta == 0):
+                try:   
+                        helper =  ventasHelpers.VentasHelper(motivo,float(cantidad),fecha)
+                        helper.insertar()
+                        self.cantidadTextEdit.clear()
+                        self.totalVentaTxt.clear() 
+                        self.ventaTable.clearContents()
+                        
+                        #AÑADIMOS DETALLES DE VENTA A LA TABLA DETALLES DE VENTA
+                        helper.registrar_detalles(self.listPedido)
+                        self.listPedido = []
+                        self.msg = QtWidgets.QMessageBox()
+                        self.msg.setWindowTitle("Confirmacion Registro")
+                        self.msg.setText("Venta Registrada con éxito")
+                        self.msg.exec_()
+                        
+
+                except pymysql.Error as err:
+                        print("Algo salio mal:", format(err))
+
+        else:
+                self.msg = QtWidgets.QMessageBox()
+                self.msg.setWindowTitle("Error")
+                self.msg.setText("Tratas de Registrar una Venta Vacía")
                 self.msg.exec_()
-        except pymysql.Error as err:
-                print("Algo salio mal:", format(err))
-        
+
+                
 
 
     def retranslateUi(self, MainWindow):

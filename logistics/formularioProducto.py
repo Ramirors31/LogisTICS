@@ -14,7 +14,7 @@ from helpers import productHelpers
 class FormularioProducto(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(700, 880)
+        MainWindow.resize(700, 900)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.headerFrame = QtWidgets.QFrame(self.centralwidget)

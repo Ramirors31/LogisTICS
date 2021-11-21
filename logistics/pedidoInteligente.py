@@ -12,15 +12,19 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-from helpers import productHelpers, prediccionVentas,prediccionProductos
+from helpers import productHelpers, prediccionVentas,prediccionProductos,pedidoHelpers
 from analisisGrafico import MenuAnalisisGrafico
 from database import prueba
+from helpers import prediccionProductos,productHelpers
+import analisisDetallado
+from datetime import datetime
+
   
 
 #CLASE PARA CONSTRUIR GRAFICA CON MATPLOTLIB
 
 
-class MenuPedidoInteligente(RegresionProductos):
+class MenuPedidoInteligente(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1550, 1300)
@@ -55,17 +59,11 @@ class MenuPedidoInteligente(RegresionProductos):
         self.grafico = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.grafico.setContentsMargins(0, 0, 0, 0)
         self.grafico.setObjectName("grafico")
-        self.condicionInventarioBtn = QtWidgets.QPushButton(self.frame)
-        self.condicionInventarioBtn.setGeometry(QtCore.QRect(970, 360, 251, 61))
+
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(12)
-        self.condicionInventarioBtn.setFont(font)
-        self.condicionInventarioBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.condicionInventarioBtn.setStyleSheet("background-color: rgb(52, 136, 140);\n"
-"color: rgb(255, 244, 246);\n"
-"border-radius:20px")
-        self.condicionInventarioBtn.setObjectName("condicionInventarioBtn")
+
         self.prediccionVentasBtn = QtWidgets.QPushButton(self.frame)
         self.prediccionVentasBtn.setGeometry(QtCore.QRect(970, 560, 251, 61))
         font = QtGui.QFont()
@@ -86,8 +84,11 @@ class MenuPedidoInteligente(RegresionProductos):
         self.ventaTable = QtWidgets.QTableWidget(self.frame)
         self.ventaTable.setGeometry(QtCore.QRect(50, 370, 631, 231))
         self.ventaTable.setObjectName("ventaTable")
-        self.ventaTable.setColumnCount(5)
+        self.ventaTable.setColumnCount(4)
         self.ventaTable.setRowCount(0)
+
+        self.tableHeader = self.ventaTable.horizontalHeader()
+        self.tableHeader.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         item = QtWidgets.QTableWidgetItem()
         self.ventaTable.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -96,8 +97,6 @@ class MenuPedidoInteligente(RegresionProductos):
         self.ventaTable.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.ventaTable.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.ventaTable.setHorizontalHeaderItem(4, item)
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(60, 330, 211, 31))
         font = QtGui.QFont()
@@ -137,7 +136,6 @@ class MenuPedidoInteligente(RegresionProductos):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         #CLICK LISTENERS
-        self.analisisDetalladoBtn.clicked.connect()
 
         #GRAFICAMOS EL INVENTARIO
         inventarioHelper = productHelpers.ProductHelper("","","",0,0,"",0)
@@ -158,24 +156,96 @@ class MenuPedidoInteligente(RegresionProductos):
         sc.axes.text(11,4650,prediccionSemanal)
         self.grafico_2.addWidget(sc)
 
-        #ANALISIS DETALLADO DE INFORMACION 
+        #PEDIDO INTELIGENTE
+        self.analisis = prediccionProductos.RegresionProductos()
+        dias = [self.analisis.diaCallo,self.analisis.diaCamaronC,self.analisis.diaCamaronG,self.analisis.diaFilete,self.analisis.diaAtun,self.analisis.diaOstion,self.analisis.diaPescado,self.analisis.diaPulpo]
+        ventas =[self.analisis.ventaCallo,self.analisis.ventaCamaronC,self.analisis.ventaCamaronG,self.analisis.ventaFilete,self.analisis.ventaAtun,self.analisis.ventaOstion,self.analisis.ventaPescado,self.analisis.ventaPulpo]
+        helper = productHelpers.ProductHelper("","","",0,0,"",0)
+
+        predicciones = []
+        sugerencias =[]
+        for item in range(len(dias)):
+                item = self.analisis.aplicar_regresion(dias[item],ventas[item])
+                predicciones.append(item[0])
+        total = 0
+        inventario = helper.graficar_productos()
+        productos = inventario[0]
+        stock = inventario[1]
+        self.pedido = []
+        for i in range(len(stock)):
+                sugerenciaSemanal = predicciones[i] - stock[i]
+                if (sugerenciaSemanal < 0):
+                        sugerenciaSemanal = 0
+                        sugerencias.append(sugerenciaSemanal)
+                        
+                sugerencias.append(int(sugerenciaSemanal))
+
+        for i in range(len(productos)):
+                itemPedido = []
+                itemPedido.append(productos[i])
+                itemPedido.append(sugerencias[i])
+                helperPrecio = productHelpers.ProductHelper("",productos[i],"",0,0,"",0)
+                precio = helperPrecio.buscar_precioProducto()
+                itemPedido.append(precio[0])
+                subtotal = precio[0] * sugerencias[i]
+                itemPedido.append(subtotal)
+                total = total + subtotal
+                self.pedido.append(itemPedido)
+
+        
+                self.ventaTable.clearContents()
+        row = 0
+        for producto in self.pedido:
+                self.ventaTable.setRowCount(row + 1)
+                self.ventaTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(producto[0])))
+                self.ventaTable.setItem(row, 1, QtWidgets.QTableWidgetItem(str(producto[1])))
+                self.ventaTable.setItem(row, 2, QtWidgets.QTableWidgetItem(str(producto[2])))
+                self.ventaTable.setItem(row, 3, QtWidgets.QTableWidgetItem(str(producto[3])))
+
+
+                row += 1
+
+        totalVenta =  str(total)
+        self.label_5.setText(totalVenta)
+        
+        fecha = datetime.today().strftime('%d-%m-%Y')
+        self.prediccionVentasBtn.clicked.connect(lambda:self.registrar_pedido("PEDIDO",self.label_5.text(),fecha))
+       
+        #REGISTRAR EL PEDIDO INTELIGENTE EN LA BASE DE DATOS
+    def registrar_pedido(self,motivo,total,fecha):
+            helper = pedidoHelpers.PedidoHelper(motivo,float(total),fecha)
+            helper.insertar()    
+            self.msgConfirmacion = QtWidgets.QMessageBox()
+            self.msgConfirmacion.setWindowTitle("Pedido Confirmado")
+            self.msgConfirmacion.setIcon(QtWidgets.QMessageBox.Information)
+            self.msgConfirmacion.setText("El pedido se a registrado con exito")
+            self.msgConfirmacion.exec_()
+            self.label_5.clear()
+            self.ventaTable.clearContents()
+            
+            helper.registrar_detalles(self.pedido, "Congeladora Mazatlan")
+
+            self.pedido = []
+                
+
+
+        
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_3.setText(_translate("MainWindow", "Pedido Inteligente"))
-        self.condicionInventarioBtn.setText(_translate("MainWindow", "Estimar Pedido"))
+    
         self.prediccionVentasBtn.setText(_translate("MainWindow", "Generar Pedido"))
         item = self.ventaTable.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Producto"))
         item = self.ventaTable.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Precio Unitario"))
-        item = self.ventaTable.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Cantidad"))
+        item = self.ventaTable.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Precio Unitario"))
         item = self.ventaTable.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Proveedor"))
-        item = self.ventaTable.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Subtotal"))
+     
         self.label.setText(_translate("MainWindow", "Pedido Recomendado"))
         self.label_2.setText(_translate("MainWindow", "Estado Inventario"))
  

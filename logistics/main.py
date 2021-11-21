@@ -1,3 +1,4 @@
+
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
@@ -14,6 +15,8 @@ from formularioDistribuidor import FormularioDistribuidor
 from formularioPedido import FormularioPedido
 from formularioModificarProducto import FormularioModificar
 from analisisGrafico import MenuAnalisisGrafico
+from pedidoInteligente import MenuPedidoInteligente
+from analisisDetallado import AnalisisDetallado
 
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
@@ -72,7 +75,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuReportes.hide()
         self.btnRegresar = self.ui.regresarBtn
         self.btnRegresar.clicked.connect(self.regresar_reporteVenta)
-        #self.ui.completarVentaBtn.clicked.connect(self.registro_completado)
+        
 
     #FUNCIONA PARA REGRESAR AL MENU REPORTES DESDE UN REPORTE DE VENTA    
     def regresar_reporteVenta(self):
@@ -157,6 +160,36 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui.distribuidoresBtn.clicked.connect(self.menu_distribuidores)
         self.btnRegresar.clicked.connect(self.regresar_logistica)
         self.ui.nuevoPedidoBtn.clicked.connect(self.nuevo_pedido)
+        self.ui.pedidoInteligenteBtn.clicked.connect(self.pedido_inteligente)
+
+    #FUNCION PARA ABRIR MENU PEDIDO INTELIGENTE DESDE MENU LOGISTICA
+    def pedido_inteligente(self):
+        self.pedidoInteligente = QtWidgets.QMainWindow()
+        self.ui = MenuPedidoInteligente()
+        self.ui.setupUi(self.pedidoInteligente)
+        self.menuLogistica.hide()
+        self.pedidoInteligente.show()
+        self.ui.regresarBtn.clicked.connect(self.regresar_logistica_inteligente)
+        self.ui.analisisDetalladoBtn.clicked.connect(self.detalle_pedidoInteligente)
+
+    #FUNCION PARA REGRESAR AL MENU LOGISTICA DESDE EL MENU PEDIDO INTELIGENTE
+    def regresar_logistica_inteligente(self):
+        self.pedidoInteligente.hide()
+        self.menuLogistica.show()
+
+    #FUNCION PARA ABRIR EL ANALISIS DETALLADO DEL PEDIDO INTELIGENTE.
+    def detalle_pedidoInteligente(self):
+        self.detallePedidoInteligente = QtWidgets.QMainWindow()
+        self.ui = AnalisisDetallado()
+        self.ui.setupUi(self.detallePedidoInteligente)
+        self.pedidoInteligente.hide()
+        self.detallePedidoInteligente.show()
+        self.ui.regresarBtn.clicked.connect(self.regresar_detalle_inteligente)
+
+    #FUNCION PARA REGRESAR AL PEDIDO INTELIGENTE DESDE DETALLES PEDIDO INTELIGENTE
+    def regresar_detalle_inteligente(self):
+        self.detallePedidoInteligente.hide()
+        self.pedidoInteligente.show()
 
     #BOTON PARA ABRIR EL FORMULARIO PARA UN NUEVO PEDIDO
     def nuevo_pedido(self):
