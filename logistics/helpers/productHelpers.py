@@ -81,11 +81,12 @@ class ProductHelper(DataBase):
             print("Algo salio mal", format(err))
     #FUNCION PARA ACTUALIZAR ALGUN PRODUCTO
     def actualizar_registro(self):
-        sql = "UPDATE productos SET (idproducto,nombre_producto,descripcion_producto,precioventa_producto,preciocompra_producto,distribuidor_producto,stock_producto) VALUES ('{}','{}','{}','{}','{}','{}','{}') WHERE idproducto = '{}'".format(self.codigoProducto,self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor,self.stock,self.codigoProducto)        
+        sql = "UPDATE productos SET idproducto = '{}',nombre_producto = '{}',descripcion_producto = '{}',precioventa_producto = '{}',preciocompra_producto = '{}',distribuidor_producto = '{}',stock_producto = '{}' WHERE idproducto = '{}'".format(self.codigoProducto,self.nombre,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor,self.stock,self.codigoProducto)        
         try:
             self.cursor.execute(sql)
             self.connection.commit()
             self.connection.close()
+            print("Modificacion Exitosa", self.stock)
         except pymysql.Error as err:
             print("Algo salio mal ",format(err))
 

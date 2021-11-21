@@ -252,7 +252,6 @@ class FormularioPedido(object):
         self.eliminarPedidoBtn.setText(_translate("FormularioPedido", "Eliminar"))
         
         
-
         #AÑADIENDO PRODUCTOS A LA TABLA DE PEDIDO LOCAL
     def addRow_pedido(self):
         self.cantidad = self.cantidadTextEdit.toPlainText()

@@ -279,11 +279,8 @@ class FormularioVenta(object):
                         self.msg.setWindowTitle("Confirmacion Registro")
                         self.msg.setText("Venta Registrada con éxito")
                         self.msg.exec_()
-                        
-
                 except pymysql.Error as err:
                         print("Algo salio mal:", format(err))
-
         else:
                 self.msg = QtWidgets.QMessageBox()
                 self.msg.setWindowTitle("Error")

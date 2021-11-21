@@ -169,6 +169,8 @@ class FormularioModificar(object):
 
         self.retranslateUi(ModificarEliminarProducto)
         QtCore.QMetaObject.connectSlotsByName(ModificarEliminarProducto)
+        #FUNCION PARA ACTUALIZAR UN PRODUCTO EN LA BASE DE DATOS
+        self.modificarBtn.clicked.connect(lambda: self.actualizar_producto())
 
         #MENSAJE DE ERROR
         self.msgError = QtWidgets.QMessageBox()
@@ -228,12 +230,17 @@ class FormularioModificar(object):
                 self.msgError.setIcon(QtWidgets.QMessageBox.Critical)
                 self.msgError.exec_()
             
-    #FUNCION PARA ACTUALIZAR UN PRODUCTO EN LA BASE DE DATOS
-        self.modificarBtn.clicked.connect(lambda: self.actualizar_producto(self.productoTxt.toPlainText(),self.nombreProductoTxt.toPlainText(),self.descripcionTxt.toPlainText(),
-        self.precioVentaTxt.toPlainText(),self.precioCompraTxt.toPlainText(),self.distribuidorCombo.currentText(),self.stockInicialTxt.toPlainText()))
 
-    def actualizar_producto(self,codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock):
-        actualizarHelper = productHelpers.ProductHelper(codigoProducto,nombreProducto,descripcionProducto,precioVenta,precioCompra,distribuidor,stock)
+    #FUNCION PARA ACTUALIZAR UN PRODUCTO EN LA BASE DE DATOS♀
+    def actualizar_producto(self):
+        self.producto = self.productoTxt.toPlainText()
+        self.nombreProducto = self.nombreProductoTxt.toPlainText()
+        self.descripcion = self.descripcionTxt.toPlainText()
+        self.precioVenta = float(self.precioVentaTxt.toPlainText())
+        self.precioCompra = float(self.precioCompraTxt.toPlainText())
+        self.stock = int(self.stockTxt.toPlainText())
+        self.distribuidor =self.distribuidorText.toPlainText()
+        actualizarHelper = productHelpers.ProductHelper(self.producto,self.nombreProducto,self.descripcion,self.precioVenta,self.precioCompra,self.distribuidor,self.stock)
         actualizarHelper.actualizar_registro()
 
         
