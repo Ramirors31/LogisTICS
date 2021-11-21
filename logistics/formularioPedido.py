@@ -124,6 +124,8 @@ class FormularioPedido(object):
         self.formaPagoCombo.addItem("")
         self.formaPagoCombo.addItem("")
         self.formaPagoCombo.addItem("")
+        self.formaPagoCombo.addItem("")
+        self.formaPagoCombo.addItem("")
         self.registrarPedidoBtn = QtWidgets.QPushButton(self.frame)
         self.registrarPedidoBtn.setGeometry(QtCore.QRect(310, 680, 171, 41))
         font = QtGui.QFont()
@@ -167,7 +169,7 @@ class FormularioPedido(object):
         self.label.setText("")
         self.label.setObjectName("label")
         self.totalTxt = QtWidgets.QLabel(self.frame)
-        self.totalTxt.setGeometry(QtCore.QRect(600, 620, 55, 16))
+        self.totalTxt.setGeometry(QtCore.QRect(580, 623, 90, 16))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.totalTxt.setFont(font)
@@ -200,11 +202,18 @@ class FormularioPedido(object):
         self.totalVenta = 0
 
         #REGISTRAR EL PEDIDO EN LA BASE DE DATOS
-        self.registrarPedidoBtn.clicked.connect(lambda:self.registrar_pedido("PEDIDO",self.totalVenta,self.label_7.text()))
+        self.registrarPedidoBtn.clicked.connect(lambda:self.registrar_pedido())
     
-    def registrar_pedido(self,motivo,total,fecha):
+    def registrar_pedido(self):
+        motivo = "PEDIDO"
+        total = self.totalVenta
+        fecha = self.label_7.text()
+        estado = "SOLICITADO"
+        fechaRecibido = "EN ESPERA"
+        distribuidor = self.distribudorCombo.currentText()
+        formaPago = self.formaPagoCombo.currentText()
         if not (self.totalVenta == 0):
-            helper = pedidoHelpers.PedidoHelper(motivo,float(total),fecha)
+            helper = pedidoHelpers.PedidoHelper(motivo,float(total),fecha,estado,fechaRecibido,distribuidor,formaPago)
             helper.insertar()    
             self.msgConfirmacion = QtWidgets.QMessageBox()
             self.msgConfirmacion.setWindowTitle("Pedido Confirmado")
@@ -216,8 +225,9 @@ class FormularioPedido(object):
             self.pedidoTable.clearContents()
             distribuidor = self.distribudorCombo.currentText()
             helper.registrar_detalles(self.listPedido, distribuidor)
-
             self.listPedido = []
+            self.totalVenta = 0
+
         else:
                 self.msg = QtWidgets.QMessageBox()
                 self.msg.setWindowTitle("Error")
@@ -243,12 +253,14 @@ class FormularioPedido(object):
         self.label_10.setText(_translate("FormularioPedido", "Total:"))
         self.addPedidoBtn.setText(_translate("FormularioPedido", "Añadir "))
         self.label_11.setText(_translate("FormularioPedido", "Forma Pago"))
-        self.formaPagoCombo.setItemText(0, _translate("FormularioPedido", "Efectivo"))
-        self.formaPagoCombo.setItemText(1, _translate("FormularioPedido", "Tarjeta de Crédito/Debito"))
-        self.formaPagoCombo.setItemText(2, _translate("FormularioPedido", "Transferencia Bancaria"))
+        self.formaPagoCombo.setItemText(0, _translate("FormularioPedido", "EFECTIVO"))
+        self.formaPagoCombo.setItemText(1, _translate("FormularioPedido", "TARJETA CREDITO"))
+        self.formaPagoCombo.setItemText(2, _translate("FormularioPedido", "TARJETA DEBITO"))
+        self.formaPagoCombo.setItemText(3, _translate("FormularioPedido", "DEPOSITO"))
+        self.formaPagoCombo.setItemText(4, _translate("FormularioPedido", "TRANSFERENCIA BANCARIA"))
         self.registrarPedidoBtn.setText(_translate("FormularioPedido", "Registrar Pedido"))
         self.label_12.setText(_translate("FormularioPedido", "Distribuidor:"))
-        self.totalTxt.setText(_translate("FormularioPedido", "$200"))
+
         self.eliminarPedidoBtn.setText(_translate("FormularioPedido", "Eliminar"))
         
         
@@ -263,7 +275,7 @@ class FormularioPedido(object):
                 inventario = productHelpers.ProductHelper("",self.producto,"",0,0,"",0)
                 precio = inventario.buscar_precioProducto()
                 self.precioUnitario = precio[0]
-                self.subtotal = self.cantidad * self.precioUnitario
+                self.subtotal = int(self.cantidad) * self.precioUnitario
                 self.totalVenta = self.totalVenta + self.subtotal
                 fila = [self.producto, self.precioUnitario, self.cantidad, self.subtotal]
                 self.listPedido.append(fila)

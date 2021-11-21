@@ -6,11 +6,20 @@ class PedidoHelper(DataBase):
     motivo = ""
     cantidad = 0
     fecha = ""
+    estado = ""
+    fechaRecibido = ""
+    distribuidor = ""
+    formaPago = ""
 
-    def __init__(self,motivo,cantidad,fecha):
+
+    def __init__(self,motivo,cantidad,fecha,estado, fechaRecibido, distribuidor,formaPago):
         self.motivo = motivo
         self.cantidad = cantidad
         self.fecha = fecha
+        self.estado = estado
+        self.fechaRecibido = fechaRecibido
+        self.distribuidor =  distribuidor
+        self.formaPago = formaPago
     
 
         DataBase.__init__(self)
@@ -89,7 +98,6 @@ class PedidoHelper(DataBase):
         try:
             self.cursor.execute("SELECT * FROM reportes ORDER BY idreporte DESC")
             self.idPedido = self.cursor.fetchone()
-            print(listaPedido)
             for producto in listaPedido:
                 self.producto = producto[0]
                 self.cantidadProducto = producto[2]
@@ -97,7 +105,8 @@ class PedidoHelper(DataBase):
                 sql = "INSERT INTO detalles_pedido(id_reporte,producto_pedido,cantidad_pedido,subtotal_pedido,distribuidor_pedido,fecha_pedido) VALUES ('{}','{}','{}','{}','{}','{}')".format(self.idPedido[0],self.producto,self.cantidadProducto,self.subtotal,distribuidor,self.fecha)
                 self.cursor.execute(sql)
                 print("Insertados en detalle pedido")
-
+            sql = "INSERT INTO pedidos(id_reporte,fecha_pedido,estado_pedido,fecharecibido_pedido,distribuidor_pedido,monto_pedido,formapago_pedido) VALUES ('{}','{}','{}','{}','{}','{}','{}')".format(self.idPedido[0],self.fecha,self.estado,self.fechaRecibido,self.distribuidor,self.cantidad,self.formaPago)
+            self.cursor.execute(sql)            
             self.connection.commit()
             self.connection.close()
 
@@ -105,6 +114,17 @@ class PedidoHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal ", format(err))
 
-prueba = PedidoHelper("VENTA",0,"")
-prueba.graficar_pedidos()
-prueba.pedidos_mensuales()
+    #FUNCION PARA REGISTRAR EL PEDIDO EN LA TABLA PEDIDOS.
+    def registrar_pedido(self):
+        
+        try:
+            self.cursor.execute("SELECT * FROM reportes ORDER BY idreporte DESC")
+            self.idPedido = self.cursor.fetchone()
+            self.cursor.execute(sql)
+            self.cursor.commit()
+            self.cursor.close()
+        
+        except pymysql.Error as err:
+            print("Algo salio mal:", err)
+
+
