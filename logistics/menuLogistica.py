@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from helpers import pedidoHelpers
 
 
 class MenuLogistica(object):
@@ -46,6 +47,15 @@ class MenuLogistica(object):
         self.pedidosTable.setObjectName("pedidosTable")
         self.pedidosTable.setColumnCount(7)
         self.pedidosTable.setRowCount(0)
+        #HEADER DEL MENU PEDIDOS
+        self.header = self.pedidosTable.horizontalHeader()
+        self.header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        self.header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+        self.header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        self.header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
+        self.header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+        self.header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
+        self.header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
         item = QtWidgets.QTableWidgetItem()
         self.pedidosTable.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
@@ -111,6 +121,23 @@ class MenuLogistica(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        #CARGAR DATOS EN LA TABLA
+        tablaHelper = pedidoHelpers.PedidoHelper("",0,"","","","","")
+        listaPedidos = tablaHelper.mostrar_tabla()
+        self.pedidosTable.clearContents()
+        row = 0
+        for pedido in listaPedidos:
+                self.pedidosTable.setRowCount(row + 1)
+                self.pedidosTable.setItem(row, 0, QtWidgets.QTableWidgetItem(str(pedido[1])))
+                self.pedidosTable.setItem(row, 1, QtWidgets.QTableWidgetItem(pedido[2]))
+                self.pedidosTable.setItem(row, 2, QtWidgets.QTableWidgetItem(pedido[3]))
+                self.pedidosTable.setItem(row, 3, QtWidgets.QTableWidgetItem(pedido[7]))
+                self.pedidosTable.setItem(row, 4, QtWidgets.QTableWidgetItem(pedido[5]))
+                self.pedidosTable.setItem(row, 5, QtWidgets.QTableWidgetItem((pedido[4])))
+                self.pedidosTable.setItem(row, 6, QtWidgets.QTableWidgetItem(str(pedido[6])))
+
+                row += 1
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -127,7 +154,7 @@ class MenuLogistica(object):
         item = self.pedidosTable.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Distribuidor"))
         item = self.pedidosTable.horizontalHeaderItem(5)
-        item.setText(_translate("MainWindow", "Destino"))
+        item.setText(_translate("MainWindow", "Fecha Llegada"))
         item = self.pedidosTable.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "Total ($)"))
         self.nuevoPedidoBtn.setText(_translate("MainWindow", "Nuevo Pedido"))
