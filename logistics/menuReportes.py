@@ -68,12 +68,8 @@ class MenuReportes(object):
         self.analisisGraficoBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.analisisGraficoBtn.setObjectName("analisisGraficoBtn")
-        self.buscarReporteText = QtWidgets.QPlainTextEdit(self.frame)
-        self.buscarReporteText.setGeometry(QtCore.QRect(740, 340, 161, 51))
-        self.buscarReporteText.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
-        self.buscarReporteText.setObjectName("buscarReporteText")
         self.buscarReporteBtn = QtWidgets.QPushButton(self.frame)
-        self.buscarReporteBtn.setGeometry(QtCore.QRect(910, 340, 131, 51))
+        self.buscarReporteBtn.setGeometry(QtCore.QRect(740, 340, 301, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.buscarReporteBtn.setFont(font)
@@ -114,8 +110,8 @@ class MenuReportes(object):
         item.setText(_translate("menuReportes", "Cantidad $"))
         item = self.reportesTable.horizontalHeaderItem(3)
         item.setText(_translate("menuReportes", "Fecha"))
-        self.analisisGraficoBtn.setText(_translate("menuReportes", "Análisis Gráfico"))
-        self.buscarReporteBtn.setText(_translate("menuReportes", "Buscar"))
+        self.analisisGraficoBtn.setText(_translate("menuReportes", "Detalles Pedidos"))
+        self.buscarReporteBtn.setText(_translate("menuReportes", "Detalles Ventas"))
         self.label_2.setText(_translate("menuReportes", "Historial Reportes"))
 
                 #MOSTRAR DATOS DE BASE DE DATOS EN TABLA

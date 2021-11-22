@@ -80,7 +80,7 @@ class MenuLogistica(object):
 "background-color: rgb(118, 136, 135);")
         self.nuevoPedidoBtn.setObjectName("nuevoPedidoBtn")
         self.pedidoInteligenteBtn = QtWidgets.QPushButton(self.frame)
-        self.pedidoInteligenteBtn.setGeometry(QtCore.QRect(920, 400, 191, 51))
+        self.pedidoInteligenteBtn.setGeometry(QtCore.QRect(920, 330, 191, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pedidoInteligenteBtn.setFont(font)
@@ -89,15 +89,6 @@ class MenuLogistica(object):
 "background-color: rgb(118, 136, 135);")
         self.pedidoInteligenteBtn.setObjectName("pedidoInteligenteBtn")
 
-        self.distribuidoresBtn = QtWidgets.QPushButton(self.frame)
-        self.distribuidoresBtn.setGeometry(QtCore.QRect(920, 320, 191, 51))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.distribuidoresBtn.setFont(font)
-        self.distribuidoresBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.distribuidoresBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(118, 136, 135);")
-        self.distribuidoresBtn.setObjectName("distribuidoresBtn")
         self.actualizarPedidoBtn = QtWidgets.QPushButton(self.frame)
         self.actualizarPedidoBtn.setGeometry(QtCore.QRect(920, 240, 191, 51))
         font = QtGui.QFont()
@@ -107,7 +98,7 @@ class MenuLogistica(object):
         self.actualizarPedidoBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(118, 136, 135);")
         self.actualizarPedidoBtn.setObjectName("actualizarPedidoBtn")
-        self.btnRegresar = QtWidgets.QPushButton(self.frame)
+        self.btnRegresar = QtWidgets.QPushButton(self.headerFrame)
         self.btnRegresar.setGeometry(QtCore.QRect(40, 10, 91, 81))
         self.btnRegresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnRegresar.setStyleSheet("border-image: url(:/iconos/iconoRegresar.png);")
@@ -158,7 +149,6 @@ class MenuLogistica(object):
         item = self.pedidosTable.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "Total ($)"))
         self.nuevoPedidoBtn.setText(_translate("MainWindow", "Nuevo Pedido"))
-        self.distribuidoresBtn.setText(_translate("MainWindow", "Distribuidores"))
         self.actualizarPedidoBtn.setText(_translate("MainWindow", "Actualizar Pedido"))
         self.pedidoInteligenteBtn.setText(_translate("MainWindow", "Pedido Inteligente"))
 from iconos import iconosMenuLogistica_rc

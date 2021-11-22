@@ -149,7 +149,7 @@ class MenuAnalisisGrafico(object):
     def comprasVentas_grafico(self):
         for i in reversed(range(self.grafico.count())): 
                self.grafico.itemAt(i).widget().setParent(None)
-        comprasHelper = pedidoHelpers.PedidoHelper("",0,"")
+        comprasHelper = pedidoHelpers.PedidoHelper("",0,"","","","","")
         helperVentas = ventasHelpers.VentasHelper("",0,"")
         datosCompras = comprasHelper.graficar_pedidos()
         datosVentas = helperVentas.graficar_ventas()
@@ -186,7 +186,7 @@ class MenuAnalisisGrafico(object):
 
         #GRAFICO QUE MUESTA LOS PEDIDOS MENSUALES.        
     def pedidos_grafico(self):
-        helper = pedidoHelpers.PedidoHelper("",0,"")
+        helper = pedidoHelpers.PedidoHelper("",0,"","","","","")
         datosPedidos = helper.graficar_pedidos()
         print(datosPedidos)
         for i in reversed(range(self.grafico.count())): 
@@ -208,7 +208,7 @@ class MenuAnalisisGrafico(object):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
-        sc.axes.bar(["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"],[30,70,40,65,70,80],color="orange")
+        sc.axes.pie([30,70,40,65,70,80], labels = ["Pulpo", "Camaron", "Almejas", "Filete", "Ostiones", "Pescado"], autopct="%0.2f %%")
         sc.axes.set_title("Utilidad Productos")
         self.grafico.addWidget(sc)
         
@@ -233,7 +233,7 @@ class MenuAnalisisGrafico(object):
         for i in reversed(range(self.grafico.count())): 
              self.grafico.itemAt(i).widget().setParent(None)
         helperPrediccion = prediccionVentas.RegresionVentas()
-        datos = helperPrediccion.prediccion_semanal(9,16)
+        datos = helperPrediccion.prediccion_semanal(22,29)
         prediccionSemanal = "Ventas Estimadas:$" + str(datos[0])
         sc = prueba.MplCanvas(self, width=5, height=4, dpi=150)
         sc.axes.plot(datos[2],datos[1], marker = "o")

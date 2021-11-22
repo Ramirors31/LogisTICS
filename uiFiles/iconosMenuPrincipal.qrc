@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="iconos">
+    <file>reporteVenta.png</file>
+    <file>pedidoIcono.png</file>
+    <file>iconoReportes.png</file>
+    <file>iconoAnalisisGrafico.png</file>
+    <file>distribuidr.png</file>
+    <file>iconoPedido.png</file>
+    <file>iconoVenta.png</file>
+    <file>inventarioIcono.png</file>
+  </qresource>
+</RCC>

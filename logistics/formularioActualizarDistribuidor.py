@@ -156,7 +156,7 @@ class ActualizarDistribuidor(object):
             self.correoTxt.setText(distribuidor[4])
 
         except:
-            self.msgError.setText("Verifique que el producto que busca sea correcto")
+            self.msgError.setText("Verifique que el producto que busca sea correcto◘")
             self.msgError.setWindowTitle("Algo Salio Mal")
             self.msgError.exec_()
 

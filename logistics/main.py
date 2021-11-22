@@ -17,6 +17,8 @@ from formularioModificarProducto import FormularioModificar
 from analisisGrafico import MenuAnalisisGrafico
 from pedidoInteligente import MenuPedidoInteligente
 from analisisDetallado import AnalisisDetallado
+from menuPrincipal import MenuPrincipal
+from formularioActualizarDistribuidor import ActualizarDistribuidor
 
 class MyApp(QtWidgets.QMainWindow):
     #FUNCION PARA CARGAR LA VENTANA INICIAL DE LOGIN
@@ -38,16 +40,16 @@ class MyApp(QtWidgets.QMainWindow):
         
         if(user == "1" and password == "123"):
             self.menuInicio= QtWidgets.QMainWindow()
-            self.ui=MenuInicio()
+            self.ui=MenuPrincipal()
             self.ui.setupUi(self.menuInicio)
             self.menuInicio.show()
             self.login.hide()
-            self.btnMenuReportes = self.ui.pushButton
-            self.btnMenuInventario = self.ui.pushButton_2
-            self.btnMenuLogistica = self.ui.pushButton_3
-            self.btnMenuReportes.clicked.connect(self.menu_reportes)
-            self.btnMenuInventario.clicked.connect(self.menu_inventario)
-            self.btnMenuLogistica.clicked.connect(self.menu_logistica)
+            self.ui.menuReportesBtn.clicked.connect(self.menu_reportes)
+            self.ui.menuInventarioBtn.clicked.connect(self.menu_inventario)
+            self.ui.menuDistribuidoresBtn.clicked.connect(self.menu_distribuidores)
+            self.ui.menuAnalisisGraficoBtn.clicked.connect(self.menu_analisisGrafico)
+            self.ui.menuPedidosBtn.clicked.connect(self.menu_logistica)
+
 
         else:
                 self.ui.label_6.setText("Usuario o contraseña invalidos. Vuelva a intentar")
@@ -93,14 +95,14 @@ class MyApp(QtWidgets.QMainWindow):
         self.ui = MenuAnalisisGrafico()
         self.ui.setupUi(self.menuAnalisisGrafico)
         self.menuAnalisisGrafico.show()
-        self.menuReportes.hide()
+        self.menuInicio.hide()
         self.btnRegresar = self.ui.regresarBtn
-        self.btnRegresar.clicked.connect(self.regresar_menuReportes)
+        self.btnRegresar.clicked.connect(self.regresar_menuPrincipalGraficos)
 
     #FUNCION PARA REGRESAR AL MENU REPORTES DESDE EL MENU ANALISIS GRAFICO
-    def regresar_menuReportes(self):
+    def regresar_menuPrincipalGraficos(self):
         self.menuAnalisisGrafico.hide()
-        self.menu_reportes()
+        self.menuInicio.show()
 
     #FUNCION PARA MOSTRAR EL MENU INVENTARIO
     def menu_inventario(self):
@@ -157,7 +159,6 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuLogistica.show()
         self.menuInicio.hide()
         self.btnRegresar = self.ui.btnRegresar
-        self.ui.distribuidoresBtn.clicked.connect(self.menu_distribuidores)
         self.btnRegresar.clicked.connect(self.regresar_logistica)
         self.ui.nuevoPedidoBtn.clicked.connect(self.nuevo_pedido)
         self.ui.pedidoInteligenteBtn.clicked.connect(self.pedido_inteligente)
@@ -215,15 +216,16 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuDistribuidores = QtWidgets.QMainWindow()
         self.ui = MenuDistribuidores()
         self.ui.setupUi(self.menuDistribuidores)
-        self.menuLogistica.hide()
+        self.menuInicio.hide()
         self.menuDistribuidores.show()
-        self.ui.btnRegresar.clicked.connect(self.regresar_menuDistribuidores)
+        self.ui.btnRegresar.clicked.connect(self.regresar_menuDistribuidoresPrincipal)
         self.ui.nuevoDistribuidorBtn.clicked.connect(self.formulario_distribuidor)
+        self.ui.actualizarDistribuidorBtn.clicked.connect(self.actualizar_distribuidor)
 
-    #FUNCION PARA REGRESAR AL MENU LOGISTICA DESDE EL MENU DISTRIBUIDORES
-    def regresar_menuDistribuidores(self):
+    #FUNCION PARA REGRESAR AL MENU PRINCIPAL DESDE EL MENU DISTRIBUIDORES
+    def regresar_menuDistribuidoresPrincipal(self):
         self.menuDistribuidores.hide()
-        self.menuLogistica.show()
+        self.menuInicio.show()
 
     #FUNCION PARA MOSTRAR EL FORMULARIO PARA AÑADIR UN NUEVO DISTRIBUIDOR
     def formulario_distribuidor(self):
@@ -233,6 +235,21 @@ class MyApp(QtWidgets.QMainWindow):
         self.menuDistribuidores.close()
         self.formularioDistribuidor.show()
         self.ui.regresarBtn.clicked.connect(self.regresar_distribuidores)
+
+
+    #FUNCION PARA ABRIR EL FORMULARIO PARA BUSCAR O ACTUALIZAR UN DISTRIBUIDOR
+    def actualizar_distribuidor(self):
+        self.actualizarDistribuidor = QtWidgets.QMainWindow()
+        self.ui = ActualizarDistribuidor()
+        self.ui.setupUi(self.actualizarDistribuidor)
+        self.menuDistribuidores.close()
+        self.actualizarDistribuidor.show()
+        self.ui.regresarBtn.clicked.connect(self.regresar_actualizarDistribuidor)
+
+    #FUNCION PARA REGRESAR AL MENU DISTRIBUIDOR DESDE EL FORMULARIO PARA BUSCAR
+    def regresar_actualizarDistribuidor(self):
+        self.actualizarDistribuidor.close()
+        self.menu_distribuidores()
 
     #FUNCION PARA VOLVER AL MENU DISTRIBUIDORES DESDE EL FORMULARIO DISTRIBUIDOR.
     def regresar_distribuidores(self):

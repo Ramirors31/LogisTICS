@@ -95,7 +95,7 @@ class RegresionProductos:
         #print("Valores Predecidos:", y_pred)
       
         #plt.scatter(dias,ventas)
-        return (self.prediccion_semanal(16,23))
+        return (self.prediccion_semanal(22,29))
         #plt.show()
 
     def prediccion_semanal(self,diaInicio,diaFin):
