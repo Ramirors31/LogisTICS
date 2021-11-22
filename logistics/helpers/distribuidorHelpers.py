@@ -64,6 +64,41 @@ class DistribuidorHelper(DataBase):
         except pymysql.Error as err:
             print("Algo salio mal", format(err))
 
+
+
+    #BUSCAR DATOS PARA MODIFICAR O ELIMINAR UN REGISTRO
+    def buscar_registro(self):
+        sql = ("SELECT * FROM distribuidores WHERE nombre_distribuidor='{}'").format(self.nombre)
+        try:
+            self.cursor.execute(sql)
+            self.busqueda =self.cursor.fetchone()
+            self.connection.commit()
+            self.connection.close()
+            resultadoBusqueda = self.busqueda
+            return resultadoBusqueda
+        except pymysql.Error as err:
+            print("Algo salio mal:", format(err))
+
+    #FUNCION PARA ELIMINAR UN REGISTRO DE LA TABLA DISTRIBUIDORES
+    def eliminar_registro(self):
+        sql = ("DELETE FROM distribuidores WHERE nombre_distribuidor='{}'").format(self.nombre)
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            self.connection.close()
+        except pymysql.Error as err:
+            print("Algo salio mal", format(err))
+    #FUNCION PARA ACTUALIZAR ALGUN PRODUCTO
+    def actualizar_registro(self):
+        sql = "UPDATE distribuidores SET nombre_distribuidor = '{}',ubicacion_distribuidor = '{}',telefono_distribuidor = '{}',contacto_distribuidor = '{}' WHERE nombre_distribuidor = '{}'".format(self.nombre, self.ubicacion,self.telefono,self.contacto,self.nombre)        
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            self.connection.close()
+            print("Modificacion Exitosa", self.telefono)
+        except pymysql.Error as err:
+            print("Algo salio mal ",format(err))
+
         
 ejemplo = DistribuidorHelper("","","","")
 print(ejemplo.cargar_distribuidores())

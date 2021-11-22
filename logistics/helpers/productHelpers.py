@@ -47,7 +47,6 @@ class ProductHelper(DataBase):
             tabRows = []
             for row in self.rows:
                 tabRows.append(row)
-                
             self.connection.commit()
             self.connection.close()
             print(tabRows)
